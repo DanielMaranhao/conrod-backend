@@ -9,7 +9,10 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["domain/*", "*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
