@@ -5,8 +5,9 @@ import { DatabaseModule } from './database/database.module';
 import { EnvModule } from './env/env.module';
 import { OrdersModule } from './domain/orders/orders.module';
 import { PaymentsModule } from './domain/payments/payments.module';
+import { CategoriesModule } from './domain/categories/categories.module';
 
 @Module({
-  imports: [UsersModule, CommonModule, DatabaseModule, EnvModule, OrdersModule, PaymentsModule],
+  imports: [UsersModule, CommonModule, DatabaseModule, EnvModule, OrdersModule, PaymentsModule, CategoriesModule],
 })
 export class AppModule {}

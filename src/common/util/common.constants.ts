@@ -12,4 +12,5 @@ export const VALIDATION_PIPE_OPTIONS: ValidationPipeOptions = {
 export const DEFAULT_PAGE_SIZE = {
   USER: 10,
   ORDER: 5,
+  CATEGORY: 30,
 } as const satisfies Record<string, number>;
