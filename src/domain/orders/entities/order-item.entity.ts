@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { Product } from 'products/entities/product.entity';
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Order } from './order.entity';
@@ -21,4 +22,9 @@ export class OrderItem {
 
   @Column({ type: 'decimal', precision: 6, scale: 2 })
   price: number;
+
+  @Expose()
+  get subTotal() {
+    return this.quantity * this.price;
+  }
 }

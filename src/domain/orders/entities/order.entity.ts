@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { RegistryDates } from 'common/embedded/registry-dates.embedded';
 import { OrderStatus } from 'orders/enums/order-status.enum';
 import { Payment } from 'payments/entities/payment.entity';
@@ -35,4 +36,9 @@ export class Order {
 
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
   items: OrderItem[];
+
+  @Expose()
+  get total() {
+    return this.items?.reduce((acc, current) => acc + current.subTotal, 0);
+  }
 }
