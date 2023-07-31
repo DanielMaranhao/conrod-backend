@@ -11,6 +11,7 @@ import { User } from 'users/entities/user.entity';
 @Injectable()
 export class SeedingService {
   constructor(private readonly dataSource: DataSource) {}
+
   async seed() {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
