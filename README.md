@@ -2,8 +2,8 @@
 
 <p>This is the code of the <strong>NestJS Unleashed</strong> course.</p>
 
-<p>Video Lessons - <a>Link</a></p>
-<p>Complementary Material - <a>Link</a></p>
+<p>Video Lessons - <a>https://www.youtube.com/watch?v=6E5xmWgQ2js&list=PLApU4LaMZpqp7mYqMyeGNyMi4d-sm6cKW</a></p>
+<p>Complementary Material - <a>https://kinesis-school-of-programming.gitbook.io/nestjs-unleashed/</a></p>
 
 <p>Underneath is the official message from the NestJS team.</p>
 
