@@ -1,11 +1,13 @@
-<h1>The Conrod Shop - Backend</h1>
+# The Conrod Shop - Backend
 
-<p>This is the code of the <strong>NestJS Unleashed</strong> course.</p>
+This is the code repository of the **NestJS Unleashed** course.
 
-<p>Video Lessons - <a>https://www.youtube.com/watch?v=6E5xmWgQ2js&list=PLApU4LaMZpqp7mYqMyeGNyMi4d-sm6cKW</a></p>
-<p>Complementary Material - <a>https://kinesis-school-of-programming.gitbook.io/nestjs-unleashed/</a></p>
+### Links
 
-<p>Underneath is the official message from the NestJS team.</p>
+- [Video Lessons](https://www.youtube.com/watch?v=6E5xmWgQ2js&list=PLApU4LaMZpqp7mYqMyeGNyMi4d-sm6cKW)
+- [Complementary Material](https://kinesis-school-of-programming.gitbook.io/nestjs-unleashed/)
+
+Underneath is the official message from the NestJS team.
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
