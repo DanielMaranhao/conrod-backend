@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
+import { RemoveDto } from 'common/dto/remove.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
@@ -39,7 +40,12 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param() { id }: IdDto) {
-    return this.usersService.remove(id);
+  remove(@Param() { id }: IdDto, @Query() { soft }: RemoveDto) {
+    return this.usersService.remove(id, soft);
+  }
+
+  @Patch(':id/recover')
+  recover(@Param() { id }: IdDto) {
+    return this.usersService.recover(id);
   }
 }
