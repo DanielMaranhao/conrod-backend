@@ -1,8 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'users/entities/user.entity';
 import { HashingService } from './hashing/hashing.service';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { RequestUser } from './interfaces/request-user.interface';
 
 @Injectable()
@@ -11,6 +13,7 @@ export class AuthService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     private readonly hashingService: HashingService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async validateLocal(email: string, password: string) {
@@ -32,5 +35,24 @@ export class AuthService {
 
     const requestUser: RequestUser = { id: user.id };
     return requestUser;
+  }
+
+  async validateJwt(payload: JwtPayload) {
+    const user = await this.usersRepository.findOneBy({ id: payload.sub });
+    if (!user) {
+      throw new UnauthorizedException('Invalid token');
+    }
+
+    const requestUser: RequestUser = { id: payload.sub };
+    return requestUser;
+  }
+
+  login(user: RequestUser) {
+    const payload: JwtPayload = { sub: user.id };
+    return this.jwtService.sign(payload);
+  }
+
+  getProfile(id: number) {
+    return this.usersRepository.findOneBy({ id });
   }
 }
