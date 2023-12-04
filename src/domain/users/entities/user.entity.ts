@@ -1,3 +1,4 @@
+import { Role } from 'auth/roles/enums/role.enum';
 import { Exclude } from 'class-transformer';
 import { RegistryDates } from 'common/embedded/registry-dates.embedded';
 import { Order } from 'orders/entities/order.entity';
@@ -20,6 +21,14 @@ export class User {
   @Exclude()
   @Column()
   password: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    enumName: 'role_enum',
+    default: Role.USER,
+  })
+  role: Role;
 
   @Column(() => RegistryDates, { prefix: false })
   registryDates: RegistryDates;
