@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { Public } from 'auth/decorators/public.decorator';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { CategoriesService } from './categories.service';
@@ -23,11 +24,13 @@ export class CategoriesController {
     return this.categoriesService.create(createCategoryDto);
   }
 
+  @Public()
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.categoriesService.findAll(paginationDto);
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param() { id }: IdDto) {
     return this.categoriesService.findOne(id);

@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { Public } from 'auth/decorators/public.decorator';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -23,11 +24,13 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
+  @Public()
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.productsService.findAll(paginationDto);
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param() { id }: IdDto) {
     return this.productsService.findOne(id);
