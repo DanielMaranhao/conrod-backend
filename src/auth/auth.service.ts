@@ -38,8 +38,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const requestUser: RequestUser = { id: user.id };
-    return requestUser;
+    return this.createRequestUser(user);
   }
 
   async validateJwt(payload: JwtPayload) {
@@ -48,8 +47,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid token');
     }
 
-    const requestUser: RequestUser = { id: payload.sub };
-    return requestUser;
+    return this.createRequestUser(user);
   }
 
   login(user: RequestUser) {
@@ -70,5 +68,11 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
     return this.usersRepository.save(user);
+  }
+
+  private createRequestUser(user: User) {
+    const { id, role } = user;
+    const requestUser: RequestUser = { id, role };
+    return requestUser;
   }
 }
