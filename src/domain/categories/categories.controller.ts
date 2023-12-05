@@ -9,6 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { Public } from 'auth/decorators/public.decorator';
+import { Roles } from 'auth/decorators/roles.decorator';
+import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { CategoriesService } from './categories.service';
@@ -19,6 +21,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  @Roles(Role.MANAGER)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
@@ -36,11 +39,13 @@ export class CategoriesController {
     return this.categoriesService.findOne(id);
   }
 
+  @Roles(Role.MANAGER)
   @Patch(':id')
   update(@Param() { id }: IdDto, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoriesService.update(id, updateCategoryDto);
   }
 
+  @Roles(Role.MANAGER)
   @Delete(':id')
   remove(@Param() { id }: IdDto) {
     return this.categoriesService.remove(id);

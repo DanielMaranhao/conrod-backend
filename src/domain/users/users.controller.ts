@@ -9,6 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { Public } from 'auth/decorators/public.decorator';
+import { Roles } from 'auth/decorators/roles.decorator';
+import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { RemoveDto } from 'common/dto/remove.dto';
@@ -26,11 +28,13 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Roles(Role.MANAGER)
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.usersService.findAll(paginationDto);
   }
 
+  @Roles(Role.MANAGER)
   @Get(':id')
   findOne(@Param() { id }: IdDto) {
     return this.usersService.findOne(id);
