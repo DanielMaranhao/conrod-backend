@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
+import { User } from 'auth/decorators/user.decorator';
+import { RequestUser } from 'auth/interfaces/request-user.interface';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
@@ -41,17 +43,25 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param() { id }: IdDto, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  update(
+    @Param() { id }: IdDto,
+    @Body() updateUserDto: UpdateUserDto,
+    @User() user: RequestUser,
+  ) {
+    return this.usersService.update(id, updateUserDto, user);
   }
 
   @Delete(':id')
-  remove(@Param() { id }: IdDto, @Query() { soft }: RemoveDto) {
-    return this.usersService.remove(id, soft);
+  remove(
+    @Param() { id }: IdDto,
+    @Query() { soft }: RemoveDto,
+    @User() user: RequestUser,
+  ) {
+    return this.usersService.remove(id, soft, user);
   }
 
   @Patch(':id/recover')
-  recover(@Param() { id }: IdDto) {
-    return this.usersService.recover(id);
+  recover(@Param() { id }: IdDto, @User() user: RequestUser) {
+    return this.usersService.recover(id, user);
   }
 }
