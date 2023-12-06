@@ -9,6 +9,7 @@ import { User } from 'users/entities/user.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import jwtConfig from './config/jwt.config';
+import throttlerConfig from './config/throttler.config';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 import { RolesGuard } from './guards/roles/roles.guard';
 import { BcryptService } from './hashing/bcrypt.service';
@@ -16,7 +17,6 @@ import { HashingService } from './hashing/hashing.service';
 import { LoginValidationMiddleware } from './middleware/login-validation/login-validation.middleware';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { THROTTLER_MODULE_OPTIONS } from './util/auth.constants';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { THROTTLER_MODULE_OPTIONS } from './util/auth.constants';
     PassportModule,
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
-    ThrottlerModule.forRoot(THROTTLER_MODULE_OPTIONS),
+    ThrottlerModule.forRootAsync(throttlerConfig.asProvider()),
   ],
   controllers: [AuthController],
   providers: [
