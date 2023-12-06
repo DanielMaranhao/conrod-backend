@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'users/entities/user.entity';
 import { AuthController } from './auth.controller';
@@ -15,6 +16,7 @@ import { HashingService } from './hashing/hashing.service';
 import { LoginValidationMiddleware } from './middleware/login-validation/login-validation.middleware';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { THROTTLER_MODULE_OPTIONS } from './util/auth.constants';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     PassportModule,
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
+    ThrottlerModule.forRoot(THROTTLER_MODULE_OPTIONS),
   ],
   controllers: [AuthController],
   providers: [
@@ -39,6 +42,10 @@ import { LocalStrategy } from './strategies/local.strategy';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
     },
   ],
   exports: [HashingService],
