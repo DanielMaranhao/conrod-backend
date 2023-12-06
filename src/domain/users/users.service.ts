@@ -3,8 +3,11 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { LoginDto } from 'auth/dto/login.dto';
+import { HashingService } from 'auth/hashing/hashing.service';
 import { RequestUser } from 'auth/interfaces/request-user.interface';
 import { Role } from 'auth/roles/enums/role.enum';
 import { compareUserId } from 'auth/util/authorization.util';
@@ -20,6 +23,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly hashingService: HashingService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -85,13 +89,11 @@ export class UsersService {
       : this.usersRepository.remove(user);
   }
 
-  async recover(id: number, currentUser: RequestUser) {
-    if (currentUser.role !== Role.ADMIN) {
-      compareUserId(currentUser.id, id);
-    }
+  async recover(loginDto: LoginDto) {
+    const { email, password } = loginDto;
 
     const user = await this.usersRepository.findOne({
-      where: { id },
+      where: { email },
       relations: {
         orders: {
           items: true,
@@ -100,10 +102,15 @@ export class UsersService {
       },
       withDeleted: true,
     });
-
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new UnauthorizedException('Invalid email');
     }
+
+    const isMatch = await this.hashingService.compare(password, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException('Invalid password');
+    }
+
     if (!user.isDeleted) {
       throw new ConflictException('User not deleted');
     }
