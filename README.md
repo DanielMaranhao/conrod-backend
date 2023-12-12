@@ -6,7 +6,7 @@ This is the code repository of the **NestJS Unleashed** course.
 
 - [Core Module (free)](https://www.youtube.com/watch?v=6E5xmWgQ2js&list=PLApU4LaMZpqp7mYqMyeGNyMi4d-sm6cKW)
 - [Complementary Material](https://kinesis-school-of-programming.gitbook.io/nestjs-unleashed/)
-- [Full Course](https://www.udemy.com/course/nestjs-unleashed)
+- [Full Course](https://www.udemy.com/course/nestjs-unleashed/?referralCode=64EDC6CDD19E445BF4EC)
 
 Underneath is the official message from the NestJS team.
 
