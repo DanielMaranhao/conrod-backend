@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationDto } from 'common/dto/pagination.dto';
-import { DEFAULT_PAGE_SIZE } from 'common/util/common.constants';
+import { DefaultPageSize } from 'common/util/common.constants';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -24,7 +24,7 @@ export class ProductsService {
 
     return this.productsRepository.find({
       skip: offset,
-      take: limit ?? DEFAULT_PAGE_SIZE.PRODUCT,
+      take: limit ?? DefaultPageSize.PRODUCT,
     });
   }
 

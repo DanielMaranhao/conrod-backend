@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationDto } from 'common/dto/pagination.dto';
-import { DEFAULT_PAGE_SIZE } from 'common/util/common.constants';
+import { DefaultPageSize } from 'common/util/common.constants';
 import { Product } from 'products/entities/product.entity';
 import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -39,7 +39,7 @@ export class OrdersService {
 
     return this.ordersRepository.find({
       skip: offset,
-      take: limit ?? DEFAULT_PAGE_SIZE.ORDER,
+      take: limit ?? DefaultPageSize.ORDER,
     });
   }
 

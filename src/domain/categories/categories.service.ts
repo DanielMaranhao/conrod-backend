@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationDto } from 'common/dto/pagination.dto';
-import { DEFAULT_PAGE_SIZE } from 'common/util/common.constants';
+import { DefaultPageSize } from 'common/util/common.constants';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -28,7 +28,7 @@ export class CategoriesService {
 
     return this.categoriesRepository.find({
       skip: offset,
-      take: limit ?? DEFAULT_PAGE_SIZE.CATEGORY,
+      take: limit ?? DefaultPageSize.CATEGORY,
     });
   }
 
