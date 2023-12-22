@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { DefaultPageSize } from 'common/util/common.constants';
@@ -44,7 +44,7 @@ export class OrdersService {
   }
 
   async findOne(id: number) {
-    const order = await this.ordersRepository.findOne({
+    return this.ordersRepository.findOneOrFail({
       where: { id },
       relations: {
         items: {
@@ -54,10 +54,6 @@ export class OrdersService {
         payment: true,
       },
     });
-    if (!order) {
-      throw new NotFoundException('Order not found');
-    }
-    return order;
   }
 
   async remove(id: number) {
@@ -68,11 +64,7 @@ export class OrdersService {
   private async createOrderItemWithPrice(orderItemDto: OrderItemDto) {
     const { id } = orderItemDto.product;
 
-    const product = await this.productsRepository.findOneBy({ id });
-    if (!product) {
-      throw new NotFoundException('Product not found');
-    }
-    const { price } = product;
+    const { price } = await this.productsRepository.findOneByOrFail({ id });
 
     const orderItem = this.orderItemsRepository.create({
       ...orderItemDto,

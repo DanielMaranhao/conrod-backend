@@ -41,7 +41,7 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.usersRepository.findOne({
+    return this.usersRepository.findOneOrFail({
       where: { id },
       relations: {
         orders: {
@@ -50,10 +50,6 @@ export class UsersService {
         },
       },
     });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-    return user;
   }
 
   async update(
