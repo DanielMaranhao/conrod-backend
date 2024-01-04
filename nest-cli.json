@@ -12,7 +12,8 @@
           ".entity.ts",
           ".embedded.ts",
           ".schema.ts"
-        ]
+        ],
+        "introspectComments": true
       }
     }]
   }
