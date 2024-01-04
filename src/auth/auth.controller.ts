@@ -10,6 +10,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { IdDto } from 'common/dto/id.dto';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
@@ -21,6 +22,7 @@ import { RequestUser } from './interfaces/request-user.interface';
 import { RoleDto } from './roles/dto/role.dto';
 import { Role } from './roles/enums/role.enum';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
