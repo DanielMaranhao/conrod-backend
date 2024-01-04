@@ -10,23 +10,27 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { IdDto } from 'common/dto/id.dto';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { Roles } from './decorators/roles.decorator';
 import { User } from './decorators/user.decorator';
+import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { RequestUser } from './interfaces/request-user.interface';
 import { RoleDto } from './roles/dto/role.dto';
 import { Role } from './roles/enums/role.enum';
+import { JwtCookieHeader } from './swagger/jwt-cookie.header';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiBody({ type: LoginDto })
+  @ApiOkResponse({ headers: JwtCookieHeader })
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Public()
