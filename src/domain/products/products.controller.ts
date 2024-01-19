@@ -7,7 +7,10 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
@@ -51,5 +54,11 @@ export class ProductsController {
   @Delete(':id')
   remove(@Param() { id }: IdDto) {
     return this.productsService.remove(id);
+  }
+
+  @UseInterceptors(FileInterceptor('file'))
+  @Post(':id/image')
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
+    return file;
   }
 }
