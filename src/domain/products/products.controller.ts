@@ -2,8 +2,11 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   Patch,
   Post,
   Query,
@@ -58,7 +61,17 @@ export class ProductsController {
 
   @UseInterceptors(FileInterceptor('file'))
   @Post(':id/image')
-  uploadImage(@UploadedFile() file: Express.Multer.File) {
+  uploadImage(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 2 * 1024 * 1024 }),
+          new FileTypeValidator({ fileType: /png|jpeg/ }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
     return file;
   }
 }
