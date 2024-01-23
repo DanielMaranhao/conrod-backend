@@ -2,9 +2,7 @@ import {
   Body,
   Controller,
   Delete,
-  FileTypeValidator,
   Get,
-  MaxFileSizeValidator,
   Param,
   ParseFilePipe,
   Patch,
@@ -20,6 +18,7 @@ import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
+import { createFileValidators } from 'files/util/file-validation.util';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
@@ -64,10 +63,7 @@ export class ProductsController {
   uploadImage(
     @UploadedFile(
       new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 2 * 1024 * 1024 }),
-          new FileTypeValidator({ fileType: /png|jpeg/ }),
-        ],
+        validators: createFileValidators('2MB', 'png', 'jpeg'),
       }),
     )
     file: Express.Multer.File,
