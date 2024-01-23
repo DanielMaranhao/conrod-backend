@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import * as bytes from 'bytes';
 import { NonEmptyArray } from 'common/util/array.util';
+import { FileSignatureValidator } from 'files/validators/file-signature.validator';
 import { lookup } from 'mime-types';
 
 type FileSize = `${number}${'KB' | 'MB' | 'GB'}`;
@@ -24,5 +25,6 @@ export const createFileValidators = (
   return [
     new MaxFileSizeValidator({ maxSize: bytes(maxSize) }),
     new FileTypeValidator({ fileType: fileTypeRegex }),
+    new FileSignatureValidator(),
   ];
 };
