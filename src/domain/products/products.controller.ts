@@ -18,6 +18,7 @@ import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
+import { IdFilenameDto } from 'files/dto/id-filename.dto';
 import { createFileValidators } from 'files/util/file-validation.util';
 import { MaxFileCount } from 'files/util/file.constants';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -59,9 +60,11 @@ export class ProductsController {
     return this.productsService.remove(id);
   }
 
+  @Roles(Role.MANAGER)
   @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
   @Post(':id/images')
   uploadImages(
+    @Param() { id }: IdDto,
     @UploadedFiles(
       new ParseFilePipe({
         validators: createFileValidators('2MB', 'png', 'jpeg'),
@@ -69,6 +72,18 @@ export class ProductsController {
     )
     files: Express.Multer.File[],
   ) {
-    return files;
+    return this.productsService.uploadImages(id, files);
+  }
+
+  @Public()
+  @Get(':id/images/:filename')
+  downloadImage(@Param() { id, filename }: IdFilenameDto) {
+    return this.productsService.downloadImage(id, filename);
+  }
+
+  @Roles(Role.MANAGER)
+  @Delete(':id/images/:filename')
+  deleteImage(@Param() { id, filename }: IdFilenameDto) {
+    return this.productsService.deleteImage(id, filename);
   }
 }
