@@ -9,5 +9,6 @@ import { StorageService } from './storage/storage.service';
       useClass: FseService,
     },
   ],
+  exports: [StorageService],
 })
 export class FilesModule {}
