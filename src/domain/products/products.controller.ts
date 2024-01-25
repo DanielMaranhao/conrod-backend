@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseFilePipe,
   Patch,
   Post,
   Query,
@@ -19,7 +18,7 @@ import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { IdFilenameDto } from 'files/dto/id-filename.dto';
-import { createFileValidators } from 'files/util/file-validation.util';
+import { createParseFilePipe } from 'files/util/file-validation.util';
 import { MaxFileCount } from 'files/util/file.constants';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -65,11 +64,7 @@ export class ProductsController {
   @Post(':id/images')
   uploadImages(
     @Param() { id }: IdDto,
-    @UploadedFiles(
-      new ParseFilePipe({
-        validators: createFileValidators('2MB', 'png', 'jpeg'),
-      }),
-    )
+    @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
     files: Express.Multer.File[],
   ) {
     return this.productsService.uploadImages(id, files);
