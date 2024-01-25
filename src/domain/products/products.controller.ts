@@ -11,15 +11,20 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { IdFilenameDto } from 'files/dto/id-filename.dto';
+import { FileSchema } from 'files/swagger/schemas/file.schema';
+import { FilesSchema } from 'files/swagger/schemas/files.schema';
 import { createParseFilePipe } from 'files/util/file-validation.util';
-import { MaxFileCount } from 'files/util/file.constants';
+import {
+  MULTIPART_FORMDATA_KEY,
+  MaxFileCount,
+} from 'files/util/file.constants';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
@@ -59,6 +64,8 @@ export class ProductsController {
     return this.productsService.remove(id);
   }
 
+  @ApiConsumes(MULTIPART_FORMDATA_KEY)
+  @ApiBody({ type: FilesSchema })
   @Roles(Role.MANAGER)
   @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
   @Post(':id/images')
@@ -70,6 +77,7 @@ export class ProductsController {
     return this.productsService.uploadImages(id, files);
   }
 
+  @ApiOkResponse({ type: FileSchema })
   @Public()
   @Get(':id/images/:filename')
   downloadImage(@Param() { id, filename }: IdFilenameDto) {
