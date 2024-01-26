@@ -20,7 +20,7 @@ const createFileTypeRegex = (fileTypes: FileType[]) => {
 
 export const createFileValidators = (
   maxSize: FileSize,
-  fileTypes: FileType[],
+  fileTypes: NonEmptyArray<FileType>,
 ): FileValidator[] => {
   const fileTypeRegex = createFileTypeRegex(fileTypes);
 
