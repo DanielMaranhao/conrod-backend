@@ -105,7 +105,7 @@ export class ProductsService {
 
     await this.storageService.validatePath(path);
 
-    return this.storageService.delete(path);
+    await this.storageService.delete(path);
   }
 
   private async deleteBaseDir(id: number) {
