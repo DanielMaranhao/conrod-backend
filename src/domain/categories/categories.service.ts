@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationDto } from 'common/dto/pagination.dto';
-import { DefaultPageSize } from 'common/util/common.constants';
+import { PaginationDto } from 'querying/dto/pagination.dto';
+import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';

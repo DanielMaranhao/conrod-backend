@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationDto } from 'common/dto/pagination.dto';
-import { DefaultPageSize } from 'common/util/common.constants';
 import { Product } from 'products/entities/product.entity';
+import { PaginationDto } from 'querying/dto/pagination.dto';
+import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderItemDto } from './dto/order-item.dto';

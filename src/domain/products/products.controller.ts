@@ -16,7 +16,6 @@ import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
-import { PaginationDto } from 'common/dto/pagination.dto';
 import { IdFilenameDto } from 'files/dto/id-filename.dto';
 import { FileSchema } from 'files/swagger/schemas/file.schema';
 import { FilesSchema } from 'files/swagger/schemas/files.schema';
@@ -25,6 +24,7 @@ import {
   MULTIPART_FORMDATA_KEY,
   MaxFileCount,
 } from 'files/util/file.constants';
+import { PaginationDto } from 'querying/dto/pagination.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';

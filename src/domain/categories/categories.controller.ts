@@ -13,7 +13,7 @@ import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
-import { PaginationDto } from 'common/dto/pagination.dto';
+import { PaginationDto } from 'querying/dto/pagination.dto';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';

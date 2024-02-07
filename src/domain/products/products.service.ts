@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationDto } from 'common/dto/pagination.dto';
-import { DefaultPageSize } from 'common/util/common.constants';
 import { StorageService } from 'files/storage/storage.service';
 import { BASE_PATH, FilePath, MaxFileCount } from 'files/util/file.constants';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
+import { PaginationDto } from 'querying/dto/pagination.dto';
+import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';

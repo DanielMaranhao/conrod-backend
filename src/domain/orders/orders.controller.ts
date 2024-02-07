@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IdDto } from 'common/dto/id.dto';
-import { PaginationDto } from 'common/dto/pagination.dto';
+import { PaginationDto } from 'querying/dto/pagination.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrdersService } from './orders.service';
 
