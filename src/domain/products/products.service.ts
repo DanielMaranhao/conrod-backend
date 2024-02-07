@@ -5,6 +5,7 @@ import { BASE_PATH, FilePath, MaxFileCount } from 'files/util/file.constants';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
 import { PaginationDto } from 'querying/dto/pagination.dto';
+import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -17,6 +18,7 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
     private readonly storageService: StorageService,
+    private readonly paginationService: PaginationService,
   ) {}
 
   create(createProductDto: CreateProductDto) {
@@ -25,14 +27,17 @@ export class ProductsService {
   }
 
   async findAll(paginationDto: PaginationDto) {
-    const { limit, offset } = paginationDto;
+    const { page } = paginationDto;
+    const limit = paginationDto.limit ?? DefaultPageSize.PRODUCT;
+    const offset = this.paginationService.calculateOffset(limit, page);
 
     const [data, count] = await this.productsRepository.findAndCount({
       skip: offset,
-      take: limit ?? DefaultPageSize.PRODUCT,
+      take: limit,
     });
+    const meta = this.paginationService.createMeta(limit, page, count);
 
-    return { data, count };
+    return { data, meta };
   }
 
   async findOne(id: number) {

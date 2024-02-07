@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'products/entities/product.entity';
 import { PaginationDto } from 'querying/dto/pagination.dto';
+import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -18,6 +19,7 @@ export class OrdersService {
     private readonly orderItemsRepository: Repository<OrderItem>,
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
+    private readonly paginationService: PaginationService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -34,13 +36,18 @@ export class OrdersService {
     return this.ordersRepository.save(order);
   }
 
-  findAll(paginationDto: PaginationDto) {
-    const { limit, offset } = paginationDto;
+  async findAll(paginationDto: PaginationDto) {
+    const { page } = paginationDto;
+    const limit = paginationDto.limit ?? DefaultPageSize.ORDER;
+    const offset = this.paginationService.calculateOffset(limit, page);
 
-    return this.ordersRepository.find({
+    const [data, count] = await this.ordersRepository.findAndCount({
       skip: offset,
-      take: limit ?? DefaultPageSize.ORDER,
+      take: limit,
     });
+    const meta = this.paginationService.createMeta(limit, page, count);
+
+    return { data, meta };
   }
 
   async findOne(id: number) {

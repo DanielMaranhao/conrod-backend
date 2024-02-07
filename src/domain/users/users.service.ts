@@ -12,6 +12,7 @@ import { RequestUser } from 'auth/interfaces/request-user.interface';
 import { Role } from 'auth/roles/enums/role.enum';
 import { compareUserId } from 'auth/util/authorization.util';
 import { PaginationDto } from 'querying/dto/pagination.dto';
+import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,6 +25,7 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     private readonly hashingService: HashingService,
+    private readonly paginationService: PaginationService,
   ) {}
 
   create(createUserDto: CreateUserDto) {
@@ -31,13 +33,18 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  findAll(paginationDto: PaginationDto) {
-    const { limit, offset } = paginationDto;
+  async findAll(paginationDto: PaginationDto) {
+    const { page } = paginationDto;
+    const limit = paginationDto.limit ?? DefaultPageSize.USER;
+    const offset = this.paginationService.calculateOffset(limit, page);
 
-    return this.usersRepository.find({
+    const [data, count] = await this.usersRepository.findAndCount({
       skip: offset,
-      take: limit ?? DefaultPageSize.USER,
+      take: limit,
     });
+    const meta = this.paginationService.createMeta(limit, page, count);
+
+    return { data, meta };
   }
 
   async findOne(id: number) {

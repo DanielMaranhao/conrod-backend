@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationDto } from 'querying/dto/pagination.dto';
+import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -16,6 +17,7 @@ export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoriesRepository: Repository<Category>,
+    private readonly paginationService: PaginationService,
   ) {}
 
   create(createCategoryDto: CreateCategoryDto) {
@@ -23,13 +25,18 @@ export class CategoriesService {
     return this.categoriesRepository.save(category);
   }
 
-  findAll(paginationDto: PaginationDto) {
-    const { limit, offset } = paginationDto;
+  async findAll(paginationDto: PaginationDto) {
+    const { page } = paginationDto;
+    const limit = paginationDto.limit ?? DefaultPageSize.CATEGORY;
+    const offset = this.paginationService.calculateOffset(limit, page);
 
-    return this.categoriesRepository.find({
+    const [data, count] = await this.categoriesRepository.findAndCount({
       skip: offset,
-      take: limit ?? DefaultPageSize.CATEGORY,
+      take: limit,
     });
+    const meta = this.paginationService.createMeta(limit, page, count);
+
+    return { data, meta };
   }
 
   async findOne(id: number) {
