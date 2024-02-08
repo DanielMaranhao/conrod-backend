@@ -4,9 +4,10 @@ import { StorageService } from 'files/storage/storage.service';
 import { BASE_PATH, FilePath, MaxFileCount } from 'files/util/file.constants';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
+import { FilteringService } from 'querying/filtering.service';
 import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
-import { ILike, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsQueryDto } from './dto/querying/products-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -19,6 +20,7 @@ export class ProductsService {
     private readonly productsRepository: Repository<Product>,
     private readonly storageService: StorageService,
     private readonly paginationService: PaginationService,
+    private readonly filteringService: FilteringService,
   ) {}
 
   create(createProductDto: CreateProductDto) {
@@ -33,7 +35,7 @@ export class ProductsService {
 
     const [data, count] = await this.productsRepository.findAndCount({
       where: {
-        name: name ? ILike(`%${name}%`) : undefined,
+        name: this.filteringService.contains(name),
         price,
         categories: { id: categoryId },
       },
