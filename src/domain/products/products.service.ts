@@ -36,7 +36,7 @@ export class ProductsService {
     const [data, count] = await this.productsRepository.findAndCount({
       where: {
         name: this.filteringService.contains(name),
-        price,
+        price: this.filteringService.compare(price),
         categories: { id: categoryId },
       },
       order: { [sort]: order },
