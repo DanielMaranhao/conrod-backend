@@ -70,9 +70,8 @@ export class AuthService {
     return this.usersRepository.save(user);
   }
 
-  private createRequestUser(user: User) {
+  private createRequestUser(user: User): RequestUser {
     const { id, role } = user;
-    const requestUser: RequestUser = { id, role };
-    return requestUser;
+    return { id, role };
   }
 }
