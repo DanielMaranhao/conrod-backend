@@ -16,6 +16,7 @@ export class SeedingService {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
+
     try {
       const usersRepository = queryRunner.manager.getRepository(User);
       const categoriesRepository = queryRunner.manager.getRepository(Category);
