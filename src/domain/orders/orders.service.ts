@@ -50,7 +50,7 @@ export class OrdersService {
     return { data, meta };
   }
 
-  async findOne(id: number) {
+  findOne(id: number) {
     return this.ordersRepository.findOneOrFail({
       where: { id },
       relations: {

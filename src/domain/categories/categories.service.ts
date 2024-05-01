@@ -39,7 +39,7 @@ export class CategoriesService {
     return { data, meta };
   }
 
-  async findOne(id: number) {
+  findOne(id: number) {
     return this.categoriesRepository.findOneOrFail({
       where: { id },
       relations: {

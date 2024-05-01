@@ -47,7 +47,7 @@ export class UsersService {
     return { data, meta };
   }
 
-  async findOne(id: number) {
+  findOne(id: number) {
     return this.usersRepository.findOneOrFail({
       where: { id },
       relations: {

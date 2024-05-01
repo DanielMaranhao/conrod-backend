@@ -48,7 +48,7 @@ export class ProductsService {
     return { data, meta };
   }
 
-  async findOne(id: number) {
+  findOne(id: number) {
     return this.productsRepository.findOneOrFail({
       where: { id },
       relations: {
