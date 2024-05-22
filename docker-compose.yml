@@ -8,3 +8,10 @@ services:
       - ${DATASOURCE_PORT}:5432
     environment:
       POSTGRES_PASSWORD: ${DATASOURCE_PASSWORD}
+  test-database:
+    image: postgres
+    restart: always
+    ports:
+      - ${TEST_DATASOURCE_PORT}:5432
+    environment:
+      POSTGRES_PASSWORD: ${TEST_DATASOURCE_PASSWORD}
