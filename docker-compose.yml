@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    restart: always
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
