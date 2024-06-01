@@ -48,6 +48,7 @@ model Order {
   customerId Int
 
   payment Payment?
+  items   OrderItem[]
 }
 
 model Payment {
@@ -82,4 +83,17 @@ model Product {
   updatedAt DateTime @updatedAt
 
   categories Category[]
+  items      OrderItem[]
+}
+
+model OrderItem {
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+  orderId   Int
+  productId Int
+
+  quantity Int
+  price    Decimal @db.Decimal(6, 2)
+
+  @@id([orderId, productId])
 }
