@@ -67,4 +67,19 @@ model Category {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+
+  name        String  @unique
+  description String?
+  price       Decimal @db.Decimal(6, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categories Category[]
 }
