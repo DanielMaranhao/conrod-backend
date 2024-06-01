@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { PaginationDto } from 'common/dto/pagination.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -8,7 +9,7 @@ export class UsersService {
     return 'This action adds a new user';
   }
 
-  findAll() {
+  findAll(paginationDto: PaginationDto) {
     return `This action returns all users`;
   }
 
