@@ -59,3 +59,12 @@ model Payment {
   order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId Int   @unique
 }
+
+model Category {
+  id Int @id @default(autoincrement())
+
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

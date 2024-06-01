@@ -4,8 +4,9 @@ import { UsersModule } from './domain/users/users.module';
 import { CommonModule } from './common/common.module';
 import { OrdersModule } from './domain/orders/orders.module';
 import { PaymentsModule } from './domain/payments/payments.module';
+import { CategoriesModule } from './domain/categories/categories.module';
 
 @Module({
-  imports: [DatabaseModule, UsersModule, CommonModule, OrdersModule, PaymentsModule],
+  imports: [DatabaseModule, UsersModule, CommonModule, OrdersModule, PaymentsModule, CategoriesModule],
 })
 export class AppModule {}
