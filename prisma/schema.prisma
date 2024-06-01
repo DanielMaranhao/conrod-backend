@@ -46,4 +46,16 @@ model Order {
 
   customer   User @relation(fields: [customerId], references: [id])
   customerId Int
+
+  payment Payment?
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId Int   @unique
 }
