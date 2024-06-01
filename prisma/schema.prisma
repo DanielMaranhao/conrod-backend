@@ -23,4 +23,27 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+enum OrderStatus {
+  AWAITING_PAYMENT
+  AWAITING_SHIPMENT
+  SHIPPED
+  IN_TRANSIT
+  COMPLETED
+  CANCELED
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  status OrderStatus @default(AWAITING_PAYMENT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer   User @relation(fields: [customerId], references: [id])
+  customerId Int
 }
