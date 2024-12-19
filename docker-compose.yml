@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   database:
     image: postgres
@@ -8,6 +6,9 @@ services:
       - ${DATASOURCE_PORT}:5432
     environment:
       POSTGRES_PASSWORD: ${DATASOURCE_PASSWORD}
+    volumes:
+      - database_data:/var/lib/postgres
+
   test-database:
     image: postgres
     restart: always
@@ -15,3 +16,6 @@ services:
       - ${TEST_DATASOURCE_PORT}:5432
     environment:
       POSTGRES_PASSWORD: ${TEST_DATASOURCE_PASSWORD}
+
+volumes:
+  database_data:
