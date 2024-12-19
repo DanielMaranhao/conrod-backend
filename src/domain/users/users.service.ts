@@ -35,7 +35,7 @@ export class UsersService {
 
   async findAll(paginationDto: PaginationDto) {
     const { page } = paginationDto;
-    const limit = paginationDto.limit ?? DefaultPageSize.USER;
+    const limit = paginationDto.limit ?? DefaultPageSize.USERS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
     const [data, count] = await this.usersRepository.findAndCount({

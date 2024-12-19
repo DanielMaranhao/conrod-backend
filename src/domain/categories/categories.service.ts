@@ -27,7 +27,7 @@ export class CategoriesService {
 
   async findAll(paginationDto: PaginationDto) {
     const { page } = paginationDto;
-    const limit = paginationDto.limit ?? DefaultPageSize.CATEGORY;
+    const limit = paginationDto.limit ?? DefaultPageSize.CATEGORIES;
     const offset = this.paginationService.calculateOffset(limit, page);
 
     const [data, count] = await this.categoriesRepository.findAndCount({

@@ -38,7 +38,7 @@ export class OrdersService {
 
   async findAll(paginationDto: PaginationDto) {
     const { page } = paginationDto;
-    const limit = paginationDto.limit ?? DefaultPageSize.ORDER;
+    const limit = paginationDto.limit ?? DefaultPageSize.ORDERS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
     const [data, count] = await this.ordersRepository.findAndCount({

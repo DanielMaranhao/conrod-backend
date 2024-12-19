@@ -30,7 +30,7 @@ export class ProductsService {
 
   async findAll(productsQueryDto: ProductsQueryDto) {
     const { page, name, price, categoryId, sort, order } = productsQueryDto;
-    const limit = productsQueryDto.limit ?? DefaultPageSize.PRODUCT;
+    const limit = productsQueryDto.limit ?? DefaultPageSize.PRODUCTS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
     const [data, count] = await this.productsRepository.findAndCount({
