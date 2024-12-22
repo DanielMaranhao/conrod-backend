@@ -45,10 +45,7 @@ describe('Users [/users]', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         UsersModule,
-        ConfigModule.forRoot({
-          expandVariables: true,
-          validationSchema: TEST_ENV_VALIDATION_SCHEMA,
-        }),
+        ConfigModule.forRoot({ validationSchema: TEST_ENV_VALIDATION_SCHEMA }),
         TypeOrmModule.forRootAsync(testDatabaseConfig.asProvider()),
       ],
       providers: [
