@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Category } from 'categories/entities/category.entity';
 import { OrderItem } from 'orders/entities/order-item.entity';
 import { Order } from 'orders/entities/order.entity';
-import { OrderStatus } from 'orders/enums/order-status.enum';
 import { Payment } from 'payments/entities/payment.entity';
 import { Product } from 'products/entities/product.entity';
 import { DataSource } from 'typeorm';
@@ -120,18 +119,18 @@ export class SeedingService {
       const o1 = ordersRepository.create({
         customer: u1,
         items: [oi1, oi2],
-        status: OrderStatus.AWAITING_SHIPMENT,
+        status: 'AWAITING_SHIPMENT',
         payment: pay1,
       });
       const o2 = ordersRepository.create({
         customer: u2,
         items: [oi3],
-        status: OrderStatus.AWAITING_PAYMENT,
+        status: 'AWAITING_PAYMENT',
       });
       const o3 = ordersRepository.create({
         customer: u1,
         items: [oi4],
-        status: OrderStatus.AWAITING_PAYMENT,
+        status: 'AWAITING_PAYMENT',
       });
 
       await ordersRepository.save([o1, o2, o3]);

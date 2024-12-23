@@ -4,7 +4,6 @@ import { RequestUser } from 'auth/interfaces/request-user.interface';
 import { Role } from 'auth/roles/enums/role.enum';
 import { compareUserId } from 'auth/util/authorization.util';
 import { Order } from 'orders/entities/order.entity';
-import { OrderStatus } from 'orders/enums/order-status.enum';
 import { Repository } from 'typeorm';
 import { Payment } from './entities/payment.entity';
 
@@ -35,7 +34,7 @@ export class PaymentsService {
 
     const payment = this.paymentsRepository.create();
     order.payment = payment;
-    order.status = OrderStatus.AWAITING_SHIPMENT;
+    order.status = 'AWAITING_SHIPMENT';
     return this.ordersRepository.save(order);
   }
 }

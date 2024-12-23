@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 import { RegistryDates } from 'common/embedded/registry-dates.embedded';
-import { OrderStatus } from 'orders/enums/order-status.enum';
+import { OrderStatus } from 'orders/util/order-status.constants';
 import { Payment } from 'payments/entities/payment.entity';
 import {
   Column,
@@ -21,7 +21,7 @@ export class Order {
   @Column({
     type: 'enum',
     enum: OrderStatus,
-    default: OrderStatus.AWAITING_PAYMENT,
+    default: 'AWAITING_PAYMENT',
   })
   status: OrderStatus;
 
