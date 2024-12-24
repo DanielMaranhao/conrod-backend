@@ -11,3 +11,6 @@ export function wrapId(idOrIds: number | number[]) {
   const id = idOrIds;
   return { id };
 }
+
+/** IdDto Identifier for ArrayUnique validator */
+export const idDtoIdentifier = (idDto: IdDto) => idDto.id;
