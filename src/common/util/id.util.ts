@@ -1,4 +1,5 @@
 import { IdDto } from 'common/dto/id.dto';
+import { OrderItemDto } from 'orders/dto/order-item.dto';
 
 export function wrapId(id: number): IdDto;
 export function wrapId(ids: number[]): IdDto[];
@@ -13,4 +14,7 @@ export function wrapId(idOrIds: number | number[]) {
 }
 
 /** IdDto Identifier for ArrayUnique validator */
-export const idDtoIdentifier = (idDto: IdDto) => idDto.id;
+export const idDtoIdentifier = (dto: IdDto) => dto.id;
+
+/** OrderItemDto Identifier for ArrayUnique validator */
+export const orderItemDtoIdentifier = (dto: OrderItemDto) => dto.product?.id;
