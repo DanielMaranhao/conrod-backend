@@ -5,22 +5,22 @@ import {
   matches,
 } from 'class-validator';
 
-const AT_LEAST_ONE_UPPERCASE_LETTER_REGEX = /.*[A-Z].*/;
+const CONTAINS_UPPERCASE_LETTER_REGEX = /.*[A-Z].*/;
 
-const AT_LEAST_ONE_UPPERCASE_LETTER_KEY = 'atLeastOneUppercaseLetter';
+const CONTAINS_UPPERCASE_LETTER_KEY = 'containsUppercaseLetter';
 
-const atLeastOneUppercaseLetter = (value: string): boolean => {
-  return matches(value, AT_LEAST_ONE_UPPERCASE_LETTER_REGEX);
+const containsUppercaseLetter = (value: string): boolean => {
+  return matches(value, CONTAINS_UPPERCASE_LETTER_REGEX);
 };
 
-export const AtLeastOneUppercaseLetter = (
+export const ContainsUppercaseLetter = (
   validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
   ValidateBy(
     {
-      name: AT_LEAST_ONE_UPPERCASE_LETTER_KEY,
+      name: CONTAINS_UPPERCASE_LETTER_KEY,
       validator: {
-        validate: (value): boolean => atLeastOneUppercaseLetter(value),
+        validate: (value): boolean => containsUppercaseLetter(value),
         defaultMessage: buildMessage(
           (eachPrefix) =>
             eachPrefix + '$property must contain at least one uppercase letter',

@@ -5,22 +5,22 @@ import {
   matches,
 } from 'class-validator';
 
-const AT_LEAST_ONE_SPECIAL_CHARACTER_REGEX = /.*[@$!%*?&].*/;
+const CONTAINS_SPECIAL_CHARACTER_REGEX = /.*[@$!%*?&].*/;
 
-const AT_LEAST_ONE_SPECIAL_CHARACTER_KEY = 'atLeastOneSpecialCharacter';
+const CONTAINS_SPECIAL_CHARACTER_KEY = 'containsSpecialCharacter';
 
-const atLeastOneSpecialCharacter = (value: string): boolean => {
-  return matches(value, AT_LEAST_ONE_SPECIAL_CHARACTER_REGEX);
+const containsSpecialCharacter = (value: string): boolean => {
+  return matches(value, CONTAINS_SPECIAL_CHARACTER_REGEX);
 };
 
-export const AtLeastOneSpecialCharacter = (
+export const ContainsSpecialCharacter = (
   validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
   ValidateBy(
     {
-      name: AT_LEAST_ONE_SPECIAL_CHARACTER_KEY,
+      name: CONTAINS_SPECIAL_CHARACTER_KEY,
       validator: {
-        validate: (value): boolean => atLeastOneSpecialCharacter(value),
+        validate: (value): boolean => containsSpecialCharacter(value),
         defaultMessage: buildMessage(
           (eachPrefix) =>
             eachPrefix +

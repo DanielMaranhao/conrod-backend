@@ -1,6 +1,6 @@
 import { IsEmail, IsPhoneNumber, Length } from 'class-validator';
 import { IsPassword } from 'common/decorators/validators/is-password.decorator';
-import { IsAlphaWithSpaces } from 'common/decorators/validators/text-validation/is-alpha-with-spaces.decorator';
+import { IsAlphaWithSpaces } from 'common/decorators/validators/text/is-alpha-with-spaces.decorator';
 
 export class CreateUserDto {
   @IsAlphaWithSpaces()

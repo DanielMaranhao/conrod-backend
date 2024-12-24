@@ -5,22 +5,22 @@ import {
   matches,
 } from 'class-validator';
 
-const AT_LEAST_ONE_NUMBER_REGEX = /.*[\d].*/;
+const CONTAINS_NUMBER_REGEX = /.*[\d].*/;
 
-const AT_LEAST_ONE_NUMBER_KEY = 'atLeastOneNumber';
+const CONTAINS_NUMBER_KEY = 'containsNumber';
 
-const atLeastOneNumber = (value: string): boolean => {
-  return matches(value, AT_LEAST_ONE_NUMBER_REGEX);
+const containsNumber = (value: string): boolean => {
+  return matches(value, CONTAINS_NUMBER_REGEX);
 };
 
-export const AtLeastOneNumber = (
+export const ContainsNumber = (
   validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
   ValidateBy(
     {
-      name: AT_LEAST_ONE_NUMBER_KEY,
+      name: CONTAINS_NUMBER_KEY,
       validator: {
-        validate: (value): boolean => atLeastOneNumber(value),
+        validate: (value): boolean => containsNumber(value),
         defaultMessage: buildMessage(
           (eachPrefix) =>
             eachPrefix + '$property must contain at least one number',

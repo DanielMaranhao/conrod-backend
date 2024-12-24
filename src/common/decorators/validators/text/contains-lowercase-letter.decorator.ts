@@ -5,22 +5,22 @@ import {
   matches,
 } from 'class-validator';
 
-const AT_LEAST_ONE_LOWERCASE_LETTER_REGEX = /.*[a-z].*/;
+const CONTAINS_LOWERCASE_LETTER_REGEX = /.*[a-z].*/;
 
-const AT_LEAST_ONE_LOWERCASE_LETTER_KEY = 'atLeastOneLowercaseLetter';
+const CONTAINS_LOWERCASE_LETTER_KEY = 'containsLowercaseLetter';
 
-const atLeastOneLowercaseLetter = (value: string): boolean => {
-  return matches(value, AT_LEAST_ONE_LOWERCASE_LETTER_REGEX);
+const containsLowercaseLetter = (value: string): boolean => {
+  return matches(value, CONTAINS_LOWERCASE_LETTER_REGEX);
 };
 
-export const AtLeastOneLowercaseLetter = (
+export const ContainsLowercaseLetter = (
   validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
   ValidateBy(
     {
-      name: AT_LEAST_ONE_LOWERCASE_LETTER_KEY,
+      name: CONTAINS_LOWERCASE_LETTER_KEY,
       validator: {
-        validate: (value): boolean => atLeastOneLowercaseLetter(value),
+        validate: (value): boolean => containsLowercaseLetter(value),
         defaultMessage: buildMessage(
           (eachPrefix) =>
             eachPrefix + '$property must contain at least one lowercase letter',
