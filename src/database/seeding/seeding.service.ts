@@ -12,17 +12,13 @@ export class SeedingService {
   constructor(private readonly dataSource: DataSource) {}
 
   async seed() {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
-    try {
-      const usersRepository = queryRunner.manager.getRepository(User);
-      const categoriesRepository = queryRunner.manager.getRepository(Category);
-      const productsRepository = queryRunner.manager.getRepository(Product);
-      const ordersRepository = queryRunner.manager.getRepository(Order);
-      const orderItemsRepository = queryRunner.manager.getRepository(OrderItem);
-      const paymentsRepository = queryRunner.manager.getRepository(Payment);
+    await this.dataSource.transaction(async (manager) => {
+      const usersRepository = manager.getRepository(User);
+      const categoriesRepository = manager.getRepository(Category);
+      const productsRepository = manager.getRepository(Product);
+      const ordersRepository = manager.getRepository(Order);
+      const orderItemsRepository = manager.getRepository(OrderItem);
+      const paymentsRepository = manager.getRepository(Payment);
 
       const orders = await ordersRepository.find();
       await ordersRepository.remove(orders);
@@ -134,13 +130,6 @@ export class SeedingService {
       });
 
       await ordersRepository.save([o1, o2, o3]);
-
-      await queryRunner.commitTransaction();
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw error;
-    } finally {
-      await queryRunner.release();
-    }
+    });
   }
 }
