@@ -1,10 +1,7 @@
-import { IsEmail } from 'class-validator';
-import { IsPassword } from 'common/decorators/validators/is-password.decorator';
+import { PickType } from '@nestjs/swagger';
+import { CreateUserDto } from 'users/dto/create-user.dto';
 
-export class LoginDto {
-  @IsEmail()
-  readonly email: string;
-
-  @IsPassword()
-  readonly password: string;
-}
+export class LoginDto extends PickType(CreateUserDto, [
+  'email',
+  'password',
+] as const) {}
