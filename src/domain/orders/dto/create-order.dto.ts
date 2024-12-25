@@ -2,7 +2,7 @@ import { Type } from 'class-transformer';
 import { ArrayNotEmpty, ArrayUnique, ValidateNested } from 'class-validator';
 import { IsEntity } from 'common/decorators/validators/is-entity.decorator';
 import { IdDto } from 'common/dto/id.dto';
-import { orderItemDtoIdentifier } from 'common/util/id.util';
+import { IdentifierFn } from 'common/util/id.util';
 import { OrderItemDto } from './order-item.dto';
 
 export class CreateOrderDto {
@@ -10,7 +10,7 @@ export class CreateOrderDto {
   readonly customer: IdDto;
 
   @ArrayNotEmpty()
-  @ArrayUnique(orderItemDtoIdentifier)
+  @ArrayUnique(IdentifierFn.ORDER_ITEM_DTO)
   @ValidateNested()
   @Type(() => OrderItemDto)
   readonly items: OrderItemDto[];

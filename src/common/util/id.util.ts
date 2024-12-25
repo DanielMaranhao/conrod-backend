@@ -13,8 +13,9 @@ export function wrapId(idOrIds: number | number[]) {
   return { id };
 }
 
-/** IdDto Identifier for ArrayUnique validator */
-export const idDtoIdentifier = (dto: IdDto) => dto.id;
+type IdentifierFn = (value: unknown) => unknown;
 
-/** OrderItemDto Identifier for ArrayUnique validator */
-export const orderItemDtoIdentifier = (dto: OrderItemDto) => dto.product?.id;
+export const IdentifierFn = {
+  ID_DTO: (dto: IdDto) => dto.id,
+  ORDER_ITEM_DTO: (dto: OrderItemDto) => dto.product?.id,
+} as const satisfies Record<string, IdentifierFn>;
