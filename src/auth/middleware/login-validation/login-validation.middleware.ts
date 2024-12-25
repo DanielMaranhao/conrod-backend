@@ -18,8 +18,8 @@ export class LoginValidationMiddleware implements NestMiddleware {
     });
 
     if (errors.length) {
-      const errorMessages = errors.map((error) =>
-        Object.values(error.constraints).join(),
+      const errorMessages = errors.flatMap((error) =>
+        Object.values(error.constraints),
       );
       throw new BadRequestException(errorMessages);
     }
