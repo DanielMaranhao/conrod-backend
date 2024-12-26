@@ -1,5 +1,5 @@
-import { HeadersObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ApiResponseOptions } from '@nestjs/swagger';
 
-export const JwtCookieHeader: HeadersObject = {
+export const JwtCookieHeader: ApiResponseOptions['headers'] = {
   'Set-Cookie': { description: 'JWT cookie', schema: { type: 'string' } },
 };
