@@ -1,12 +1,12 @@
 import { registerAs } from '@nestjs/config';
-import { ThrottlerModuleOptions } from '@nestjs/throttler';
+import { seconds, ThrottlerModuleOptions } from '@nestjs/throttler';
 
 export default registerAs('throttler', () => {
   const config = [
     {
-      ttl: +process.env.THROTTLER_TTL * 1000,
+      ttl: seconds(+process.env.THROTTLER_TTL),
       limit: +process.env.THROTTLER_LIMIT,
-    } as const,
-  ] satisfies ThrottlerModuleOptions;
+    },
+  ] as const satisfies ThrottlerModuleOptions;
   return config;
 });
