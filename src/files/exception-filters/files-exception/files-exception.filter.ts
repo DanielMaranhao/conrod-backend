@@ -57,18 +57,25 @@ export class FilesExceptionFilter implements ExceptionFilter {
     let maxSize: string;
     let expectedFileTypes: (string | false)[];
 
-    if (message.includes(this.MessageSnippet.MAX_SIZE)) {
-      httpError = HttpError.PAYLOAD_TOO_LARGE;
-      maxSize = this.extractMaxSize(message);
-    } else if (message.includes(this.MessageSnippet.FILE_TYPE)) {
-      httpError = HttpError.UNSUPPORTED_MEDIA_TYPE;
-      description = this.Description.FILE_TYPE;
-      expectedFileTypes = this.extractFileTypes(message);
-    } else if (message.includes(this.MessageSnippet.FILE_SIGNATURE)) {
-      httpError = HttpError.UNSUPPORTED_MEDIA_TYPE;
-      description = this.Description.FILE_SIGNATURE;
-    } else {
-      httpError = HttpError.BAD_REQUEST;
+    switch (true) {
+      case message.includes(this.MessageSnippet.MAX_SIZE):
+        httpError = HttpError.PAYLOAD_TOO_LARGE;
+        maxSize = this.extractMaxSize(message);
+        break;
+
+      case message.includes(this.MessageSnippet.FILE_TYPE):
+        httpError = HttpError.UNSUPPORTED_MEDIA_TYPE;
+        description = this.Description.FILE_TYPE;
+        expectedFileTypes = this.extractFileTypes(message);
+        break;
+
+      case message.includes(this.MessageSnippet.FILE_SIGNATURE):
+        httpError = HttpError.UNSUPPORTED_MEDIA_TYPE;
+        description = this.Description.FILE_SIGNATURE;
+        break;
+
+      default:
+        httpError = HttpError.BAD_REQUEST;
     }
 
     return { httpError, description, maxSize, expectedFileTypes };

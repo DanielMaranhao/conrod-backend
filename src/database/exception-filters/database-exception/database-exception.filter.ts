@@ -44,14 +44,19 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
 
     switch (code) {
       case this.DatabaseErrorCode.ASSOCIATION_NOT_FOUND_OR_NOT_NULL_VIOLATION:
-        if (message.includes(this.MessageSnippet.ASSOCIATION_NOT_FOUND)) {
-          httpError = HttpError.NOT_FOUND;
-          description = this.Description.ASSOCIATION_NOT_FOUND;
-        } else if (message.includes(this.MessageSnippet.NOT_NULL_VIOLATION)) {
-          httpError = HttpError.CONFLICT;
-          description = this.Description.NOT_NULL_VIOLATION;
+        switch (true) {
+          case message.includes(this.MessageSnippet.ASSOCIATION_NOT_FOUND):
+            httpError = HttpError.NOT_FOUND;
+            description = this.Description.ASSOCIATION_NOT_FOUND;
+            break;
+
+          case message.includes(this.MessageSnippet.NOT_NULL_VIOLATION):
+            httpError = HttpError.CONFLICT;
+            description = this.Description.NOT_NULL_VIOLATION;
+            break;
         }
         break;
+
       case this.DatabaseErrorCode.UNIQUE_VIOLATION:
         httpError = HttpError.CONFLICT;
         description = this.Description.UNIQUE_VIOLATION;
