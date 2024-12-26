@@ -11,7 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOkResponse } from '@nestjs/swagger';
 import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
@@ -29,7 +29,6 @@ import { ProductsQueryDto } from './dto/querying/products-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 
-@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

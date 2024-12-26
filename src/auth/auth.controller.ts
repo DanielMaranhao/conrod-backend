@@ -10,7 +10,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import { IdDto } from 'common/dto/id.dto';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
@@ -24,7 +24,6 @@ import { RoleDto } from './roles/dto/role.dto';
 import { Role } from './roles/enums/role.enum';
 import { JwtCookieHeader } from './swagger/jwt-cookie.header';
 
-@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
