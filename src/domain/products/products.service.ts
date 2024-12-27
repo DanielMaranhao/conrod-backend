@@ -1,7 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StorageService } from 'files/storage/storage.service';
-import { BASE_PATH, FilePath, MaxFileCount } from 'files/util/file.constants';
+import {
+  BASE_PATH,
+  File,
+  FilePath,
+  MaxFileCount,
+} from 'files/util/file.constants';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
 import { FilteringService } from 'querying/filtering.service';
@@ -77,7 +82,7 @@ export class ProductsService {
     return product;
   }
 
-  async uploadImages(id: number, files: Express.Multer.File[]) {
+  async uploadImages(id: number, files: File[]) {
     await this.findOne(id);
 
     const { BASE, IMAGES } = FilePath.Products;

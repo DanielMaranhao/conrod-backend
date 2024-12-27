@@ -21,6 +21,7 @@ import { FileSchema } from 'files/swagger/schemas/file.schema';
 import { FilesSchema } from 'files/swagger/schemas/files.schema';
 import { createParseFilePipe } from 'files/util/file-validation.util';
 import {
+  File,
   MULTIPART_FORMDATA_KEY,
   MaxFileCount,
 } from 'files/util/file.constants';
@@ -71,7 +72,7 @@ export class ProductsController {
   uploadImages(
     @Param() { id }: IdDto,
     @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
-    files: Express.Multer.File[],
+    files: File[],
   ) {
     return this.productsService.uploadImages(id, files);
   }

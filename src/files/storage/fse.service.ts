@@ -4,7 +4,7 @@ import {
   NotFoundException,
   StreamableFile,
 } from '@nestjs/common';
-import { BASE_PATH } from 'files/util/file.constants';
+import { BASE_PATH, File } from 'files/util/file.constants';
 import {
   createReadStream,
   mkdirp,
@@ -18,7 +18,7 @@ import { StorageService } from './storage.service';
 
 @Injectable()
 export class FseService implements StorageService {
-  async saveFile(path: string, file: Express.Multer.File) {
+  async saveFile(path: string, file: File) {
     const { originalname, buffer } = file;
 
     const uniqueFilename = this.genUniqueFilename(originalname);

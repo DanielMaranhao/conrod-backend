@@ -1,4 +1,5 @@
 import { FileValidator } from '@nestjs/common';
+import { File } from 'files/util/file.constants';
 import magicBytes from 'magic-bytes.js';
 
 export class FileSignatureValidator extends FileValidator {
@@ -10,7 +11,7 @@ export class FileSignatureValidator extends FileValidator {
     return 'Validation failed (file type does not match file signature)';
   }
 
-  isValid(file: Express.Multer.File) {
+  isValid(file: File) {
     const fileSignatures = magicBytes(file.buffer).map((file) => file.mime);
     if (!fileSignatures.length) return false;
 
