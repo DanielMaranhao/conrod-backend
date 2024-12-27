@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - database_data:/var/lib/postgres
+      - database_data:/var/lib/postgresql/data
 
   test-database:
     image: postgres
