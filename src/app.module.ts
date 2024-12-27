@@ -10,6 +10,7 @@ import { UsersModule } from './domain/users/users.module';
 import { EnvModule } from './env/env.module';
 import { FilesModule } from './files/files.module';
 import { QueryingModule } from './querying/querying.module';
+import { DocsModule } from './docs/docs.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { QueryingModule } from './querying/querying.module';
     PaymentsModule,
     CategoriesModule,
     ProductsModule,
+    DocsModule,
   ],
 })
 export class AppModule {}
