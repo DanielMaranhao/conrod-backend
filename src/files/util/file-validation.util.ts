@@ -10,7 +10,9 @@ import { NonEmptyArray } from 'common/util/array.util';
 import { FileSignatureValidator } from 'files/validators/file-signature.validator';
 import { lookup } from 'mime-types';
 
-type FileSize = `${number}${'KB' | 'MB' | 'GB'}`;
+type FileSizeMagnitude = 'KB' | 'MB' | 'GB';
+type FileSize = `${number}${FileSizeMagnitude}`;
+
 type FileType = 'png' | 'jpeg' | 'pdf';
 
 const createFileTypeRegex = (fileTypes: FileType[]) => {
