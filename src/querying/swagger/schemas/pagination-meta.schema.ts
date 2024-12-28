@@ -1,4 +1,4 @@
-export interface PaginationMeta {
+export class PaginationMeta {
   readonly itemsPerPage: number;
   readonly totalItems: number;
   readonly currentPage: number;
