@@ -12,7 +12,7 @@ import { join } from 'path';
 import { FilteringService } from 'querying/filtering.service';
 import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsQueryDto } from './dto/querying/products-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -26,6 +26,7 @@ export class ProductsService {
     private readonly storageService: StorageService,
     private readonly paginationService: PaginationService,
     private readonly filteringService: FilteringService,
+    private readonly dataSource: DataSource,
   ) {}
 
   create(createProductDto: CreateProductDto) {
@@ -73,13 +74,17 @@ export class ProductsService {
     return this.productsRepository.save(product);
   }
 
-  async remove(id: number) {
-    const product = await this.findOne(id);
-    await this.productsRepository.remove(product);
+  remove(id: number) {
+    return this.dataSource.transaction(async (manager) => {
+      const productsRepository = manager.getRepository(Product);
 
-    await this.deleteBaseDir(id);
+      const product = await productsRepository.findOneByOrFail({ id });
+      await productsRepository.remove(product);
 
-    return product;
+      await this.deleteBaseDir(id);
+
+      return product;
+    });
   }
 
   async uploadImages(id: number, files: File[]) {
