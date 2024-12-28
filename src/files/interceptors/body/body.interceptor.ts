@@ -16,9 +16,10 @@ export class BodyInterceptor implements NestInterceptor {
       const body = JSON.parse(request.body.body);
       request.body = body;
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof SyntaxError) {
         throw new BadRequestException(error.message);
       }
+      throw error;
     }
 
     return next.handle();
