@@ -11,6 +11,7 @@ import { EnvModule } from './env/env.module';
 import { FilesModule } from './files/files.module';
 import { QueryingModule } from './querying/querying.module';
 import { DocsModule } from './docs/docs.module';
+import { StaticModule } from './static/static.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { DocsModule } from './docs/docs.module';
     CategoriesModule,
     ProductsModule,
     DocsModule,
+    StaticModule,
   ],
 })
 export class AppModule {}
