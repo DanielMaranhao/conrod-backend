@@ -13,9 +13,11 @@ import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'querying/dto/pagination.dto';
+import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { Category } from './entities/category.entity';
 
 @Controller('categories')
 export class CategoriesController {
@@ -27,6 +29,7 @@ export class CategoriesController {
     return this.categoriesService.create(createCategoryDto);
   }
 
+  @ApiPaginatedResponse(Category)
   @Public()
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {

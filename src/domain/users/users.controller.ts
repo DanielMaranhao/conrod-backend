@@ -10,15 +10,17 @@ import {
 } from '@nestjs/common';
 import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
-import { User } from 'auth/decorators/user.decorator';
+import { User as CurrentUser } from 'auth/decorators/user.decorator';
 import { LoginDto } from 'auth/dto/login.dto';
 import { RequestUser } from 'auth/interfaces/request-user.interface';
 import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { RemoveDto } from 'common/dto/remove.dto';
 import { PaginationDto } from 'querying/dto/pagination.dto';
+import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -31,6 +33,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @ApiPaginatedResponse(User)
   @Roles(Role.MANAGER)
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
@@ -53,7 +56,7 @@ export class UsersController {
   update(
     @Param() { id }: IdDto,
     @Body() updateUserDto: UpdateUserDto,
-    @User() user: RequestUser,
+    @CurrentUser() user: RequestUser,
   ) {
     return this.usersService.update(id, updateUserDto, user);
   }
@@ -62,7 +65,7 @@ export class UsersController {
   remove(
     @Param() { id }: IdDto,
     @Query() { soft }: RemoveDto,
-    @User() user: RequestUser,
+    @CurrentUser() user: RequestUser,
   ) {
     return this.usersService.remove(id, soft, user);
   }

@@ -25,9 +25,11 @@ import {
   MULTIPART_FORMDATA_KEY,
   MaxFileCount,
 } from 'files/util/file.constants';
+import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsQueryDto } from './dto/querying/products-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -40,6 +42,7 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
+  @ApiPaginatedResponse(Product)
   @Public()
   @Get()
   findAll(@Query() productsQueryDto: ProductsQueryDto) {
