@@ -27,7 +27,7 @@ import {
 } from 'files/util/file.constants';
 import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ProductsQueryDto } from './dto/querying/products-query.dto';
+import { QueryProductsDto } from './dto/querying/query-products.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
@@ -45,8 +45,8 @@ export class ProductsController {
   @ApiPaginatedResponse(Product)
   @Public()
   @Get()
-  findAll(@Query() productsQueryDto: ProductsQueryDto) {
-    return this.productsService.findAll(productsQueryDto);
+  findAll(@Query() queryProductsDto: QueryProductsDto) {
+    return this.productsService.findAll(queryProductsDto);
   }
 
   @Public()

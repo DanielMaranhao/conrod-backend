@@ -14,7 +14,7 @@ import { PaginationService } from 'querying/pagination.service';
 import { DefaultPageSize } from 'querying/util/querying.constants';
 import { DataSource, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ProductsQueryDto } from './dto/querying/products-query.dto';
+import { QueryProductsDto } from './dto/querying/query-products.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 
@@ -34,9 +34,9 @@ export class ProductsService {
     return this.productsRepository.save(product);
   }
 
-  async findAll(productsQueryDto: ProductsQueryDto) {
-    const { page, name, price, categoryId, sort, order } = productsQueryDto;
-    const limit = productsQueryDto.limit ?? DefaultPageSize.PRODUCTS;
+  async findAll(queryProductsDto: QueryProductsDto) {
+    const { page, name, price, categoryId, sort, order } = queryProductsDto;
+    const limit = queryProductsDto.limit ?? DefaultPageSize.PRODUCTS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
     const [data, count] = await this.productsRepository.findAndCount({
