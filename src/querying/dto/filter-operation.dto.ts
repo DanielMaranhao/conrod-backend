@@ -12,5 +12,5 @@ export class FilterOperationDto {
   readonly operands: number[];
 
   @ValidateFilterOperandsLength()
-  private readonly manyFieldValidation: any;
+  private readonly manyFieldsValidation: any;
 }
