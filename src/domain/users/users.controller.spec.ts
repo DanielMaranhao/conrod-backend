@@ -205,8 +205,8 @@ const genUpdateDto = (): UpdateUserDto => ({
   name: faker.person.firstName(),
 });
 
-const genUser = (id: number, createDto?: CreateUserDto) =>
+const genUser = (id: number, createDto = genCreateDto()) =>
   ({
     id,
-    ...(createDto ?? genCreateDto()),
+    ...createDto,
   }) as User;
