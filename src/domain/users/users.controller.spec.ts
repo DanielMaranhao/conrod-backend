@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { IdDto } from 'common/dto/id.dto';
-import { MockClass, createMockInstance } from 'testing/util/testing.util';
+import { MockClass, createMock } from 'testing/util/testing.util';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -19,13 +19,13 @@ describe('UsersController', () => {
       providers: [
         {
           provide: UsersService,
-          useValue: createMockInstance(UsersService),
+          useValue: createMock(),
         },
       ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
-    service = module.get<MockClass<typeof UsersService>>(UsersService);
+    controller = module.get(UsersController);
+    service = module.get(UsersService);
   });
 
   it('should be defined', () => {
@@ -209,4 +209,4 @@ const genUser = (id: number, createDto?: CreateUserDto) =>
   ({
     id,
     ...(createDto ?? genCreateDto()),
-  } as User);
+  }) as User;

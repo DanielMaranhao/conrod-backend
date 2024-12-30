@@ -2,10 +2,7 @@ import { faker } from '@faker-js/faker';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import {
-  MockRepository,
-  createMockRepository,
-} from 'testing/util/testing.util';
+import { createMock, MockRepository } from 'testing/util/testing.util';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -13,7 +10,7 @@ import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let repository: MockRepository;
+  let repository: MockRepository<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,13 +18,13 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useValue: createMockRepository(),
+          useValue: createMock(),
         },
       ],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
-    repository = module.get<MockRepository>(getRepositoryToken(User));
+    service = module.get(UsersService);
+    repository = module.get(getRepositoryToken(User));
   });
 
   it('should be defined', () => {
@@ -41,7 +38,7 @@ describe('UsersService', () => {
         const createUserDto = genCreateDto();
         const expectedUser = genUser(id, createUserDto);
 
-        repository.create.mockReturnValueOnce(createUserDto);
+        repository.create.mockReturnValueOnce(createUserDto as User);
         repository.save.mockResolvedValueOnce(expectedUser);
 
         const user = await service.create(createUserDto);
@@ -55,7 +52,7 @@ describe('UsersService', () => {
         const createUserDto = genCreateDto();
 
         const exception = new ConflictException('Error creating user');
-        repository.create.mockReturnValueOnce(createUserDto);
+        repository.create.mockReturnValueOnce(createUserDto as User);
         repository.save.mockRejectedValueOnce(exception);
 
         let error: Error;
@@ -208,4 +205,4 @@ const genUser = (id: number, createDto?: CreateUserDto) =>
   ({
     id,
     ...(createDto ?? genCreateDto()),
-  } as User);
+  }) as User;
