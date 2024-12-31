@@ -13,9 +13,9 @@ services:
     image: postgres
     restart: always
     ports:
-      - ${TEST_DATABASE_PORT}:5432
+      - ${DATABASE_PORT}:5432
     environment:
-      POSTGRES_PASSWORD: ${TEST_DATABASE_PASSWORD}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
 
 volumes:
   database_data:
