@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "pretest:e2e": "docker-compose up -d test-database",
     "test:e2e": "jest --config ./test/jest-e2e.js",
-    "posttest:e2e": "docker-compose stop test-database && docker-compose rm -f test-database",
+    "posttest:e2e": "docker-compose stop test-database && docker-compose rm -fv test-database",
     "migration:create": "yarn typeorm migration:create",
     "premigration:generate": "yarn build",
     "migration:generate": "yarn typeorm migration:generate -d dist/database/data-source -p",
