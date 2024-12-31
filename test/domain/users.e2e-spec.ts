@@ -66,7 +66,8 @@ describe('Users [/users]', () => {
 
   it('Create [POST /]', async () => {
     const response = await request(server).post('/users').send(createUserDto);
-    const { status, body } = response;
+    const { status } = response;
+    const body = response.body as User;
 
     expect(status).toBe(HttpStatus.CREATED);
     expect(body).toMatchObject(expectedUser);
@@ -74,7 +75,8 @@ describe('Users [/users]', () => {
 
   it('Find all [GET /]', async () => {
     const response = await request(server).get('/users');
-    const { status, body } = response;
+    const { status } = response;
+    const body = response.body as User[];
 
     expect(status).toBe(HttpStatus.OK);
     expect(body.length).toBe(1);
@@ -83,7 +85,8 @@ describe('Users [/users]', () => {
 
   it('Find one [GET /:id]', async () => {
     const response = await request(server).get('/users/1');
-    const { status, body } = response;
+    const { status } = response;
+    const body = response.body as User;
 
     expect(status).toBe(HttpStatus.OK);
     expect(body).toMatchObject(expectedUser);
@@ -93,13 +96,15 @@ describe('Users [/users]', () => {
     const response = await request(server)
       .patch('/users/1')
       .send(updateUserDto);
-    const { status, body } = response;
+    const { status } = response;
+    const body = response.body as User;
 
     expect(status).toBe(HttpStatus.OK);
     expect(body.name).toBe(updateUserDto.name);
 
     const findOneResponse = await request(server).get('/users/1');
-    expect(findOneResponse.body.name).toBe(updateUserDto.name);
+    const findOneBody = findOneResponse.body as User;
+    expect(findOneBody.name).toBe(updateUserDto.name);
   });
 
   it('Remove [DELETE /:id]', async () => {
