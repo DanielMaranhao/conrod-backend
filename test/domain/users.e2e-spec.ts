@@ -24,7 +24,6 @@ const createUserDto: CreateUserDto = {
 };
 
 const updateUserDto: UpdateUserDto = {
-  ...createUserDto,
   name: faker.person.firstName(),
 };
 
