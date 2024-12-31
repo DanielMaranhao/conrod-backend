@@ -22,7 +22,7 @@ import { UsersModule } from 'users/users.module';
 const createUserDto: CreateUserDto = {
   name: faker.person.firstName(),
   email: faker.internet.email(),
-  phone: faker.phone.number(),
+  phone: '85988888888',
   password: 'AAaa11!!',
 };
 
