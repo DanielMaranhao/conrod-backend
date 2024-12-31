@@ -1,10 +1,5 @@
 import { faker } from '@faker-js/faker';
-import {
-  HttpServer,
-  HttpStatus,
-  INestApplication,
-  ValidationPipe,
-} from '@nestjs/common';
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -12,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from 'auth/roles/enums/role.enum';
 import { VALIDATION_PIPE_OPTIONS } from 'common/util/common.constants';
 import { NotFoundExceptionFilter } from 'database/exception-filters/not-found-exception/not-found-exception.filter';
+import { Server } from 'http';
 import * as request from 'supertest';
 import testDatabaseConfig from 'testing/config/test-database.config';
 import { TEST_ENV_VALIDATION_SCHEMA } from 'testing/util/testing.constants';
@@ -39,7 +35,7 @@ const expectedUser = expect.objectContaining({
 
 describe('Users [/users]', () => {
   let app: INestApplication;
-  let server: HttpServer;
+  let server: Server;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
