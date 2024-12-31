@@ -13,6 +13,7 @@ import testDatabaseConfig from 'testing/config/test-database.config';
 import { TEST_ENV_VALIDATION_SCHEMA } from 'testing/util/testing.constants';
 import { CreateUserDto } from 'users/dto/create-user.dto';
 import { UpdateUserDto } from 'users/dto/update-user.dto';
+import { User } from 'users/entities/user.entity';
 import { UsersModule } from 'users/users.module';
 
 const createUserDto: CreateUserDto = {
@@ -27,11 +28,11 @@ const updateUserDto: UpdateUserDto = {
   name: faker.person.firstName(),
 };
 
-const expectedUser = expect.objectContaining({
+const expectedUser = {
   id: 1,
   ...createUserDto,
   role: Role.USER,
-});
+} as User;
 
 describe('Users [/users]', () => {
   let app: INestApplication;
@@ -69,7 +70,7 @@ describe('Users [/users]', () => {
     const { status, body } = response;
 
     expect(status).toBe(HttpStatus.CREATED);
-    expect(body).toEqual(expectedUser);
+    expect(body).toMatchObject(expectedUser);
   });
 
   it('Find all [GET /]', async () => {
@@ -78,7 +79,7 @@ describe('Users [/users]', () => {
 
     expect(status).toBe(HttpStatus.OK);
     expect(body.length).toBe(1);
-    expect(body[0]).toEqual(expectedUser);
+    expect(body[0]).toMatchObject(expectedUser);
   });
 
   it('Find one [GET /:id]', async () => {
@@ -86,7 +87,7 @@ describe('Users [/users]', () => {
     const { status, body } = response;
 
     expect(status).toBe(HttpStatus.OK);
-    expect(body).toEqual(expectedUser);
+    expect(body).toMatchObject(expectedUser);
   });
 
   it('Update [PATCH /:id]', async () => {
