@@ -1,3 +1,4 @@
+import { ArrayUniqueIdentifier } from 'class-validator';
 import { IdDto } from 'common/dto/id.dto';
 import { OrderItemDto } from 'orders/dto/order-item.dto';
 
@@ -13,9 +14,7 @@ export function wrapId(idOrIds: number | number[]) {
   return { id };
 }
 
-type IdentifierFn = (value: unknown) => unknown;
-
 export const IdentifierFn = {
   ID_DTO: (dto: IdDto) => dto.id,
   ORDER_ITEM_DTO: (dto: OrderItemDto) => dto.product?.id,
-} as const satisfies Record<string, IdentifierFn>;
+} as const satisfies Record<string, ArrayUniqueIdentifier>;
