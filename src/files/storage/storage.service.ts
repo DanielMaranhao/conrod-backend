@@ -1,5 +1,5 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
-import { File } from 'files/util/file.constants';
+import { File } from 'files/types/file.types';
 
 @Injectable()
 export abstract class StorageService {

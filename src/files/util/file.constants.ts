@@ -1,5 +1,3 @@
-export type File = Express.Multer.File;
-
 export const BASE_PATH = 'upload';
 
 export const MULTIPART_FORMDATA_KEY = 'multipart/form-data';

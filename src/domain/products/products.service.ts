@@ -1,12 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StorageService } from 'files/storage/storage.service';
-import {
-  BASE_PATH,
-  File,
-  FilePath,
-  MaxFileCount,
-} from 'files/util/file.constants';
+import { File } from 'files/types/file.types';
+import { BASE_PATH, FilePath, MaxFileCount } from 'files/util/file.constants';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
 import { FilteringService } from 'querying/filtering.service';

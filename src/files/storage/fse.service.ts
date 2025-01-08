@@ -4,7 +4,8 @@ import {
   NotFoundException,
   StreamableFile,
 } from '@nestjs/common';
-import { BASE_PATH, File } from 'files/util/file.constants';
+import { File } from 'files/types/file.types';
+import { BASE_PATH } from 'files/util/file.constants';
 import {
   createReadStream,
   mkdirp,

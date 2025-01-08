@@ -19,9 +19,9 @@ import { IdDto } from 'common/dto/id.dto';
 import { IdFilenameDto } from 'files/dto/id-filename.dto';
 import { FileSchema } from 'files/swagger/schemas/file.schema';
 import { FilesSchema } from 'files/swagger/schemas/files.schema';
+import { File } from 'files/types/file.types';
 import { createParseFilePipe } from 'files/util/file-validation.util';
 import {
-  File,
   MULTIPART_FORMDATA_KEY,
   MaxFileCount,
 } from 'files/util/file.constants';
