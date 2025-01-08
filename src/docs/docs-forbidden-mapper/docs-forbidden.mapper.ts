@@ -20,22 +20,20 @@ export class DocsForbiddenMapper implements OnApplicationBootstrap {
       const prototype = Object.getPrototypeOf(instance);
 
       const routeNames = this.metadataScanner.getAllMethodNames(prototype);
+      const routes = routeNames.map((name) => instance[name]);
 
       const isControllerProtected = !!this.reflector.get<Role[]>(
         ROLES_KEY,
         instance.constructor,
       );
       if (isControllerProtected) {
-        routeNames.forEach((name) => {
-          const route = instance[name];
+        routes.forEach((route) => {
           ApiForbiddenResponse({ description: 'Forbidden' })(route);
         });
         return;
       }
 
-      routeNames.forEach((name) => {
-        const route = instance[name];
-
+      routes.forEach((route) => {
         const isProtected = !!this.reflector.get<Role[]>(ROLES_KEY, route);
         if (!isProtected) return;
 

@@ -25,10 +25,9 @@ export class DocsUnauthorizedMapper implements OnApplicationBootstrap {
       if (isControllerPublic) return;
 
       const routeNames = this.metadataScanner.getAllMethodNames(prototype);
+      const routes = routeNames.map((name) => instance[name]);
 
-      routeNames.forEach((name) => {
-        const route = instance[name];
-
+      routes.forEach((route) => {
         const isPublic = this.reflector.get<boolean>(IS_PUBLIC_KEY, route);
         if (isPublic) return;
 
