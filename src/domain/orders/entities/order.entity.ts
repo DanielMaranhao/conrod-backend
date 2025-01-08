@@ -39,6 +39,6 @@ export class Order {
 
   @Expose()
   get total() {
-    return this.items?.reduce((acc, item) => acc + item.subTotal, 0);
+    return this.items?.reduce((total, item) => total + item.subTotal, 0);
   }
 }
