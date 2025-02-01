@@ -1,4 +1,5 @@
 import { HashingService } from 'auth/hashing/hashing.service';
+import { MailService } from 'mail/mail.service';
 import {
   DataSource,
   EntitySubscriberInterface,
@@ -13,6 +14,7 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
   constructor(
     private readonly dataSource: DataSource,
     private readonly hashingService: HashingService,
+    private readonly mailService: MailService,
   ) {
     dataSource.subscribers.push(this);
   }
@@ -34,5 +36,11 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
     if (user.password !== databaseUser.password) {
       user.password = await this.hashingService.hash(user.password);
     }
+  }
+
+  async afterInsert(event: InsertEvent<User>) {
+    const { entity: user } = event;
+
+    await this.mailService.sendAccountConfirmation(user);
   }
 }

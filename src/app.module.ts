@@ -12,6 +12,7 @@ import { FilesModule } from './files/files.module';
 import { QueryingModule } from './querying/querying.module';
 import { DocsModule } from './docs/docs.module';
 import { StaticModule } from './static/static.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { StaticModule } from './static/static.module';
     ProductsModule,
     DocsModule,
     StaticModule,
+    MailModule,
   ],
 })
 export class AppModule {}
