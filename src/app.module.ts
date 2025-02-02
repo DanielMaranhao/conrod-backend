@@ -14,6 +14,7 @@ import { DocsModule } from './docs/docs.module';
 import { StaticModule } from './static/static.module';
 import { MailModule } from './mail/mail.module';
 import { HealthModule } from './health/health.module';
+import { CronModule } from './cron/cron.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { HealthModule } from './health/health.module';
     StaticModule,
     MailModule,
     HealthModule,
+    CronModule,
   ],
 })
 export class AppModule {}
