@@ -13,6 +13,7 @@ import { QueryingModule } from './querying/querying.module';
 import { DocsModule } from './docs/docs.module';
 import { StaticModule } from './static/static.module';
 import { MailModule } from './mail/mail.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { MailModule } from './mail/mail.module';
     DocsModule,
     StaticModule,
     MailModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
