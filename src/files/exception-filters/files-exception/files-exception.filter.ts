@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import * as bytes from 'bytes';
 import { HttpError } from 'common/util/http-error.util';
+import { extractFromText } from 'common/util/regex.util';
 import { Response } from 'express';
 import { extension } from 'mime-types';
 
@@ -27,7 +28,7 @@ export class FilesExceptionFilter implements ExceptionFilter {
   }
 
   private extractMaxSize(message: string) {
-    const maxSizeStr = message.match(this.MAX_FILE_SIZE_REGEX)[0];
+    const maxSizeStr = extractFromText(message, this.MAX_FILE_SIZE_REGEX);
 
     const maxSizeInBytes = +maxSizeStr;
 
@@ -36,7 +37,7 @@ export class FilesExceptionFilter implements ExceptionFilter {
   }
 
   private extractFileTypes(message: string) {
-    const mediaTypesStr = message.match(this.FILE_TYPES_REGEX)[0];
+    const mediaTypesStr = extractFromText(message, this.FILE_TYPES_REGEX);
 
     const mediaTypesWithBackslashes = mediaTypesStr.split('|');
     const mediaTypes = mediaTypesWithBackslashes.map((type) =>

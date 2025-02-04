@@ -1,6 +1,7 @@
 import { ArgumentsHost, Catch } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { HttpError } from 'common/util/http-error.util';
+import { extractFromText } from 'common/util/regex.util';
 import { DatabaseError } from 'database/interfaces/database-error.interface';
 import { Response } from 'express';
 import { QueryFailedError } from 'typeorm';
@@ -30,8 +31,8 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
   }
 
   private extractMessageData(message: string) {
-    const fieldName = message.match(this.FIELD_NAME_REGEX)[0];
-    const fieldValue = message.match(this.FIELD_VALUE_REGEX)[0];
+    const fieldName = extractFromText(message, this.FIELD_NAME_REGEX);
+    const fieldValue = extractFromText(message, this.FIELD_VALUE_REGEX);
     return { fieldName, fieldValue };
   }
 
