@@ -19,10 +19,10 @@
     },
     "incremental": true,
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   }
 }

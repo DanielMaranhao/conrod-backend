@@ -7,8 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from 'auth/roles/enums/role.enum';
 import { VALIDATION_PIPE_OPTIONS } from 'common/util/common.constants';
 import { NotFoundExceptionFilter } from 'database/exception-filters/not-found-exception/not-found-exception.filter';
-import { Server } from 'http';
 import * as request from 'supertest';
+import { App } from 'supertest/types';
 import testDatabaseConfig from 'testing/config/test-database.config';
 import { TEST_ENV_VALIDATION_SCHEMA } from 'testing/util/testing.constants';
 import { CreateUserDto } from 'users/dto/create-user.dto';
@@ -34,8 +34,8 @@ const expectedUser = {
 } as User;
 
 describe('Users [/users]', () => {
-  let app: INestApplication;
-  let server: Server;
+  let app: INestApplication<App>;
+  let server: App;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
