@@ -4,11 +4,10 @@ This is the code repository of the **NestJS Unleashed** course.
 
 ### Links
 
-- [Core Module (free)](https://www.youtube.com/watch?v=6E5xmWgQ2js&list=PLApU4LaMZpqp7mYqMyeGNyMi4d-sm6cKW)
+- [Course Website](https://nestjsunleashed.com/)
 - [Complementary Material](https://kinesis-school-of-programming.gitbook.io/nestjs-unleashed/)
-- [Full Course](https://www.udemy.com/course/nestjs-unleashed/?referralCode=64EDC6CDD19E445BF4EC)
 
-Underneath is the official message from the NestJS team.
+Below is the official message from the NestJS team.
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
