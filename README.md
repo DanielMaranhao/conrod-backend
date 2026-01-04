@@ -4,7 +4,7 @@ This is the code repository of the **NestJS Unleashed** course.
 
 ### Links
 
-- [Course Website](https://nestjsunleashed.com/)
+- [Full Course](https://www.udemy.com/course/nestjs-unleashed/?referralCode=64EDC6CDD19E445BF4EC)
 - [Complementary Material](https://kinesis-school-of-programming.gitbook.io/nestjs-unleashed/)
 
 Below is the official message from the NestJS team.
