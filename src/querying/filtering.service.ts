@@ -13,14 +13,10 @@ import { FilterOperationDto } from './dto/filter-operation.dto.js';
 @Injectable()
 export class FilteringService {
   contains(text: string) {
-    if (!text) return;
-
     return ILike(`%${text}%`);
   }
 
   compare(filterOperationDto: FilterOperationDto) {
-    if (!filterOperationDto) return;
-
     const { operator, operands } = filterOperationDto;
     const [operand, secondOperand] = operands;
 

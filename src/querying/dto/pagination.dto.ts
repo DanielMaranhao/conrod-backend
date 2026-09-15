@@ -3,6 +3,7 @@ import {
   MAX_PAGE_NUMBER,
   MAX_PAGE_SIZE,
 } from '#/querying/util/querying.constants.js';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, Max } from 'class-validator';
 
 export class PaginationDto {
@@ -11,8 +12,9 @@ export class PaginationDto {
   @IsCardinal()
   readonly limit?: number;
 
+  @ApiPropertyOptional()
   @IsOptional()
   @Max(MAX_PAGE_NUMBER)
   @IsCardinal()
-  readonly page?: number = 1;
+  readonly page: number = 1;
 }

@@ -22,7 +22,7 @@ import { LocalStrategy } from './strategies/local.strategy.js';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    PassportModule,
+    PassportModule.register({}),
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
     ThrottlerModule.forRootAsync(throttlerConfig.asProvider()),

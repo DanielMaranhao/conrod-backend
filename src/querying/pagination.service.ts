@@ -7,14 +7,14 @@ export class PaginationService {
     return (page - 1) * limit;
   }
 
-  createMeta(limit: number, page: number, count: number): PaginationMeta {
+  createMeta(limit: number, page: number, count: number) {
     const totalPages = Math.ceil(count / limit);
     if (page > totalPages) return;
 
     const hasNextPage = page < totalPages;
     const hasPreviousPage = page > 1;
 
-    return {
+    const meta: PaginationMeta = {
       itemsPerPage: limit,
       totalItems: count,
       currentPage: page,
@@ -22,5 +22,6 @@ export class PaginationService {
       hasNextPage,
       hasPreviousPage,
     };
+    return meta;
   }
 }

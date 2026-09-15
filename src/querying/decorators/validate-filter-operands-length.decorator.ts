@@ -28,7 +28,7 @@ export const ValidateFilterOperandsLength = (): PropertyDecorator =>
   ValidateBy({
     name: VALIDATE_FILTER_OPERANDS_LENGTH_KEY,
     validator: {
-      validate: (value, args): boolean => validateFilterOperandsLength(args),
+      validate: (_, args) => validateFilterOperandsLength(args!),
       defaultMessage: () =>
         'Operands length is not according to filter operator',
     },

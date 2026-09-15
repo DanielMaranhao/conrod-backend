@@ -6,14 +6,7 @@ import {
   NotFoundException,
   StreamableFile,
 } from '@nestjs/common';
-import {
-  createReadStream,
-  mkdirp,
-  pathExists,
-  readdir,
-  remove,
-  writeFile,
-} from 'fs-extra';
+import fse from 'fs-extra';
 import { join } from 'path';
 import { StorageService } from './storage.service.js';
 
@@ -24,23 +17,23 @@ export class FseService implements StorageService {
 
     const uniqueFilename = this.genUniqueFilename(originalname);
     const fullPath = join(BASE_PATH, path, uniqueFilename);
-    await writeFile(fullPath, buffer);
+    await fse.writeFile(fullPath, buffer);
   }
 
   async createDir(path: string) {
     const fullPath = join(BASE_PATH, path);
-    await mkdirp(fullPath);
+    await fse.mkdirp(fullPath);
   }
 
   getFile(path: string) {
     const fullPath = join(BASE_PATH, path);
-    const stream = createReadStream(fullPath);
+    const stream = fse.createReadStream(fullPath);
     return new StreamableFile(stream);
   }
 
   getDirFilenames(path: string) {
     const fullPath = join(BASE_PATH, path);
-    return readdir(fullPath);
+    return fse.readdir(fullPath);
   }
 
   async getDirFilecount(path: string) {
@@ -50,12 +43,12 @@ export class FseService implements StorageService {
 
   async delete(path: string) {
     const fullPath = join(BASE_PATH, path);
-    await remove(fullPath);
+    await fse.remove(fullPath);
   }
 
   async validatePath(path: string) {
     const fullPath = join(BASE_PATH, path);
-    if (!(await pathExists(fullPath))) {
+    if (!(await fse.pathExists(fullPath))) {
       throw new NotFoundException('Path not found');
     }
   }

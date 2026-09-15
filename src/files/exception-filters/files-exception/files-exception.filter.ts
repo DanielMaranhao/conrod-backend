@@ -26,8 +26,11 @@ export class FilesExceptionFilter implements ExceptionFilter {
     const maxSizeStr = extractFromText(message, this.MAX_FILE_SIZE_REGEX);
 
     const maxSizeInBytes = +maxSizeStr;
+    if (isNaN(maxSizeInBytes)) {
+      throw new Error(`Could not parse "${maxSizeStr}" to number`);
+    }
 
-    const maxSize = bytes(maxSizeInBytes);
+    const maxSize = bytes(maxSizeInBytes)!;
     return maxSize;
   }
 
@@ -48,10 +51,10 @@ export class FilesExceptionFilter implements ExceptionFilter {
 
   private createErrorData(message: string) {
     let httpError: HttpError;
-    let description: string;
+    let description: string | undefined;
 
-    let maxSize: string;
-    let expectedFileTypes: (string | false)[];
+    let maxSize: string | undefined;
+    let expectedFileTypes: (string | false)[] | undefined;
 
     switch (true) {
       case message.includes(this.MessageSnippet.MAX_SIZE):

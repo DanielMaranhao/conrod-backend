@@ -37,8 +37,8 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
   private readonly FIELD_VALUE_REGEX = /(?<=\)=\().*?(?=\))/;
 
   private createErrorData(code: string, message: string) {
-    let httpError: HttpError;
-    let description: string;
+    let httpError: HttpError | undefined;
+    let description: string | undefined;
 
     switch (code) {
       case this.DatabaseErrorCode.ASSOCIATION_NOT_FOUND_OR_NOT_NULL_VIOLATION:

@@ -27,7 +27,7 @@ export const createFileValidators = (
   const fileTypeRegex = createFileTypeRegex(fileTypes);
 
   return [
-    new MaxFileSizeValidator({ maxSize: bytes(maxSize) }),
+    new MaxFileSizeValidator({ maxSize: bytes(maxSize)! }),
     new FileTypeValidator({ fileType: fileTypeRegex }),
     new FileSignatureValidator(),
   ];

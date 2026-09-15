@@ -10,10 +10,11 @@ import { PaginationService } from '#/querying/pagination.service.js';
 import { DefaultPageSize } from '#/querying/util/querying.constants.js';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { pathExists } from 'fs-extra';
+import fse from 'fs-extra';
 import { join } from 'path';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, Repository, type FindOptionsWhere } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto.js';
+import type { FilterProductsDto } from './dto/querying/filter-products.dto.js';
 import { QueryProductsDto } from './dto/querying/query-products.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { Product } from './entities/product.entity.js';
@@ -36,15 +37,14 @@ export class ProductsService {
 
   async findAll(queryProductsDto: QueryProductsDto) {
     const { page, name, price, categoryId, sort, order } = queryProductsDto;
+
     const limit = queryProductsDto.limit ?? DefaultPageSize.PRODUCTS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
+    const where = this.createWhere({ name, price, categoryId });
+
     const [data, count] = await this.productsRepository.findAndCount({
-      where: {
-        name: this.filteringService.contains(name),
-        price: this.filteringService.compare(price),
-        categories: { id: categoryId },
-      },
+      where,
       order: { [sort]: order },
       skip: offset,
       take: limit,
@@ -52,6 +52,17 @@ export class ProductsService {
     const meta = this.paginationService.createMeta(limit, page, count);
 
     return { data, meta };
+  }
+
+  private createWhere(filterDto: FilterProductsDto) {
+    const { name, price, categoryId } = filterDto;
+
+    const where: FindOptionsWhere<Product> = {};
+    if (name) where.name = this.filteringService.contains(name);
+    if (price) where.price = this.filteringService.compare(price);
+    if (categoryId) where.categories = { id: categoryId };
+
+    return where;
   }
 
   findOne(id: number) {
@@ -91,7 +102,7 @@ export class ProductsService {
     const { BASE, IMAGES } = FilePath.Products;
     const path = join(BASE, id.toString(), IMAGES);
 
-    if (await pathExists(join(BASE_PATH, path))) {
+    if (await fse.pathExists(join(BASE_PATH, path))) {
       const incomingFilecount = files.length;
       const dirFilecount = await this.storageService.getDirFilecount(path);
       const totalFilecount = incomingFilecount + dirFilecount;

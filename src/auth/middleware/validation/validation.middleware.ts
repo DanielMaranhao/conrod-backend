@@ -19,9 +19,16 @@ export const ValidationMiddleware = <TDto extends Type>(DtoClass: TDto) => {
       });
 
       if (errors.length) {
-        const errorMessages = errors.flatMap((error) =>
-          Object.values(error.constraints),
-        );
+        const errorMessages = errors.flatMap((error) => {
+          const { property, constraints } = error;
+          if (!constraints) {
+            throw new Error(
+              `Validation error for property "${property}" does not contain constraints`,
+            );
+          }
+
+          return Object.values(constraints);
+        });
         throw new BadRequestException(errorMessages);
       }
 

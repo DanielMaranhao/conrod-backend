@@ -5,7 +5,7 @@ const toFilterOperationDto = (value: string) => {
   const colonIndex = value.indexOf(':');
 
   if (colonIndex === -1) {
-    const plainDto = { operator: value, operands: [] };
+    const plainDto = { operator: value, operands: [] as string[] };
     return plainToInstance(FilterOperationDto, plainDto);
   }
 
