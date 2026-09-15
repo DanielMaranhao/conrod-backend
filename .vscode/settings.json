@@ -1,6 +1,5 @@
 {
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "js/ts.preferences.preferTypeOnlyAutoImports": true
 }
