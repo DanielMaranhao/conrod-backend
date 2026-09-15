@@ -58,5 +58,8 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # TypeScript build info
 *.tsbuildinfo
 
+# Yarn install state
+.yarn/install-state.gz
+
 # Upload
 /upload
