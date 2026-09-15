@@ -1,6 +1,6 @@
+import { OrderDto } from '#/querying/dto/order.dto.js';
+import { Product } from '#d/products/entities/product.entity.js';
 import { IsIn, IsOptional } from 'class-validator';
-import { Product } from 'products/entities/product.entity';
-import { OrderDto } from 'querying/dto/order.dto';
 
 const Sort = ['name', 'price'] as const satisfies (keyof Product)[];
 type Sort = (typeof Sort)[number];

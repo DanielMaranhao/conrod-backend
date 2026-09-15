@@ -1,4 +1,4 @@
-import { DocsForbiddenMapper } from './docs-forbidden.mapper';
+import { DocsForbiddenMapper } from './docs-forbidden.mapper.js';
 
 describe('DocsForbiddenMapper', () => {
   it('should be defined', () => {

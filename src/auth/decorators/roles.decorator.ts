@@ -1,6 +1,6 @@
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { NonEmptyArray } from '#/common/util/array.util.js';
 import { SetMetadata } from '@nestjs/common';
-import { Role } from 'auth/roles/enums/role.enum';
-import { NonEmptyArray } from 'common/util/array.util';
 
 export const ROLES_KEY = 'roles';
 

@@ -1,13 +1,13 @@
+import { IsCurrency } from '#/common/decorators/validators/is-currency.decorator.js';
+import { IsEntity } from '#/common/decorators/validators/is-entity.decorator.js';
+import { IdDto } from '#/common/dto/id.dto.js';
+import { IdentifierFn } from '#/common/util/id.util.js';
 import {
   ArrayNotEmpty,
   ArrayUnique,
   IsOptional,
   Length,
 } from 'class-validator';
-import { IsCurrency } from 'common/decorators/validators/is-currency.decorator';
-import { IsEntity } from 'common/decorators/validators/is-entity.decorator';
-import { IdDto } from 'common/dto/id.dto';
-import { IdentifierFn } from 'common/util/id.util';
 
 export class CreateProductDto {
   @Length(2, 50)

@@ -1,16 +1,16 @@
+import { PaginationDto } from '#/querying/dto/pagination.dto.js';
+import { PaginationService } from '#/querying/pagination.service.js';
+import { DefaultPageSize } from '#/querying/util/querying.constants.js';
 import {
   ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationDto } from 'querying/dto/pagination.dto';
-import { PaginationService } from 'querying/pagination.service';
-import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from './entities/category.entity';
+import { CreateCategoryDto } from './dto/create-category.dto.js';
+import { UpdateCategoryDto } from './dto/update-category.dto.js';
+import { Category } from './entities/category.entity.js';
 
 @Injectable()
 export class CategoriesService {
@@ -42,9 +42,7 @@ export class CategoriesService {
   findOne(id: number) {
     return this.categoriesRepository.findOneOrFail({
       where: { id },
-      relations: {
-        products: true,
-      },
+      relations: { products: true },
     });
   }
 

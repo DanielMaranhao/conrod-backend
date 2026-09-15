@@ -1,5 +1,5 @@
+import { ValidateFilterOperandsLength } from '#/querying/decorators/validate-filter-operands-length.decorator.js';
 import { IsIn, IsNumber } from 'class-validator';
-import { ValidateFilterOperandsLength } from 'querying/decorators/validate-filter-operands-length.decorator';
 
 const Operator = ['lt', 'lte', 'gt', 'gte', 'eq', 'btw'] as const;
 type Operator = (typeof Operator)[number];

@@ -1,14 +1,14 @@
+import { PaginationDto } from '#/querying/dto/pagination.dto.js';
+import { PaginationService } from '#/querying/pagination.service.js';
+import { DefaultPageSize } from '#/querying/util/querying.constants.js';
+import { Product } from '#d/products/entities/product.entity.js';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from 'products/entities/product.entity';
-import { PaginationDto } from 'querying/dto/pagination.dto';
-import { PaginationService } from 'querying/pagination.service';
-import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { OrderItemDto } from './dto/order-item.dto';
-import { OrderItem } from './entities/order-item.entity';
-import { Order } from './entities/order.entity';
+import { CreateOrderDto } from './dto/create-order.dto.js';
+import { OrderItemDto } from './dto/order-item.dto.js';
+import { OrderItem } from './entities/order-item.entity.js';
+import { Order } from './entities/order.entity.js';
 
 @Injectable()
 export class OrdersService {
@@ -53,13 +53,7 @@ export class OrdersService {
   findOne(id: number) {
     return this.ordersRepository.findOneOrFail({
       where: { id },
-      relations: {
-        items: {
-          product: true,
-        },
-        customer: true,
-        payment: true,
-      },
+      relations: { items: { product: true }, customer: true, payment: true },
     });
   }
 

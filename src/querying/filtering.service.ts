@@ -8,7 +8,7 @@ import {
   MoreThan,
   MoreThanOrEqual,
 } from 'typeorm';
-import { FilterOperationDto } from './dto/filter-operation.dto';
+import { FilterOperationDto } from './dto/filter-operation.dto.js';
 
 @Injectable()
 export class FilteringService {

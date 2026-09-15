@@ -1,11 +1,11 @@
+import { Category } from '#d/categories/entities/category.entity.js';
+import { OrderItem } from '#d/orders/entities/order-item.entity.js';
+import { Order } from '#d/orders/entities/order.entity.js';
+import { Payment } from '#d/payments/entities/payment.entity.js';
+import { Product } from '#d/products/entities/product.entity.js';
+import { User } from '#d/users/entities/user.entity.js';
 import { Injectable } from '@nestjs/common';
-import { Category } from 'categories/entities/category.entity';
-import { OrderItem } from 'orders/entities/order-item.entity';
-import { Order } from 'orders/entities/order.entity';
-import { Payment } from 'payments/entities/payment.entity';
-import { Product } from 'products/entities/product.entity';
 import { DataSource } from 'typeorm';
-import { User } from 'users/entities/user.entity';
 
 @Injectable()
 export class SeedingService {

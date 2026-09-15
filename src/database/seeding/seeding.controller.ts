@@ -1,5 +1,5 @@
 import { Controller, Post } from '@nestjs/common';
-import { SeedingService } from './seeding.service';
+import { SeedingService } from './seeding.service.js';
 
 @Controller('seeding')
 export class SeedingController {

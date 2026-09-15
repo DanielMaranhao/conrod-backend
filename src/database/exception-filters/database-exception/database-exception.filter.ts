@@ -1,8 +1,8 @@
+import { HttpError } from '#/common/util/http-error.util.js';
+import { extractFromText } from '#/common/util/regex.util.js';
+import { DatabaseError } from '#/database/interfaces/database-error.interface.js';
 import { ArgumentsHost, Catch } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { HttpError } from 'common/util/http-error.util';
-import { extractFromText } from 'common/util/regex.util';
-import { DatabaseError } from 'database/interfaces/database-error.interface';
 import { Response } from 'express';
 import { QueryFailedError } from 'typeorm';
 
@@ -22,12 +22,9 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
     const { fieldName, fieldValue } = this.extractMessageData(detail);
     const meta = { description, fieldName, fieldValue, table };
 
-    response.status(status).json({
-      statusCode: status,
-      message: detail,
-      error,
-      meta,
-    });
+    response
+      .status(status)
+      .json({ statusCode: status, message: detail, error, meta });
   }
 
   private extractMessageData(message: string) {

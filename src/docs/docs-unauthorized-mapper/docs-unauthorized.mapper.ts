@@ -1,7 +1,7 @@
+import { IS_PUBLIC_KEY } from '#/auth/decorators/public.decorator.js';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { IS_PUBLIC_KEY } from 'auth/decorators/public.decorator';
 
 @Injectable()
 export class DocsUnauthorizedMapper implements OnApplicationBootstrap {

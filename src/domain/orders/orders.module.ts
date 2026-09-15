@@ -1,11 +1,11 @@
+import { QueryingModule } from '#/querying/querying.module.js';
+import { Product } from '#d/products/entities/product.entity.js';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from 'products/entities/product.entity';
-import { QueryingModule } from 'querying/querying.module';
-import { OrderItem } from './entities/order-item.entity';
-import { Order } from './entities/order.entity';
-import { OrdersController } from './orders.controller';
-import { OrdersService } from './orders.service';
+import { OrderItem } from './entities/order-item.entity.js';
+import { Order } from './entities/order.entity.js';
+import { OrdersController } from './orders.controller.js';
+import { OrdersService } from './orders.service.js';
 
 @Module({
   imports: [

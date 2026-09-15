@@ -1,3 +1,11 @@
+import { LoginDto } from '#/auth/dto/login.dto.js';
+import { HashingService } from '#/auth/hashing/hashing.service.js';
+import { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { compareUserId } from '#/auth/util/authorization.util.js';
+import { PaginationDto } from '#/querying/dto/pagination.dto.js';
+import { PaginationService } from '#/querying/pagination.service.js';
+import { DefaultPageSize } from '#/querying/util/querying.constants.js';
 import {
   ConflictException,
   ForbiddenException,
@@ -6,18 +14,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoginDto } from 'auth/dto/login.dto';
-import { HashingService } from 'auth/hashing/hashing.service';
-import { RequestUser } from 'auth/interfaces/request-user.interface';
-import { Role } from 'auth/roles/enums/role.enum';
-import { compareUserId } from 'auth/util/authorization.util';
-import { PaginationDto } from 'querying/dto/pagination.dto';
-import { PaginationService } from 'querying/pagination.service';
-import { DefaultPageSize } from 'querying/util/querying.constants';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto.js';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { User } from './entities/user.entity.js';
 
 @Injectable()
 export class UsersService {
@@ -50,12 +50,7 @@ export class UsersService {
   findOne(id: number) {
     return this.usersRepository.findOneOrFail({
       where: { id },
-      relations: {
-        orders: {
-          items: true,
-          payment: true,
-        },
-      },
+      relations: { orders: { items: true, payment: true } },
     });
   }
 
@@ -68,10 +63,7 @@ export class UsersService {
       compareUserId(currentUser.id, id);
     }
 
-    const user = await this.usersRepository.preload({
-      id,
-      ...updateUserDto,
-    });
+    const user = await this.usersRepository.preload({ id, ...updateUserDto });
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -97,12 +89,7 @@ export class UsersService {
 
     const user = await this.usersRepository.findOne({
       where: { email },
-      relations: {
-        orders: {
-          items: true,
-          payment: true,
-        },
-      },
+      relations: { orders: { items: true, payment: true } },
       withDeleted: true,
     });
     if (!user) {

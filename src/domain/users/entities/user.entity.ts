@@ -1,8 +1,14 @@
-import { Role } from 'auth/roles/enums/role.enum';
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { RegistryDates } from '#/common/embedded/registry-dates.embedded.js';
+import { Order } from '#d/orders/entities/order.entity.js';
 import { Exclude } from 'class-transformer';
-import { RegistryDates } from 'common/embedded/registry-dates.embedded';
-import { Order } from 'orders/entities/order.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  type Relation,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -40,5 +46,5 @@ export class User {
   @OneToMany(() => Order, (order) => order.customer, {
     cascade: ['soft-remove', 'recover'],
   })
-  orders: Order[];
+  orders: Relation<Order>[];
 }

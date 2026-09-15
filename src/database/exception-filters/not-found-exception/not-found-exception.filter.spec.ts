@@ -1,4 +1,4 @@
-import { NotFoundExceptionFilter } from './not-found-exception.filter';
+import { NotFoundExceptionFilter } from './not-found-exception.filter.js';
 
 describe('NotFoundExceptionFilter', () => {
   it('should be defined', () => {

@@ -1,6 +1,6 @@
+import { IdDto } from '#/common/dto/id.dto.js';
+import { OrderItemDto } from '#d/orders/dto/order-item.dto.js';
 import { ArrayUniqueIdentifier } from 'class-validator';
-import { IdDto } from 'common/dto/id.dto';
-import { OrderItemDto } from 'orders/dto/order-item.dto';
 
 export function wrapId(id: number): IdDto;
 export function wrapId(ids: number[]): IdDto[];

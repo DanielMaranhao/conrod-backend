@@ -1,13 +1,14 @@
+import { Product } from '#d/products/entities/product.entity.js';
 import { Expose } from 'class-transformer';
-import { Product } from 'products/entities/product.entity';
 import {
   Column,
   DeleteDateColumn,
   Entity,
   ManyToOne,
   PrimaryColumn,
+  type Relation,
 } from 'typeorm';
-import { Order } from './order.entity';
+import { Order } from './order.entity.js';
 
 @Entity()
 export class OrderItem {
@@ -18,10 +19,10 @@ export class OrderItem {
   productId: number;
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
-  order: Order;
+  order: Relation<Order>;
 
   @ManyToOne(() => Product, (product) => product.items)
-  product: Product;
+  product: Relation<Product>;
 
   @Column()
   quantity: number;

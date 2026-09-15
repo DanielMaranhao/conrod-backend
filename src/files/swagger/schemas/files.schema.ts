@@ -1,5 +1,5 @@
-import { File } from 'files/types/file.types';
-import { ApiFilesProperty } from '../decorators/api-files-property.decorator';
+import { File } from '#/files/types/file.types.js';
+import { ApiFilesProperty } from '../decorators/api-files-property.decorator.js';
 
 export class FilesSchema {
   @ApiFilesProperty()

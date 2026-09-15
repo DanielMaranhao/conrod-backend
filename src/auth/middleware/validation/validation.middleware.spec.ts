@@ -1,4 +1,4 @@
-import { ValidationMiddleware } from './validation.middleware';
+import { ValidationMiddleware } from './validation.middleware.js';
 
 describe('LoginValidationMiddleware', () => {
   it('should be defined', () => {

@@ -1,7 +1,8 @@
+import { RegistryDates } from '#/common/embedded/registry-dates.embedded.js';
+import { OrderStatus } from '#d/orders/util/order-status.constants.js';
+import { Payment } from '#d/payments/entities/payment.entity.js';
+import { User } from '#d/users/entities/user.entity.js';
 import { Expose } from 'class-transformer';
-import { RegistryDates } from 'common/embedded/registry-dates.embedded';
-import { OrderStatus } from 'orders/util/order-status.constants';
-import { Payment } from 'payments/entities/payment.entity';
 import {
   Column,
   Entity,
@@ -9,33 +10,29 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  type Relation,
 } from 'typeorm';
-import { User } from 'users/entities/user.entity';
-import { OrderItem } from './order-item.entity';
+import { OrderItem } from './order-item.entity.js';
 
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    type: 'enum',
-    enum: OrderStatus,
-    default: 'AWAITING_PAYMENT',
-  })
+  @Column({ type: 'enum', enum: OrderStatus, default: 'AWAITING_PAYMENT' })
   status: OrderStatus;
 
   @Column(() => RegistryDates, { prefix: false })
   registryDates: RegistryDates;
 
   @ManyToOne(() => User, (customer) => customer.orders, { nullable: false })
-  customer: User;
+  customer: Relation<User>;
 
   @OneToOne(() => Payment, (payment) => payment.order, { cascade: true })
-  payment: Payment;
+  payment: Relation<Payment>;
 
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
-  items: OrderItem[];
+  items: Relation<OrderItem>[];
 
   @Expose()
   get total() {

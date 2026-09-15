@@ -1,4 +1,4 @@
-import { BodyInterceptor } from './body.interceptor';
+import { BodyInterceptor } from './body.interceptor.js';
 
 describe('BodyInterceptor', () => {
   it('should be defined', () => {

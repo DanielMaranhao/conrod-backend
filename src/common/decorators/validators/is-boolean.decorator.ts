@@ -3,7 +3,7 @@ import {
   IsBoolean as DefaultIsBoolean,
   ValidationOptions,
 } from 'class-validator';
-import { ToBoolean } from '../transformers/to-boolean.decorator';
+import { ToBoolean } from '../transformers/to-boolean.decorator.js';
 
 /** Checks if the value is a boolean. Works with query params. */
 export const IsBoolean = (

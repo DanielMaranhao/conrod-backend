@@ -1,18 +1,22 @@
+import { StorageService } from '#/files/storage/storage.service.js';
+import { File } from '#/files/types/file.types.js';
+import {
+  BASE_PATH,
+  FilePath,
+  MaxFileCount,
+} from '#/files/util/file.constants.js';
+import { FilteringService } from '#/querying/filtering.service.js';
+import { PaginationService } from '#/querying/pagination.service.js';
+import { DefaultPageSize } from '#/querying/util/querying.constants.js';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StorageService } from 'files/storage/storage.service';
-import { File } from 'files/types/file.types';
-import { BASE_PATH, FilePath, MaxFileCount } from 'files/util/file.constants';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
-import { FilteringService } from 'querying/filtering.service';
-import { PaginationService } from 'querying/pagination.service';
-import { DefaultPageSize } from 'querying/util/querying.constants';
 import { DataSource, Repository } from 'typeorm';
-import { CreateProductDto } from './dto/create-product.dto';
-import { QueryProductsDto } from './dto/querying/query-products.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './entities/product.entity';
+import { CreateProductDto } from './dto/create-product.dto.js';
+import { QueryProductsDto } from './dto/querying/query-products.dto.js';
+import { UpdateProductDto } from './dto/update-product.dto.js';
+import { Product } from './entities/product.entity.js';
 
 @Injectable()
 export class ProductsService {
@@ -53,9 +57,7 @@ export class ProductsService {
   findOne(id: number) {
     return this.productsRepository.findOneOrFail({
       where: { id },
-      relations: {
-        categories: true,
-      },
+      relations: { categories: true },
     });
   }
 

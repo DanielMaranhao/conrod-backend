@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PaginationMeta } from './swagger/schemas/pagination-meta.schema';
+import { PaginationMeta } from './swagger/schemas/pagination-meta.schema.js';
 
 @Injectable()
 export class PaginationService {

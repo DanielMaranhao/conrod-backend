@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DiscoveryModule } from '@nestjs/core';
-import { DocsForbiddenMapper } from './docs-forbidden-mapper/docs-forbidden.mapper';
-import { DocsUnauthorizedMapper } from './docs-unauthorized-mapper/docs-unauthorized.mapper';
+import { DocsForbiddenMapper } from './docs-forbidden-mapper/docs-forbidden.mapper.js';
+import { DocsUnauthorizedMapper } from './docs-unauthorized-mapper/docs-unauthorized.mapper.js';
 
 @Module({
   imports: [DiscoveryModule],

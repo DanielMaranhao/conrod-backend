@@ -1,8 +1,8 @@
+import { User } from '#d/users/entities/user.entity.js';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'users/entities/user.entity';
-import { CronService } from './cron.service';
+import { CronService } from './cron.service.js';
 
 @Module({
   imports: [ScheduleModule.forRoot(), TypeOrmModule.forFeature([User])],

@@ -1,8 +1,8 @@
+import { ROLES_KEY } from '#/auth/decorators/roles.decorator.js';
+import { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLES_KEY } from 'auth/decorators/roles.decorator';
-import { RequestUser } from 'auth/interfaces/request-user.interface';
-import { Role } from 'auth/roles/enums/role.enum';
 import { Request } from 'express';
 
 @Injectable()

@@ -1,6 +1,12 @@
-import { RegistryDates } from 'common/embedded/registry-dates.embedded';
-import { Product } from 'products/entities/product.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { RegistryDates } from '#/common/embedded/registry-dates.embedded.js';
+import { Product } from '#d/products/entities/product.entity.js';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  type Relation,
+} from 'typeorm';
 
 @Entity()
 export class Category {
@@ -14,5 +20,5 @@ export class Category {
   registryDates: RegistryDates;
 
   @ManyToMany(() => Product, (product) => product.categories)
-  products: Product[];
+  products: Relation<Product>[];
 }

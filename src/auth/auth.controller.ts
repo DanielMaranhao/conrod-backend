@@ -1,3 +1,4 @@
+import { IdDto } from '#/common/dto/id.dto.js';
 import {
   Body,
   Controller,
@@ -11,18 +12,17 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import { IdDto } from 'common/dto/id.dto';
-import { Response } from 'express';
-import { AuthService } from './auth.service';
-import { Public } from './decorators/public.decorator';
-import { Roles } from './decorators/roles.decorator';
-import { User } from './decorators/user.decorator';
-import { LoginDto } from './dto/login.dto';
-import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
-import { RequestUser } from './interfaces/request-user.interface';
-import { RoleDto } from './roles/dto/role.dto';
-import { Role } from './roles/enums/role.enum';
-import { JwtCookieHeader } from './swagger/jwt-cookie.header';
+import type { Response } from 'express';
+import { AuthService } from './auth.service.js';
+import { Public } from './decorators/public.decorator.js';
+import { Roles } from './decorators/roles.decorator.js';
+import { User } from './decorators/user.decorator.js';
+import { LoginDto } from './dto/login.dto.js';
+import { LocalAuthGuard } from './guards/local-auth/local-auth.guard.js';
+import type { RequestUser } from './interfaces/request-user.interface.js';
+import { RoleDto } from './roles/dto/role.dto.js';
+import { Role } from './roles/enums/role.enum.js';
+import { JwtCookieHeader } from './swagger/jwt-cookie.header.js';
 
 @Controller('auth')
 export class AuthController {

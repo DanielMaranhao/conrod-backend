@@ -1,5 +1,5 @@
+import { File } from '#/files/types/file.types.js';
 import { FileValidator } from '@nestjs/common';
-import { File } from 'files/types/file.types';
 import magicBytes from 'magic-bytes.js';
 
 export class FileSignatureValidator extends FileValidator {

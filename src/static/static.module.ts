@@ -1,6 +1,6 @@
+import { BASE_PATH } from '#/files/util/file.constants.js';
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { BASE_PATH } from 'files/util/file.constants';
 import { resolve } from 'path';
 
 @Module({

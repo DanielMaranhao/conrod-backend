@@ -1,20 +1,20 @@
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { VALIDATION_PIPE_OPTIONS } from '#/common/util/common.constants.js';
+import { NotFoundExceptionFilter } from '#/database/exception-filters/not-found-exception/not-found-exception.filter.js';
+import testDatabaseConfig from '#/testing/config/test-database.config.js';
+import { TEST_ENV_VALIDATION_SCHEMA } from '#/testing/util/testing.constants.js';
+import { CreateUserDto } from '#d/users/dto/create-user.dto.js';
+import { UpdateUserDto } from '#d/users/dto/update-user.dto.js';
+import { User } from '#d/users/entities/user.entity.js';
+import { UsersModule } from '#d/users/users.module.js';
 import { faker } from '@faker-js/faker';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Role } from 'auth/roles/enums/role.enum';
-import { VALIDATION_PIPE_OPTIONS } from 'common/util/common.constants';
-import { NotFoundExceptionFilter } from 'database/exception-filters/not-found-exception/not-found-exception.filter';
-import * as request from 'supertest';
-import { App } from 'supertest/types';
-import testDatabaseConfig from 'testing/config/test-database.config';
-import { TEST_ENV_VALIDATION_SCHEMA } from 'testing/util/testing.constants';
-import { CreateUserDto } from 'users/dto/create-user.dto';
-import { UpdateUserDto } from 'users/dto/update-user.dto';
-import { User } from 'users/entities/user.entity';
-import { UsersModule } from 'users/users.module';
+import request from 'supertest';
+import { App } from 'supertest/types.js';
 
 const createUserDto: CreateUserDto = {
   name: faker.person.firstName(),
@@ -23,15 +23,9 @@ const createUserDto: CreateUserDto = {
   password: 'AAaa11!!',
 };
 
-const updateUserDto: UpdateUserDto = {
-  name: faker.person.firstName(),
-};
+const updateUserDto: UpdateUserDto = { name: faker.person.firstName() };
 
-const expectedUser = {
-  id: 1,
-  ...createUserDto,
-  role: Role.USER,
-} as User;
+const expectedUser = { id: 1, ...createUserDto, role: Role.USER } as User;
 
 describe('Users [/users]', () => {
   let app: INestApplication<App>;
@@ -52,10 +46,7 @@ describe('Users [/users]', () => {
           provide: APP_PIPE,
           useValue: new ValidationPipe(VALIDATION_PIPE_OPTIONS),
         },
-        {
-          provide: APP_FILTER,
-          useClass: NotFoundExceptionFilter,
-        },
+        { provide: APP_FILTER, useClass: NotFoundExceptionFilter },
       ],
     }).compile();
 

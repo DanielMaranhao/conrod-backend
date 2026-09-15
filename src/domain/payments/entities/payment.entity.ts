@@ -1,11 +1,12 @@
-import { RegistryDates } from 'common/embedded/registry-dates.embedded';
-import { Order } from 'orders/entities/order.entity';
+import { RegistryDates } from '#/common/embedded/registry-dates.embedded.js';
+import { Order } from '#d/orders/entities/order.entity.js';
 import {
   Column,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  type Relation,
 } from 'typeorm';
 
 @Entity()
@@ -21,5 +22,5 @@ export class Payment {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
-  order: Order;
+  order: Relation<Order>;
 }

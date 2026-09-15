@@ -1,3 +1,4 @@
+import { User } from '#d/users/entities/user.entity.js';
 import {
   Injectable,
   NotFoundException,
@@ -6,11 +7,10 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'users/entities/user.entity';
-import { HashingService } from './hashing/hashing.service';
-import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { RequestUser } from './interfaces/request-user.interface';
-import { Role } from './roles/enums/role.enum';
+import { HashingService } from './hashing/hashing.service.js';
+import { JwtPayload } from './interfaces/jwt-payload.interface.js';
+import { RequestUser } from './interfaces/request-user.interface.js';
+import { Role } from './roles/enums/role.enum.js';
 
 @Injectable()
 export class AuthService {
@@ -23,10 +23,7 @@ export class AuthService {
 
   async validateLocal(email: string, password: string) {
     const user = await this.usersRepository.findOne({
-      select: {
-        id: true,
-        password: true,
-      },
+      select: { id: true, password: true },
       where: { email },
     });
     if (!user) {
@@ -60,10 +57,7 @@ export class AuthService {
   }
 
   async assignRole(id: number, role: Role) {
-    const user = await this.usersRepository.preload({
-      id,
-      role,
-    });
+    const user = await this.usersRepository.preload({ id, role });
     if (!user) {
       throw new NotFoundException('User not found');
     }

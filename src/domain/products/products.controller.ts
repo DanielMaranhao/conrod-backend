@@ -1,3 +1,17 @@
+import { Public } from '#/auth/decorators/public.decorator.js';
+import { Roles } from '#/auth/decorators/roles.decorator.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { IdDto } from '#/common/dto/id.dto.js';
+import { IdFilenameDto } from '#/files/dto/id-filename.dto.js';
+import { FileSchema } from '#/files/swagger/schemas/file.schema.js';
+import { FilesSchema } from '#/files/swagger/schemas/files.schema.js';
+import { File } from '#/files/types/file.types.js';
+import { createParseFilePipe } from '#/files/util/file-validation.util.js';
+import {
+  MULTIPART_FORMDATA_KEY,
+  MaxFileCount,
+} from '#/files/util/file.constants.js';
+import { ApiPaginatedResponse } from '#/querying/swagger/decorators/api-paginated-response.decorator.js';
 import {
   Body,
   Controller,
@@ -12,25 +26,11 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiOkResponse } from '@nestjs/swagger';
-import { Public } from 'auth/decorators/public.decorator';
-import { Roles } from 'auth/decorators/roles.decorator';
-import { Role } from 'auth/roles/enums/role.enum';
-import { IdDto } from 'common/dto/id.dto';
-import { IdFilenameDto } from 'files/dto/id-filename.dto';
-import { FileSchema } from 'files/swagger/schemas/file.schema';
-import { FilesSchema } from 'files/swagger/schemas/files.schema';
-import { File } from 'files/types/file.types';
-import { createParseFilePipe } from 'files/util/file-validation.util';
-import {
-  MULTIPART_FORMDATA_KEY,
-  MaxFileCount,
-} from 'files/util/file.constants';
-import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
-import { CreateProductDto } from './dto/create-product.dto';
-import { QueryProductsDto } from './dto/querying/query-products.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './entities/product.entity';
-import { ProductsService } from './products.service';
+import { CreateProductDto } from './dto/create-product.dto.js';
+import { QueryProductsDto } from './dto/querying/query-products.dto.js';
+import { UpdateProductDto } from './dto/update-product.dto.js';
+import { Product } from './entities/product.entity.js';
+import { ProductsService } from './products.service.js';
 
 @Controller('products')
 export class ProductsController {

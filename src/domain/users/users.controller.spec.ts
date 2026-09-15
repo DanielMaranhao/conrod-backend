@@ -1,13 +1,13 @@
+import { IdDto } from '#/common/dto/id.dto.js';
+import { MockClass, createMock } from '#/testing/util/testing.util.js';
 import { faker } from '@faker-js/faker';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { IdDto } from 'common/dto/id.dto';
-import { MockClass, createMock } from 'testing/util/testing.util';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto.js';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { User } from './entities/user.entity.js';
+import { UsersController } from './users.controller.js';
+import { UsersService } from './users.service.js';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -16,12 +16,7 @@ describe('UsersController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [
-        {
-          provide: UsersService,
-          useValue: createMock(),
-        },
-      ],
+      providers: [{ provide: UsersService, useValue: createMock() }],
     }).compile();
 
     controller = module.get(UsersController);
@@ -122,10 +117,7 @@ describe('UsersController', () => {
         const idDto: IdDto = { id };
         const existingUser = genUser(id);
         const updateUserDto = genUpdateDto();
-        const expectedUser = {
-          ...existingUser,
-          ...updateUserDto,
-        } as User;
+        const expectedUser = { ...existingUser, ...updateUserDto } as User;
 
         service.update.mockResolvedValueOnce(expectedUser);
 
@@ -201,12 +193,7 @@ const genCreateDto = (): CreateUserDto => ({
   password: faker.internet.password(),
 });
 
-const genUpdateDto = (): UpdateUserDto => ({
-  name: faker.person.firstName(),
-});
+const genUpdateDto = (): UpdateUserDto => ({ name: faker.person.firstName() });
 
 const genUser = (id: number, createDto = genCreateDto()) =>
-  ({
-    id,
-    ...createDto,
-  }) as User;
+  ({ id, ...createDto }) as User;

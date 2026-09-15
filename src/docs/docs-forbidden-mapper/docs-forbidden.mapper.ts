@@ -1,8 +1,8 @@
+import { ROLES_KEY } from '#/auth/decorators/roles.decorator.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { ApiForbiddenResponse } from '@nestjs/swagger';
-import { ROLES_KEY } from 'auth/decorators/roles.decorator';
-import { Role } from 'auth/roles/enums/role.enum';
 
 @Injectable()
 export class DocsForbiddenMapper implements OnApplicationBootstrap {

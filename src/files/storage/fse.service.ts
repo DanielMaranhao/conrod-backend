@@ -1,11 +1,11 @@
+import { File } from '#/files/types/file.types.js';
+import { BASE_PATH } from '#/files/util/file.constants.js';
 import {
   ConflictException,
   Injectable,
   NotFoundException,
   StreamableFile,
 } from '@nestjs/common';
-import { File } from 'files/types/file.types';
-import { BASE_PATH } from 'files/util/file.constants';
 import {
   createReadStream,
   mkdirp,
@@ -15,7 +15,7 @@ import {
   writeFile,
 } from 'fs-extra';
 import { join } from 'path';
-import { StorageService } from './storage.service';
+import { StorageService } from './storage.service.js';
 
 @Injectable()
 export class FseService implements StorageService {

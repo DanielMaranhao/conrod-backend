@@ -1,5 +1,5 @@
+import { FilterOperationDto } from '#/querying/dto/filter-operation.dto.js';
 import { Transform, plainToInstance } from 'class-transformer';
-import { FilterOperationDto } from 'querying/dto/filter-operation.dto';
 
 const toFilterOperationDto = (value: string) => {
   const colonIndex = value.indexOf(':');

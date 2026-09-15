@@ -1,9 +1,9 @@
-import { IsOptional, Max } from 'class-validator';
-import { IsCardinal } from 'common/decorators/validators/is-cardinal.decorator';
+import { IsCardinal } from '#/common/decorators/validators/is-cardinal.decorator.js';
 import {
   MAX_PAGE_NUMBER,
   MAX_PAGE_SIZE,
-} from 'querying/util/querying.constants';
+} from '#/querying/util/querying.constants.js';
+import { IsOptional, Max } from 'class-validator';
 
 export class PaginationDto {
   @IsOptional()

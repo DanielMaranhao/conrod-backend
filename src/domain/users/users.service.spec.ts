@@ -1,12 +1,12 @@
+import { createMock, MockRepository } from '#/testing/util/testing.util.js';
 import { faker } from '@faker-js/faker';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createMock, MockRepository } from 'testing/util/testing.util';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto.js';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { User } from './entities/user.entity.js';
+import { UsersService } from './users.service.js';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -16,10 +16,7 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
-        {
-          provide: getRepositoryToken(User),
-          useValue: createMock(),
-        },
+        { provide: getRepositoryToken(User), useValue: createMock() },
       ],
     }).compile();
 
@@ -120,10 +117,7 @@ describe('UsersService', () => {
         const id = 1;
         const existingUser = genUser(id);
         const updateUserDto = genUpdateDto();
-        const expectedUser = {
-          ...existingUser,
-          ...updateUserDto,
-        } as User;
+        const expectedUser = { ...existingUser, ...updateUserDto } as User;
 
         repository.preload.mockResolvedValueOnce(expectedUser);
         repository.save.mockResolvedValueOnce(expectedUser);
@@ -197,12 +191,7 @@ const genCreateDto = (): CreateUserDto => ({
   password: faker.internet.password(),
 });
 
-const genUpdateDto = (): UpdateUserDto => ({
-  name: faker.person.firstName(),
-});
+const genUpdateDto = (): UpdateUserDto => ({ name: faker.person.firstName() });
 
 const genUser = (id: number, createDto = genCreateDto()) =>
-  ({
-    id,
-    ...createDto,
-  }) as User;
+  ({ id, ...createDto }) as User;

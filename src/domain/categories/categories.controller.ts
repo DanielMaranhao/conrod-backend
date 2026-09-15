@@ -1,3 +1,9 @@
+import { Public } from '#/auth/decorators/public.decorator.js';
+import { Roles } from '#/auth/decorators/roles.decorator.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { IdDto } from '#/common/dto/id.dto.js';
+import { PaginationDto } from '#/querying/dto/pagination.dto.js';
+import { ApiPaginatedResponse } from '#/querying/swagger/decorators/api-paginated-response.decorator.js';
 import {
   Body,
   Controller,
@@ -8,16 +14,10 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { Public } from 'auth/decorators/public.decorator';
-import { Roles } from 'auth/decorators/roles.decorator';
-import { Role } from 'auth/roles/enums/role.enum';
-import { IdDto } from 'common/dto/id.dto';
-import { PaginationDto } from 'querying/dto/pagination.dto';
-import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
-import { CategoriesService } from './categories.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from './entities/category.entity';
+import { CategoriesService } from './categories.service.js';
+import { CreateCategoryDto } from './dto/create-category.dto.js';
+import { UpdateCategoryDto } from './dto/update-category.dto.js';
+import { Category } from './entities/category.entity.js';
 
 @Controller('categories')
 export class CategoriesController {

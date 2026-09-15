@@ -1,11 +1,11 @@
+import { FilesModule } from '#/files/files.module.js';
+import { QueryingModule } from '#/querying/querying.module.js';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FilesModule } from 'files/files.module';
-import { QueryingModule } from 'querying/querying.module';
-import { Product } from './entities/product.entity';
-import { ProductsController } from './products.controller';
-import { ProductsService } from './products.service';
-import { ProductsSubscriber } from './subscribers/products.subscriber';
+import { Product } from './entities/product.entity.js';
+import { ProductsController } from './products.controller.js';
+import { ProductsService } from './products.service.js';
+import { ProductsSubscriber } from './subscribers/products.subscriber.js';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product]), FilesModule, QueryingModule],

@@ -1,3 +1,6 @@
+import { IdDto } from '#/common/dto/id.dto.js';
+import { PaginationDto } from '#/querying/dto/pagination.dto.js';
+import { ApiPaginatedResponse } from '#/querying/swagger/decorators/api-paginated-response.decorator.js';
 import {
   Body,
   Controller,
@@ -7,12 +10,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { IdDto } from 'common/dto/id.dto';
-import { PaginationDto } from 'querying/dto/pagination.dto';
-import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { Order } from './entities/order.entity';
-import { OrdersService } from './orders.service';
+import { CreateOrderDto } from './dto/create-order.dto.js';
+import { Order } from './entities/order.entity.js';
+import { OrdersService } from './orders.service.js';
 
 @Controller('orders')
 export class OrdersController {

@@ -1,8 +1,8 @@
-import { StorageService } from 'files/storage/storage.service';
-import { BASE_PATH, FilePath } from 'files/util/file.constants';
+import { StorageService } from '#/files/storage/storage.service.js';
+import { BASE_PATH, FilePath } from '#/files/util/file.constants.js';
+import { Product } from '#d/products/entities/product.entity.js';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
-import { Product } from 'products/entities/product.entity';
 import {
   DataSource,
   EntitySubscriberInterface,

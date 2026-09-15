@@ -1,12 +1,12 @@
+import { HttpError } from '#/common/util/http-error.util.js';
+import { extractFromText } from '#/common/util/regex.util.js';
 import {
   ArgumentsHost,
   Catch,
   ExceptionFilter,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import * as bytes from 'bytes';
-import { HttpError } from 'common/util/http-error.util';
-import { extractFromText } from 'common/util/regex.util';
+import bytes from 'bytes';
 import { Response } from 'express';
 import { extension } from 'mime-types';
 
@@ -19,12 +19,7 @@ export class FilesExceptionFilter implements ExceptionFilter {
     const { httpError, ...meta } = this.createErrorData(message);
     const { status, error } = httpError;
 
-    response.status(status).json({
-      statusCode: status,
-      message,
-      error,
-      meta,
-    });
+    response.status(status).json({ statusCode: status, message, error, meta });
   }
 
   private extractMaxSize(message: string) {

@@ -1,11 +1,11 @@
+import { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { compareUserId } from '#/auth/util/authorization.util.js';
+import { Order } from '#d/orders/entities/order.entity.js';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RequestUser } from 'auth/interfaces/request-user.interface';
-import { Role } from 'auth/roles/enums/role.enum';
-import { compareUserId } from 'auth/util/authorization.util';
-import { Order } from 'orders/entities/order.entity';
 import { Repository } from 'typeorm';
-import { Payment } from './entities/payment.entity';
+import { Payment } from './entities/payment.entity.js';
 
 @Injectable()
 export class PaymentsService {
@@ -19,10 +19,7 @@ export class PaymentsService {
   async payOrder(id: number, currentUser: RequestUser) {
     const order = await this.ordersRepository.findOneOrFail({
       where: { id },
-      relations: {
-        payment: true,
-        customer: true,
-      },
+      relations: { payment: true, customer: true },
     });
 
     if (currentUser.role !== Role.ADMIN) {

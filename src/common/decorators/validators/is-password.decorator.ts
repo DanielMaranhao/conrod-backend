@@ -1,10 +1,10 @@
 import { applyDecorators } from '@nestjs/common';
 import { Length, ValidationOptions } from 'class-validator';
-import { ContainsLowercaseLetter } from './text/contains-lowercase-letter.decorator';
-import { ContainsNumber } from './text/contains-number.decorator';
-import { ContainsSpecialCharacter } from './text/contains-special-character.decorator';
-import { ContainsUppercaseLetter } from './text/contains-uppercase-letter.decorator';
-import { OnlyRequiredCharacters } from './text/only-required-characters.decorator';
+import { ContainsLowercaseLetter } from './text/contains-lowercase-letter.decorator.js';
+import { ContainsNumber } from './text/contains-number.decorator.js';
+import { ContainsSpecialCharacter } from './text/contains-special-character.decorator.js';
+import { ContainsUppercaseLetter } from './text/contains-uppercase-letter.decorator.js';
+import { OnlyRequiredCharacters } from './text/only-required-characters.decorator.js';
 
 /**
  * Checks if the value is a string following these rules:

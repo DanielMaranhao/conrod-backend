@@ -1,5 +1,6 @@
-import { HashingService } from 'auth/hashing/hashing.service';
-import { MailService } from 'mail/mail.service';
+import { HashingService } from '#/auth/hashing/hashing.service.js';
+import { MailService } from '#/mail/mail.service.js';
+import { User } from '#d/users/entities/user.entity.js';
 import {
   DataSource,
   EntitySubscriberInterface,
@@ -7,7 +8,6 @@ import {
   InsertEvent,
   UpdateEvent,
 } from 'typeorm';
-import { User } from 'users/entities/user.entity';
 
 @EventSubscriber()
 export class UsersSubscriber implements EntitySubscriberInterface<User> {

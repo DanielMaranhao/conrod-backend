@@ -1,3 +1,13 @@
+import { Public } from '#/auth/decorators/public.decorator.js';
+import { Roles } from '#/auth/decorators/roles.decorator.js';
+import { User as CurrentUser } from '#/auth/decorators/user.decorator.js';
+import { LoginDto } from '#/auth/dto/login.dto.js';
+import type { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
+import { IdDto } from '#/common/dto/id.dto.js';
+import { RemoveDto } from '#/common/dto/remove.dto.js';
+import { PaginationDto } from '#/querying/dto/pagination.dto.js';
+import { ApiPaginatedResponse } from '#/querying/swagger/decorators/api-paginated-response.decorator.js';
 import {
   Body,
   Controller,
@@ -8,20 +18,10 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { Public } from 'auth/decorators/public.decorator';
-import { Roles } from 'auth/decorators/roles.decorator';
-import { User as CurrentUser } from 'auth/decorators/user.decorator';
-import { LoginDto } from 'auth/dto/login.dto';
-import { RequestUser } from 'auth/interfaces/request-user.interface';
-import { Role } from 'auth/roles/enums/role.enum';
-import { IdDto } from 'common/dto/id.dto';
-import { RemoveDto } from 'common/dto/remove.dto';
-import { PaginationDto } from 'querying/dto/pagination.dto';
-import { ApiPaginatedResponse } from 'querying/swagger/decorators/api-paginated-response.decorator';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto.js';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { User } from './entities/user.entity.js';
+import { UsersService } from './users.service.js';
 
 @Controller('users')
 export class UsersController {

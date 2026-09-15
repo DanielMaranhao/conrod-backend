@@ -1,4 +1,4 @@
-import { DocsUnauthorizedMapper } from './docs-unauthorized.mapper';
+import { DocsUnauthorizedMapper } from './docs-unauthorized.mapper.js';
 
 describe('DocsUnauthorizedMapper', () => {
   it('should be defined', () => {
