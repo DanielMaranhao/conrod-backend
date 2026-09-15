@@ -1,17 +1,15 @@
 services:
   database:
     image: postgres
-    restart: always
     ports:
       - ${DATABASE_PORT}:5432
     environment:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - database_data:/var/lib/postgresql/data
+      - database_data:/var/lib/postgresql
 
   test-database:
     image: postgres
-    restart: always
     ports:
       - ${DATABASE_PORT}:5432
     environment:
