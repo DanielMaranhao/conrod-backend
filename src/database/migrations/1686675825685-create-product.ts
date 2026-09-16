@@ -35,7 +35,7 @@ export class CreateProduct1686675825685 implements MigrationInterface {
         `);
     await queryRunner.query(`
             ALTER TABLE "product_to_category"
-            ADD CONSTRAINT "FK_70eb26cea4105a27ce856dca20d" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ADD CONSTRAINT "FK_70eb26cea4105a27ce856dca20d" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
   }
 

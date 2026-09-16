@@ -27,11 +27,9 @@
     "test:e2e": "yarn pretest:e2e && vitest run --config ./vitest.config.e2e.ts && yarn posttest:e2e",
     "posttest:e2e": "docker-compose --env-file .env.test.local rm -sfv test-database",
     "migration:create": "yarn typeorm migration:create",
-    "premigration:generate": "yarn build",
-    "migration:generate": "yarn typeorm migration:generate -d dist/database/data-source -p",
-    "premigration:run": "yarn build",
-    "migration:run": "yarn typeorm migration:run -d dist/database/data-source",
-    "migration:revert": "yarn typeorm migration:revert -d dist/database/data-source"
+    "migration:generate": "yarn build && yarn typeorm migration:generate -d dist/database/data-source -p",
+    "migration:run": "yarn build && yarn typeorm migration:run -d dist/database/data-source",
+    "migration:revert": "yarn build && yarn typeorm migration:revert -d dist/database/data-source"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.3.7",
