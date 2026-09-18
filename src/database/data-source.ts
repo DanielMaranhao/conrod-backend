@@ -1,8 +1,7 @@
-import dotenv from 'dotenv';
-import dotenvExpand from 'dotenv-expand';
+import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 
-dotenvExpand.expand(dotenv.config());
+config();
 
 const user = process.env.DATABASE_USER;
 const password = process.env.DATABASE_PASSWORD;
