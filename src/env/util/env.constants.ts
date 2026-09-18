@@ -13,7 +13,7 @@ export const ENV_VALIDATION_SCHEMA = z.object({
   JWT_SECRET: z.hex().length(64),
   JWT_TTL: ze.ms,
 
-  THROTTLER_TTL: ze.cardinal,
+  THROTTLER_TTL: ze.ms,
   THROTTLER_LIMIT: ze.cardinal,
 
   MAIL_PROTOCOL: z.enum(['smtp', 'smtps']),
