@@ -2,13 +2,14 @@ import { MailerOptions } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 import { registerAs } from '@nestjs/config';
 import { resolve } from 'path';
+import { env } from 'process';
 
 export default registerAs('mail', () => {
-  const protocol = process.env.MAIL_PROTOCOL!;
-  const host = process.env.MAIL_HOST!;
-  const user = process.env.MAIL_USER!;
-  const password = process.env.MAIL_PASSWORD!;
-  const from = process.env.MAIL_FROM!;
+  const protocol = env.MAIL_PROTOCOL!;
+  const host = env.MAIL_HOST!;
+  const user = env.MAIL_USER!;
+  const password = env.MAIL_PASSWORD!;
+  const from = env.MAIL_FROM!;
 
   const transport = `${protocol}://${user}:${password}@${host}`;
 

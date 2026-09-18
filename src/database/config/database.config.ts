@@ -1,12 +1,13 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { env } from 'process';
 
 export default registerAs('database', () => {
-  const user = process.env.DATABASE_USER!;
-  const password = process.env.DATABASE_PASSWORD!;
-  const host = process.env.DATABASE_HOST!;
-  const port = process.env.DATABASE_PORT!;
-  const name = process.env.DATABASE_NAME!;
+  const user = env.DATABASE_USER!;
+  const password = env.DATABASE_PASSWORD!;
+  const host = env.DATABASE_HOST!;
+  const port = env.DATABASE_PORT!;
+  const name = env.DATABASE_NAME!;
 
   const url = `postgresql://${user}:${password}@${host}:${port}/${name}`;
 

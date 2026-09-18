@@ -1,10 +1,11 @@
 import { registerAs } from '@nestjs/config';
 import { JwtModuleOptions } from '@nestjs/jwt';
 import { type StringValue } from 'ms';
+import { env } from 'process';
 
 export default registerAs('jwt', () => {
-  const secret = process.env.JWT_SECRET!;
-  const ttl = process.env.JWT_TTL! as StringValue;
+  const secret = env.JWT_SECRET!;
+  const ttl = env.JWT_TTL! as StringValue;
 
   const config = {
     secret,
