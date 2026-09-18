@@ -1,9 +1,10 @@
-import Joi from 'joi';
+import { ze } from '#/env/util/env.util.js';
+import { z } from 'zod';
 
-export const TEST_ENV_VALIDATION_SCHEMA = Joi.object({
-  DATABASE_USER: Joi.required(),
-  DATABASE_PASSWORD: Joi.required(),
-  DATABASE_HOST: Joi.required(),
-  DATABASE_PORT: Joi.number().port().required(),
-  DATABASE_NAME: Joi.required(),
+export const TEST_ENV_VALIDATION_SCHEMA = z.object({
+  DATABASE_USER: z.string(),
+  DATABASE_PASSWORD: z.string(),
+  DATABASE_HOST: z.hostname(),
+  DATABASE_PORT: ze.port,
+  DATABASE_NAME: z.string(),
 });

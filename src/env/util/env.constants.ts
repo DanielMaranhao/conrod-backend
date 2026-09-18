@@ -1,23 +1,24 @@
-import Joi from 'joi';
+import { z } from 'zod';
+import { ze } from './env.util.js';
 
-export const ENV_VALIDATION_SCHEMA = Joi.object({
-  APP_PORT: Joi.number().port().required(),
+export const ENV_VALIDATION_SCHEMA = z.object({
+  APP_PORT: ze.port,
 
-  DATABASE_USER: Joi.required(),
-  DATABASE_PASSWORD: Joi.required(),
-  DATABASE_HOST: Joi.required(),
-  DATABASE_PORT: Joi.number().port().required(),
-  DATABASE_NAME: Joi.required(),
+  DATABASE_USER: z.string(),
+  DATABASE_PASSWORD: z.string(),
+  DATABASE_HOST: z.hostname(),
+  DATABASE_PORT: ze.port,
+  DATABASE_NAME: z.string(),
 
-  JWT_SECRET: Joi.required(),
-  JWT_TTL: Joi.required(),
+  JWT_SECRET: z.hex().length(64),
+  JWT_TTL: ze.ms,
 
-  THROTTLER_TTL: Joi.number().integer().positive().required(),
-  THROTTLER_LIMIT: Joi.number().integer().positive().required(),
+  THROTTLER_TTL: ze.cardinal,
+  THROTTLER_LIMIT: ze.cardinal,
 
-  MAIL_PROTOCOL: Joi.valid('smtp', 'smtps').required(),
-  MAIL_HOST: Joi.string().hostname().required(),
-  MAIL_USER: Joi.required(),
-  MAIL_PASSWORD: Joi.required(),
-  MAIL_FROM: Joi.string().email().required(),
+  MAIL_PROTOCOL: z.enum(['smtp', 'smtps']),
+  MAIL_HOST: z.hostname(),
+  MAIL_USER: z.string(),
+  MAIL_PASSWORD: z.string(),
+  MAIL_FROM: z.email(),
 });
