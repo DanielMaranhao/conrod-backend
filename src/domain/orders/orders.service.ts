@@ -2,9 +2,9 @@ import { PaginationDto } from '#/querying/dto/pagination.dto.js';
 import { PaginationService } from '#/querying/pagination.service.js';
 import { DefaultPageSize } from '#/querying/util/querying.constants.js';
 import { Product } from '#d/products/entities/product.entity.js';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto.js';
 import { OrderItemDto } from './dto/order-item.dto.js';
 import { OrderItem } from './entities/order-item.entity.js';
@@ -25,9 +25,7 @@ export class OrdersService {
   async create(createOrderDto: CreateOrderDto) {
     const { items } = createOrderDto;
 
-    const itemsWithPrice = await Promise.all(
-      items.map((item) => this.createOrderItemWithPrice(item)),
-    );
+    const itemsWithPrice = await this.createOrderItemsWithPrice(items);
 
     const order = this.ordersRepository.create({
       ...createOrderDto,
@@ -62,10 +60,20 @@ export class OrdersService {
     return this.ordersRepository.remove(order);
   }
 
-  private async createOrderItemWithPrice(orderItemDto: OrderItemDto) {
-    const { id } = orderItemDto.product;
-    const { price } = await this.productsRepository.findOneByOrFail({ id });
+  private async createOrderItemsWithPrice(items: OrderItemDto[]) {
+    const prodIds = items.map((item) => item.product.id);
+    const products = await this.productsRepository.findBy({ id: In(prodIds) });
+    const productsMap = new Map(products.map((prod) => [prod.id, prod]));
 
-    return this.orderItemsRepository.create({ ...orderItemDto, price });
+    const missingIds = prodIds.filter((id) => !productsMap.has(id));
+    if (missingIds.length) {
+      throw new NotFoundException(`Products #${missingIds.join()} not found`);
+    }
+
+    const itemsWithPrice = items.map((item) => {
+      const { price } = productsMap.get(item.product.id)!;
+      return this.orderItemsRepository.create({ ...item, price });
+    });
+    return itemsWithPrice;
   }
 }
