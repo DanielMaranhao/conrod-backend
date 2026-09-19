@@ -64,13 +64,8 @@ export class OrdersService {
 
   private async createOrderItemWithPrice(orderItemDto: OrderItemDto) {
     const { id } = orderItemDto.product;
-
     const { price } = await this.productsRepository.findOneByOrFail({ id });
 
-    const orderItem = this.orderItemsRepository.create({
-      ...orderItemDto,
-      price,
-    });
-    return orderItem;
+    return this.orderItemsRepository.create({ ...orderItemDto, price });
   }
 }
