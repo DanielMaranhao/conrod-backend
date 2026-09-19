@@ -3,6 +3,7 @@ import { IdDto } from '#/common/dto/id.dto.js';
 import { IdentifierFn } from '#/common/util/id.util.js';
 import { Type } from 'class-transformer';
 import {
+  ArrayMaxSize,
   ArrayNotEmpty,
   ArrayUnique,
   IsObject,
@@ -16,6 +17,7 @@ export class CreateOrderDto {
   readonly customer: IdDto;
 
   @ArrayNotEmpty()
+  @ArrayMaxSize(100)
   @ArrayUnique(IdentifierFn.ORDER_ITEM_DTO)
   @ValidateNested()
   @Type(() => OrderItemDto)

@@ -3,6 +3,7 @@ import { IsEntity } from '#/common/decorators/validators/is-entity.decorator.js'
 import { IdDto } from '#/common/dto/id.dto.js';
 import { IdentifierFn } from '#/common/util/id.util.js';
 import {
+  ArrayMaxSize,
   ArrayNotEmpty,
   ArrayUnique,
   IsOptional,
@@ -21,6 +22,7 @@ export class CreateProductDto {
   readonly price: number;
 
   @ArrayNotEmpty()
+  @ArrayMaxSize(10)
   @ArrayUnique(IdentifierFn.ID_DTO)
   @IsEntity()
   readonly categories: IdDto[];
