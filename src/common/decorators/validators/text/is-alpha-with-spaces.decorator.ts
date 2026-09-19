@@ -1,33 +1,12 @@
-import {
-  ValidateBy,
-  ValidationOptions,
-  buildMessage,
-  matches,
-} from 'class-validator';
+import { createValidator } from '#/common/util/validation.util.js';
+import { ValidationOptions, matches } from 'class-validator';
 
-const IS_ALPHA_WITH_SPACES_REGEX = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+const regex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
 
-const IS_ALPHA_WITH_SPACES_KEY = 'isAlphaWithSpaces';
+const key = 'isAlphaWithSpaces';
+const message =
+  '$property must have only letters and spaces (no consecutive, leading or trailing)';
+const validate = (value: string) => matches(value, regex);
 
-const isAlphaWithSpaces = (value: string): boolean => {
-  return matches(value, IS_ALPHA_WITH_SPACES_REGEX);
-};
-
-export const IsAlphaWithSpaces = (
-  validationOptions?: ValidationOptions,
-): PropertyDecorator =>
-  ValidateBy(
-    {
-      name: IS_ALPHA_WITH_SPACES_KEY,
-      validator: {
-        validate: (value): boolean => isAlphaWithSpaces(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            '$property must contain only letters and spaces (no consecutive, leading or trailing)',
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+export const IsAlphaWithSpaces = (options?: ValidationOptions) =>
+  createValidator({ key, message, validate }, options);

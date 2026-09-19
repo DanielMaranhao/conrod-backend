@@ -1,10 +1,12 @@
 import { applyDecorators } from '@nestjs/common';
 import { Length, ValidationOptions } from 'class-validator';
-import { ContainsLowercaseLetter } from './text/contains-lowercase-letter.decorator.js';
-import { ContainsNumber } from './text/contains-number.decorator.js';
-import { ContainsSpecialCharacter } from './text/contains-special-character.decorator.js';
-import { ContainsUppercaseLetter } from './text/contains-uppercase-letter.decorator.js';
-import { OnlyRequiredCharacters } from './text/only-required-characters.decorator.js';
+import {
+  HasLowercaseLetter,
+  HasNumber,
+  HasOnlyRequiredCharacters,
+  HasSpecialCharacter,
+  HasUppercaseLetter,
+} from './text/index.js';
 
 /**
  * Checks if the value is a string following these rules:
@@ -19,10 +21,10 @@ export const IsPassword = (
   validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
   applyDecorators(
-    ContainsLowercaseLetter(validationOptions),
-    ContainsUppercaseLetter(validationOptions),
-    ContainsNumber(validationOptions),
-    ContainsSpecialCharacter(validationOptions),
-    OnlyRequiredCharacters(validationOptions),
+    HasLowercaseLetter(validationOptions),
+    HasUppercaseLetter(validationOptions),
+    HasNumber(validationOptions),
+    HasSpecialCharacter(validationOptions),
+    HasOnlyRequiredCharacters(validationOptions),
     Length(8, 20, validationOptions),
   );
