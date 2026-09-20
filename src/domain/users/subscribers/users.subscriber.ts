@@ -1,4 +1,5 @@
 import { HashingService } from '#/auth/hashing/hashing.service.js';
+import { isPropertyUpdated } from '#/database/util/database.util.js';
 import { MailService } from '#/mail/mail.service.js';
 import { User } from '#d/users/entities/user.entity.js';
 import {
@@ -31,12 +32,14 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
   }
 
   async beforeUpdate(event: UpdateEvent<User>) {
-    const { entity, databaseEntity: databaseUser } = event;
+    const { entity, updatedColumns: cols } = event;
 
     const user = entity as User;
     const { password } = user;
 
-    if (user.password !== databaseUser.password) {
+    const isPasswordUpdated = isPropertyUpdated<User>(cols, 'password');
+
+    if (isPasswordUpdated) {
       user.password = await this.hashingService.hash(password);
     }
   }
