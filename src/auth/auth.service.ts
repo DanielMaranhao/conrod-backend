@@ -47,9 +47,11 @@ export class AuthService {
     return this.createAuthUser(user);
   }
 
-  login(user: AuthUser) {
+  async login(user: AuthUser) {
     const payload: JwtPayload = { sub: user.id };
-    return this.jwtService.sign(payload);
+
+    const token = await this.jwtService.signAsync(payload);
+    return { token };
   }
 
   getProfile(id: number) {
