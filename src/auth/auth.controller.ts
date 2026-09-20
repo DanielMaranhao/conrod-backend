@@ -19,7 +19,7 @@ import { Roles } from './decorators/roles.decorator.js';
 import { User } from './decorators/user.decorator.js';
 import { LoginDto } from './dto/login.dto.js';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard.js';
-import type { RequestUser } from './interfaces/request-user.interface.js';
+import type { AuthUser } from './interfaces/auth-user.interface.js';
 import { RoleDto } from './roles/dto/role.dto.js';
 import { Role } from './roles/enums/role.enum.js';
 import { JwtCookieHeader } from './swagger/jwt-cookie.header.js';
@@ -35,7 +35,7 @@ export class AuthController {
   @Public()
   @Post('login')
   login(
-    @User() user: RequestUser,
+    @User() user: AuthUser,
     @Res({ passthrough: true }) response: Response,
   ) {
     const token = this.authService.login(user);
@@ -47,7 +47,7 @@ export class AuthController {
   }
 
   @Get('profile')
-  getProfile(@User() { id }: RequestUser) {
+  getProfile(@User() { id }: AuthUser) {
     return this.authService.getProfile(id);
   }
 

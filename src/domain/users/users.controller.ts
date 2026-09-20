@@ -2,7 +2,7 @@ import { Public } from '#/auth/decorators/public.decorator.js';
 import { Roles } from '#/auth/decorators/roles.decorator.js';
 import { User as CurrentUser } from '#/auth/decorators/user.decorator.js';
 import { LoginDto } from '#/auth/dto/login.dto.js';
-import type { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import type { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { IdDto } from '#/common/dto/id.dto.js';
 import { RemoveDto } from '#/common/dto/remove.dto.js';
@@ -56,7 +56,7 @@ export class UsersController {
   update(
     @Param() { id }: IdDto,
     @Body() updateUserDto: UpdateUserDto,
-    @CurrentUser() user: RequestUser,
+    @CurrentUser() user: AuthUser,
   ) {
     return this.usersService.update(id, updateUserDto, user);
   }
@@ -65,7 +65,7 @@ export class UsersController {
   remove(
     @Param() { id }: IdDto,
     @Query() { soft }: RemoveDto,
-    @CurrentUser() user: RequestUser,
+    @CurrentUser() user: AuthUser,
   ) {
     return this.usersService.remove(id, soft, user);
   }

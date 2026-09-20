@@ -1,4 +1,4 @@
-import { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { compareUserId } from '#/auth/util/authorization.util.js';
 import { Order } from '#d/orders/entities/order.entity.js';
@@ -16,14 +16,14 @@ export class PaymentsService {
     private readonly ordersRepository: Repository<Order>,
   ) {}
 
-  async payOrder(id: number, currentUser: RequestUser) {
+  async payOrder(id: number, authUser: AuthUser) {
     const order = await this.ordersRepository.findOneOrFail({
       where: { id },
       relations: { payment: true, customer: true },
     });
 
-    if (currentUser.role !== Role.ADMIN) {
-      compareUserId(currentUser.id, order.customer.id);
+    if (authUser.role !== Role.ADMIN) {
+      compareUserId(authUser.id, order.customer.id);
     }
     if (order.payment) {
       throw new ConflictException('Order already paid');

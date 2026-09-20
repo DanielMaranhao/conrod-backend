@@ -1,5 +1,5 @@
 import { ROLES_KEY } from '#/auth/decorators/roles.decorator.js';
-import { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
@@ -17,7 +17,7 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) return true;
 
     const request = context.switchToHttp().getRequest<Request>();
-    const user = request.user as RequestUser;
+    const user = request.user as AuthUser;
     if (user.role === Role.ADMIN) return true;
 
     const hasRequiredRole = requiredRoles.some((role) => user.role === role);

@@ -8,8 +8,8 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HashingService } from './hashing/hashing.service.js';
+import { AuthUser } from './interfaces/auth-user.interface.js';
 import { JwtPayload } from './interfaces/jwt-payload.interface.js';
-import { RequestUser } from './interfaces/request-user.interface.js';
 import { Role } from './roles/enums/role.enum.js';
 
 @Injectable()
@@ -35,7 +35,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    return this.createRequestUser(user);
+    return this.createAuthUser(user);
   }
 
   async validateJwt(payload: JwtPayload) {
@@ -44,10 +44,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid token');
     }
 
-    return this.createRequestUser(user);
+    return this.createAuthUser(user);
   }
 
-  login(user: RequestUser) {
+  login(user: AuthUser) {
     const payload: JwtPayload = { sub: user.id };
     return this.jwtService.sign(payload);
   }
@@ -64,7 +64,7 @@ export class AuthService {
     return this.usersRepository.save(user);
   }
 
-  private createRequestUser(user: User): RequestUser {
+  private createAuthUser(user: User): AuthUser {
     const { id, role } = user;
     return { id, role };
   }

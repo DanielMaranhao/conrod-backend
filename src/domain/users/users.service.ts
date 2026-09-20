@@ -1,6 +1,6 @@
 import { LoginDto } from '#/auth/dto/login.dto.js';
 import { HashingService } from '#/auth/hashing/hashing.service.js';
-import { RequestUser } from '#/auth/interfaces/request-user.interface.js';
+import { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { compareUserId } from '#/auth/util/authorization.util.js';
 import { PaginationDto } from '#/querying/dto/pagination.dto.js';
@@ -54,13 +54,9 @@ export class UsersService {
     });
   }
 
-  async update(
-    id: number,
-    updateUserDto: UpdateUserDto,
-    currentUser: RequestUser,
-  ) {
-    if (currentUser.role !== Role.ADMIN) {
-      compareUserId(currentUser.id, id);
+  async update(id: number, updateUserDto: UpdateUserDto, authUser: AuthUser) {
+    if (authUser.role !== Role.ADMIN) {
+      compareUserId(authUser.id, id);
     }
 
     const user = await this.usersRepository.preload({ id, ...updateUserDto });
@@ -70,9 +66,9 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async remove(id: number, soft: boolean, currentUser: RequestUser) {
-    if (currentUser.role !== Role.ADMIN) {
-      compareUserId(currentUser.id, id);
+  async remove(id: number, soft: boolean, authUser: AuthUser) {
+    if (authUser.role !== Role.ADMIN) {
+      compareUserId(authUser.id, id);
       if (!soft) {
         throw new ForbiddenException('Forbidden resource');
       }
