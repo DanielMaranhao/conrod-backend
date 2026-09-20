@@ -25,7 +25,7 @@ export class User {
   phone: string;
 
   @Exclude()
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @Column({
