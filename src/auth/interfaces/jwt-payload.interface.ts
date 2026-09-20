@@ -1,3 +1,5 @@
+import type { AuthUser } from './auth-user.interface.js';
+
 export interface JwtPayload {
-  readonly sub: number;
+  readonly sub: AuthUser['id'];
 }
