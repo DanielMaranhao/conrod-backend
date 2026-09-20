@@ -10,7 +10,7 @@ import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
 import jwtConfig from './config/jwt.config.js';
 import throttlerConfig from './config/throttler.config.js';
-import { LoginDto } from './dto/login.dto.js';
+import { CredentialsDto } from './dto/credentials.dto.js';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard.js';
 import { RolesGuard } from './guards/roles/roles.guard.js';
 import { BcryptService } from './hashing/bcrypt.service.js';
@@ -41,6 +41,8 @@ import { LocalStrategy } from './strategies/local.strategy.js';
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ValidationMiddleware(LoginDto)).forRoutes('auth/login');
+    consumer
+      .apply(ValidationMiddleware(CredentialsDto))
+      .forRoutes('auth/login');
   }
 }

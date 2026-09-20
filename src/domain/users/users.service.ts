@@ -1,4 +1,4 @@
-import { LoginDto } from '#/auth/dto/login.dto.js';
+import { CredentialsDto } from '#/auth/dto/credentials.dto.js';
 import { HashingService } from '#/auth/hashing/hashing.service.js';
 import { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
@@ -80,8 +80,8 @@ export class UsersService {
       : this.usersRepository.remove(user);
   }
 
-  async recover(loginDto: LoginDto) {
-    const { email, password } = loginDto;
+  async recover(credentialsDto: CredentialsDto) {
+    const { email, password } = credentialsDto;
 
     const user = await this.usersRepository.findOne({
       where: { email },

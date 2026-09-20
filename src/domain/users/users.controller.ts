@@ -1,7 +1,7 @@
 import { Public } from '#/auth/decorators/public.decorator.js';
 import { Roles } from '#/auth/decorators/roles.decorator.js';
 import { User as CurrentUser } from '#/auth/decorators/user.decorator.js';
-import { LoginDto } from '#/auth/dto/login.dto.js';
+import { CredentialsDto } from '#/auth/dto/credentials.dto.js';
 import type { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { IdDto } from '#/common/dto/id.dto.js';
@@ -48,8 +48,8 @@ export class UsersController {
 
   @Public()
   @Patch('recover')
-  recover(@Body() loginDto: LoginDto) {
-    return this.usersService.recover(loginDto);
+  recover(@Body() credentialsDto: CredentialsDto) {
+    return this.usersService.recover(credentialsDto);
   }
 
   @Patch(':id')

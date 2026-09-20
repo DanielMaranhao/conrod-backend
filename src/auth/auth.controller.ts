@@ -17,7 +17,7 @@ import { AuthService } from './auth.service.js';
 import { Public } from './decorators/public.decorator.js';
 import { Roles } from './decorators/roles.decorator.js';
 import { User } from './decorators/user.decorator.js';
-import { LoginDto } from './dto/login.dto.js';
+import { CredentialsDto } from './dto/credentials.dto.js';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard.js';
 import type { AuthUser } from './interfaces/auth-user.interface.js';
 import { RoleDto } from './roles/dto/role.dto.js';
@@ -28,7 +28,7 @@ import { JwtCookieHeader } from './swagger/jwt-cookie.header.js';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiBody({ type: LoginDto })
+  @ApiBody({ type: CredentialsDto })
   @ApiOkResponse({ headers: JwtCookieHeader })
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
