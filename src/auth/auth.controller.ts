@@ -8,11 +8,9 @@ import {
   Param,
   Patch,
   Post,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import type { Response } from 'express';
 import { AuthService } from './auth.service.js';
 import { Public } from './decorators/public.decorator.js';
 import { Roles } from './decorators/roles.decorator.js';
@@ -34,16 +32,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Public()
   @Post('login')
-  login(
-    @User() user: AuthUser,
-    @Res({ passthrough: true }) response: Response,
-  ) {
-    const token = this.authService.login(user);
-    response.cookie('token', token, {
-      secure: true,
-      httpOnly: true,
-      sameSite: true,
-    });
+  login(@User() user: AuthUser) {
+    return this.authService.login(user);
   }
 
   @Get('profile')
