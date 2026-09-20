@@ -4,7 +4,7 @@ import { type StringValue } from 'ms';
 import { env } from 'process';
 
 export default registerAs('jwt', () => {
-  const secret = env.JWT_SECRET!;
+  const secret = Buffer.from(env.JWT_SECRET!, 'hex');
   const ttl = env.JWT_TTL! as StringValue;
 
   const config = {
