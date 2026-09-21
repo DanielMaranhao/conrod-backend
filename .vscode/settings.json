@@ -1,5 +1,4 @@
 {
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
-  "js/ts.preferences.preferTypeOnlyAutoImports": true
+  "editor.formatOnSave": true
 }
