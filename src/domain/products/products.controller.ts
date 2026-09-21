@@ -36,7 +36,7 @@ import { ProductsService } from './products.service.js';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
@@ -55,13 +55,13 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Patch(':id')
   update(@Param() { id }: IdDto, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.update(id, updateProductDto);
   }
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Delete(':id')
   remove(@Param() { id }: IdDto) {
     return this.productsService.remove(id);
@@ -69,7 +69,7 @@ export class ProductsController {
 
   @ApiConsumes(MULTIPART_FORMDATA_KEY)
   @ApiBody({ type: FilesSchema })
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
   @Post(':id/images')
   uploadImages(
@@ -87,7 +87,7 @@ export class ProductsController {
     return this.productsService.downloadImage(id, filename);
   }
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Delete(':id/images/:filename')
   deleteImage(@Param() { id, filename }: IdFilenameDto) {
     return this.productsService.deleteImage(id, filename);

@@ -41,7 +41,7 @@ export class AuthController {
     return this.authService.getProfile(id);
   }
 
-  @Roles(Role.ADMIN)
+  @Roles([Role.ADMIN])
   @Patch(':id/assign-role')
   assignRole(@Param() { id }: IdDto, @Body() { role }: RoleDto) {
     return this.authService.assignRole(id, role);

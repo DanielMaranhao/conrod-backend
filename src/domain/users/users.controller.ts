@@ -34,13 +34,13 @@ export class UsersController {
   }
 
   @ApiPaginatedResponse(User)
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.usersService.findAll(paginationDto);
   }
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Get(':id')
   findOne(@Param() { id }: IdDto) {
     return this.usersService.findOne(id);

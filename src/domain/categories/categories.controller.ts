@@ -23,7 +23,7 @@ import { Category } from './entities/category.entity.js';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
@@ -42,13 +42,13 @@ export class CategoriesController {
     return this.categoriesService.findOne(id);
   }
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Patch(':id')
   update(@Param() { id }: IdDto, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoriesService.update(id, updateCategoryDto);
   }
 
-  @Roles(Role.MANAGER)
+  @Roles([Role.MANAGER])
   @Delete(':id')
   remove(@Param() { id }: IdDto) {
     return this.categoriesService.remove(id);
