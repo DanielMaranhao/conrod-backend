@@ -2663,6 +2663,7 @@ __metadata:
     helmet: "npm:^8.3.0"
     jest-mock-extended: "npm:^4.0.1"
     magic-bytes.js: "npm:^1.13.1"
+    nestjs-cls: "npm:^7.0.0"
     nodemailer: "npm:^10.0.8"
     oxlint: "npm:^1.82.0"
     oxlint-tsgolint: "npm:^7.0.2001"
@@ -5423,6 +5424,18 @@ __metadata:
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: 10c0/c2f5a604a54a8ec5438a342e1f356dff4bc33ccccdb6dc668d94fe8e5eccfc9d2c2eea6064b0967a767ba63b33763f51ccf2cd2441b461a7322656c1f06b3f5d
+  languageName: node
+  linkType: hard
+
+"nestjs-cls@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "nestjs-cls@npm:7.0.0"
+  peerDependencies:
+    "@nestjs/common": ">= 10 < 13"
+    "@nestjs/core": ">= 10 < 13"
+    reflect-metadata: "*"
+    rxjs: ">= 7"
+  checksum: 10c0/ca5c8c8501f4f94b85ad555189ed6b18d69c8925b8655487a729529a7fcb7094b5d0b7384e919940d529711d2c45878af4c63ec07a05494c759db567820136b6
   languageName: node
   linkType: hard
 

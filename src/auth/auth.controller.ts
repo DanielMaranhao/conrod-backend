@@ -13,10 +13,8 @@ import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service.js';
 import { Public } from './decorators/public.decorator.js';
 import { Roles } from './decorators/roles.decorator.js';
-import { User } from './decorators/user.decorator.js';
 import { CredentialsDto } from './dto/credentials.dto.js';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard.js';
-import type { AuthUser } from './interfaces/auth-user.interface.js';
 import { RoleDto } from './roles/dto/role.dto.js';
 import { Role } from './roles/enums/role.enum.js';
 import { JwtCookieHeader } from './swagger/jwt-cookie.header.js';
@@ -31,8 +29,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Public()
   @Post('login')
-  login(@User() user: AuthUser) {
-    return this.authService.login(user);
+  login() {
+    return this.authService.login();
   }
 
   @Roles([Role.ADMIN])

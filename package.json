@@ -55,6 +55,7 @@
     "hbs": "^4.3.1",
     "helmet": "^8.3.0",
     "magic-bytes.js": "^1.13.1",
+    "nestjs-cls": "^7.0.0",
     "nodemailer": "^10.0.8",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",

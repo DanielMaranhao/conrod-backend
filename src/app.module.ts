@@ -16,6 +16,7 @@ import { MailModule } from './mail/mail.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { QueryingModule } from './querying/querying.module.js';
 import { StaticModule } from './static/static.module.js';
+import { AlsModule } from './als/als.module.js';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { StaticModule } from './static/static.module.js';
     CategoriesModule,
     ProductsModule,
     ProfileModule,
+    AlsModule,
   ],
 })
 export class AppModule {}

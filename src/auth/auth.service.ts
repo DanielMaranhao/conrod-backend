@@ -1,3 +1,4 @@
+import { ExtendedClsStore } from '#/als/interfaces/cls-store.interface.js';
 import { User } from '#d/users/entities/user.entity.js';
 import {
   Injectable,
@@ -6,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ClsService } from 'nestjs-cls';
 import { Repository } from 'typeorm';
 import { HashingService } from './hashing/hashing.service.js';
 import { AuthUser } from './interfaces/auth-user.interface.js';
@@ -19,6 +21,7 @@ export class AuthService {
     private readonly usersRepository: Repository<User>,
     private readonly hashingService: HashingService,
     private readonly jwtService: JwtService,
+    private readonly cls: ClsService<ExtendedClsStore>,
   ) {}
 
   async validateLocal(email: string, password: string) {
@@ -47,7 +50,8 @@ export class AuthService {
     return this.createAuthUser(user);
   }
 
-  async login(user: AuthUser) {
+  async login() {
+    const user = this.cls.get('user');
     const payload: JwtPayload = { sub: user.id };
 
     const token = await this.jwtService.signAsync(payload);
