@@ -54,10 +54,6 @@ export class AuthService {
     return { token };
   }
 
-  getProfile(id: number) {
-    return this.usersRepository.findOneBy({ id });
-  }
-
   async assignRole(id: number, role: Role) {
     const user = await this.usersRepository.preload({ id, role });
     if (!user) {

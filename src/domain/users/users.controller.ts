@@ -1,8 +1,6 @@
 import { Public } from '#/auth/decorators/public.decorator.js';
 import { Roles } from '#/auth/decorators/roles.decorator.js';
-import { User as CurrentUser } from '#/auth/decorators/user.decorator.js';
 import { CredentialsDto } from '#/auth/dto/credentials.dto.js';
-import type { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { IdDto } from '#/common/dto/id.dto.js';
 import { RemoveDto } from '#/common/dto/remove.dto.js';
@@ -52,21 +50,15 @@ export class UsersController {
     return this.usersService.recover(credentialsDto);
   }
 
+  @Roles([Role.ADMIN])
   @Patch(':id')
-  update(
-    @Param() { id }: IdDto,
-    @Body() updateUserDto: UpdateUserDto,
-    @CurrentUser() user: AuthUser,
-  ) {
-    return this.usersService.update(id, updateUserDto, user);
+  update(@Param() { id }: IdDto, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
+  @Roles([Role.ADMIN])
   @Delete(':id')
-  remove(
-    @Param() { id }: IdDto,
-    @Query() { soft }: RemoveDto,
-    @CurrentUser() user: AuthUser,
-  ) {
-    return this.usersService.remove(id, soft, user);
+  remove(@Param() { id }: IdDto, @Query() { soft }: RemoveDto) {
+    return this.usersService.remove(id, soft);
   }
 }

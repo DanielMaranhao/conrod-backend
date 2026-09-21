@@ -13,6 +13,7 @@ import { EnvModule } from './env/env.module.js';
 import { FilesModule } from './files/files.module.js';
 import { HealthModule } from './health/health.module.js';
 import { MailModule } from './mail/mail.module.js';
+import { ProfileModule } from './profile/profile.module.js';
 import { QueryingModule } from './querying/querying.module.js';
 import { StaticModule } from './static/static.module.js';
 
@@ -34,6 +35,7 @@ import { StaticModule } from './static/static.module.js';
     PaymentsModule,
     CategoriesModule,
     ProductsModule,
+    ProfileModule,
   ],
 })
 export class AppModule {}

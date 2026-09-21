@@ -2,7 +2,6 @@ import { IdDto } from '#/common/dto/id.dto.js';
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -34,11 +33,6 @@ export class AuthController {
   @Post('login')
   login(@User() user: AuthUser) {
     return this.authService.login(user);
-  }
-
-  @Get('profile')
-  getProfile(@User() { id }: AuthUser) {
-    return this.authService.getProfile(id);
   }
 
   @Roles([Role.ADMIN])

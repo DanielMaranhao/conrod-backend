@@ -1,14 +1,10 @@
 import { CredentialsDto } from '#/auth/dto/credentials.dto.js';
 import { HashingService } from '#/auth/hashing/hashing.service.js';
-import { AuthUser } from '#/auth/interfaces/auth-user.interface.js';
-import { Role } from '#/auth/roles/enums/role.enum.js';
-import { compareUserId } from '#/auth/util/authorization.util.js';
 import { PaginationDto } from '#/querying/dto/pagination.dto.js';
 import { PaginationService } from '#/querying/pagination.service.js';
 import { DefaultPageSize } from '#/querying/util/querying.constants.js';
 import {
   ConflictException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -54,11 +50,7 @@ export class UsersService {
     });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto, authUser: AuthUser) {
-    if (authUser.role !== Role.ADMIN) {
-      compareUserId(authUser.id, id);
-    }
-
+  async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.usersRepository.preload({ id, ...updateUserDto });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -66,14 +58,7 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async remove(id: number, soft: boolean, authUser: AuthUser) {
-    if (authUser.role !== Role.ADMIN) {
-      compareUserId(authUser.id, id);
-      if (!soft) {
-        throw new ForbiddenException('Forbidden resource');
-      }
-    }
-
+  async remove(id: number, soft: boolean) {
     const user = await this.findOne(id);
     return soft
       ? this.usersRepository.softRemove(user)
