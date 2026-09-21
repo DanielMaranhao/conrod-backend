@@ -7,8 +7,8 @@
   "license": "UNLICENSED",
   "type": "module",
   "imports": {
-    "#/*": "./dist/*",
-    "#d/*": "./dist/domain/*"
+    "#d/*": "./dist/domain/*",
+    "#/*": "./dist/*"
   },
   "scripts": {
     "build": "nest build",
