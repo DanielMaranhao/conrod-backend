@@ -78,7 +78,7 @@ export class ProductsService {
       ...updateProductDto,
     });
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException(`Product #${id} not found`);
     }
     return this.productsRepository.save(product);
   }

@@ -52,7 +52,7 @@ export class CategoriesService {
       ...updateCategoryDto,
     });
     if (!category) {
-      throw new NotFoundException('Category not found');
+      throw new NotFoundException(`Category #${id} not found`);
     }
     return this.categoriesRepository.save(category);
   }
