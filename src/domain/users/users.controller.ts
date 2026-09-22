@@ -44,12 +44,6 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @Public()
-  @Patch('recover')
-  recover(@Body() credentialsDto: CredentialsDto) {
-    return this.usersService.recover(credentialsDto);
-  }
-
   @Roles([Role.ADMIN])
   @Patch(':id')
   update(@Param() { id }: IdDto, @Body() updateUserDto: UpdateUserDto) {
@@ -60,5 +54,11 @@ export class UsersController {
   @Delete(':id')
   remove(@Param() { id }: IdDto, @Query() { soft }: RemoveDto) {
     return this.usersService.remove(id, soft);
+  }
+
+  @Public()
+  @Patch('recover')
+  recover(@Body() credentialsDto: CredentialsDto) {
+    return this.usersService.recover(credentialsDto);
   }
 }
