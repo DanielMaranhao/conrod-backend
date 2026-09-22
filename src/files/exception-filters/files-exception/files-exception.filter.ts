@@ -20,13 +20,14 @@ export class FilesExceptionFilter implements ExceptionFilter {
     const response = host.switchToHttp().getResponse<Response>();
     const { message } = exception;
 
-    const { httpError, meta } = this.createErrorData(message);
+    const { httpError, errorCode, meta } = this.createErrorData(message);
     const { status, error } = httpError;
 
     const body: ExceptionBody = {
       statusCode: status,
       message,
       error,
+      errorCode,
       meta,
     };
 
@@ -62,8 +63,8 @@ export class FilesExceptionFilter implements ExceptionFilter {
 
   private createErrorData(message: string) {
     let httpError: HttpError;
+    let errorCode: HttpExceptionBody['errorCode'];
 
-    let description: Meta['description'];
     let maxSize: Meta['maxSize'];
     let expectedFileTypes: Meta['expectedFileTypes'];
 
@@ -75,22 +76,22 @@ export class FilesExceptionFilter implements ExceptionFilter {
 
       case message.includes(this.MessageSnippet.FILE_TYPE):
         httpError = extractHttpError(UnsupportedMediaTypeException);
-        description = this.Description.FILE_TYPE;
+        errorCode = this.ErrorCode.FILE_TYPE;
         expectedFileTypes = this.extractFileTypes(message);
         break;
 
       case message.includes(this.MessageSnippet.FILE_SIGNATURE):
         httpError = extractHttpError(UnsupportedMediaTypeException);
-        description = this.Description.FILE_SIGNATURE;
+        errorCode = this.ErrorCode.FILE_SIGNATURE;
         break;
 
       default:
         httpError = extractHttpError(BadRequestException);
     }
 
-    const meta: Meta = { description, maxSize, expectedFileTypes };
+    const meta: Meta = { maxSize, expectedFileTypes };
 
-    return { httpError, meta };
+    return { httpError, errorCode, meta };
   }
 
   private readonly MessageSnippet = {
@@ -99,14 +100,13 @@ export class FilesExceptionFilter implements ExceptionFilter {
     FILE_SIGNATURE: 'does not match',
   } as const satisfies Record<string, string>;
 
-  private readonly Description = {
-    FILE_TYPE: 'Invalid file type',
-    FILE_SIGNATURE: 'File type tampered',
+  private readonly ErrorCode = {
+    FILE_TYPE: 'INVALID_FILE_TYPE',
+    FILE_SIGNATURE: 'INVALID_FILE_SIGNATURE',
   } as const satisfies Record<string, string>;
 }
 
 type Meta = {
-  description?: string;
   maxSize?: string;
   expectedFileTypes?: (string | false)[];
 };

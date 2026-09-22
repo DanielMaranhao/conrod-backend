@@ -18,20 +18,21 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
     const response = host.switchToHttp().getResponse<Response>();
 
     const { code, detail, table } = exception;
-    const { httpError, description } = this.createErrorData(code, detail);
+    const { httpError, errorCode } = this.createErrorData(code, detail);
 
-    if (!httpError || !description) {
+    if (!httpError) {
       return super.catch(exception, host);
     }
 
     const { status, error } = httpError;
     const { fieldName, fieldValue } = this.extractMessageData(detail);
-    const meta: Meta = { description, fieldName, fieldValue, table };
+    const meta: Meta = { fieldName, fieldValue, table };
 
     const body: ExceptionBody = {
       statusCode: status,
       message: detail,
       error,
+      errorCode,
       meta,
     };
 
@@ -49,30 +50,29 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
 
   private createErrorData(code: string, message: string) {
     let httpError: HttpError | undefined;
-    let description: string | undefined;
+    let errorCode: HttpExceptionBody['errorCode'];
 
     switch (code) {
       case this.DatabaseErrorCode.ASSOCIATION_NOT_FOUND_OR_NOT_NULL_VIOLATION:
         switch (true) {
           case message.includes(this.MessageSnippet.ASSOCIATION_NOT_FOUND):
             httpError = extractHttpError(NotFoundException);
-            description = this.Description.ASSOCIATION_NOT_FOUND;
             break;
 
           case message.includes(this.MessageSnippet.NOT_NULL_VIOLATION):
             httpError = extractHttpError(ConflictException);
-            description = this.Description.NOT_NULL_VIOLATION;
+            errorCode = this.ErrorCode.NOT_NULL_VIOLATION;
             break;
         }
         break;
 
       case this.DatabaseErrorCode.UNIQUE_VIOLATION:
         httpError = extractHttpError(ConflictException);
-        description = this.Description.UNIQUE_VIOLATION;
+        errorCode = this.ErrorCode.UNIQUE_VIOLATION;
         break;
     }
 
-    return { httpError, description };
+    return { httpError, errorCode };
   }
 
   private readonly DatabaseErrorCode = {
@@ -85,15 +85,13 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
     NOT_NULL_VIOLATION: 'is still referenced',
   } as const satisfies Record<string, string>;
 
-  private readonly Description = {
-    ASSOCIATION_NOT_FOUND: 'Associated entity not found',
-    NOT_NULL_VIOLATION: 'Cannot delete due to NOT NULL constraint',
-    UNIQUE_VIOLATION: 'Unique constraint violation',
+  private readonly ErrorCode = {
+    NOT_NULL_VIOLATION: 'NOT_NULL_VIOLATION',
+    UNIQUE_VIOLATION: 'UNIQUE_VIOLATION',
   } as const satisfies Record<string, string>;
 }
 
 interface Meta {
-  description: string;
   fieldName: string;
   fieldValue: string;
   table: string;
