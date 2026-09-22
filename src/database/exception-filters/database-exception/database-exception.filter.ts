@@ -5,6 +5,7 @@ import {
   ArgumentsHost,
   Catch,
   ConflictException,
+  HttpExceptionBody,
   NotFoundException,
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
@@ -19,17 +20,22 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
     const { code, detail, table } = exception;
     const { httpError, description } = this.createErrorData(code, detail);
 
-    if (!httpError) {
+    if (!httpError || !description) {
       return super.catch(exception, host);
     }
 
     const { status, error } = httpError;
     const { fieldName, fieldValue } = this.extractMessageData(detail);
-    const meta = { description, fieldName, fieldValue, table };
+    const meta: Meta = { description, fieldName, fieldValue, table };
 
-    response
-      .status(status)
-      .json({ statusCode: status, message: detail, error, meta });
+    const body: ExceptionBody = {
+      statusCode: status,
+      message: detail,
+      error,
+      meta,
+    };
+
+    response.status(status).json(body);
   }
 
   private extractMessageData(message: string) {
@@ -85,3 +91,13 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
     UNIQUE_VIOLATION: 'Unique constraint violation',
   } as const satisfies Record<string, string>;
 }
+
+interface Meta {
+  description: string;
+  fieldName: string;
+  fieldValue: string;
+  table: string;
+}
+
+type ExtraProperties = { meta: Meta };
+type ExceptionBody = HttpExceptionBody & ExtraProperties;

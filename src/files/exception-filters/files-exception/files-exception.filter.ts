@@ -5,6 +5,7 @@ import {
   BadRequestException,
   Catch,
   ExceptionFilter,
+  HttpExceptionBody,
   PayloadTooLargeException,
   UnprocessableEntityException,
   UnsupportedMediaTypeException,
@@ -19,10 +20,17 @@ export class FilesExceptionFilter implements ExceptionFilter {
     const response = host.switchToHttp().getResponse<Response>();
     const { message } = exception;
 
-    const { httpError, ...meta } = this.createErrorData(message);
+    const { httpError, meta } = this.createErrorData(message);
     const { status, error } = httpError;
 
-    response.status(status).json({ statusCode: status, message, error, meta });
+    const body: ExceptionBody = {
+      statusCode: status,
+      message,
+      error,
+      meta,
+    };
+
+    response.status(status).json(body);
   }
 
   private extractMaxSize(message: string) {
@@ -54,10 +62,10 @@ export class FilesExceptionFilter implements ExceptionFilter {
 
   private createErrorData(message: string) {
     let httpError: HttpError;
-    let description: string | undefined;
 
-    let maxSize: string | undefined;
-    let expectedFileTypes: (string | false)[] | undefined;
+    let description: Meta['description'];
+    let maxSize: Meta['maxSize'];
+    let expectedFileTypes: Meta['expectedFileTypes'];
 
     switch (true) {
       case message.includes(this.MessageSnippet.MAX_SIZE):
@@ -80,7 +88,9 @@ export class FilesExceptionFilter implements ExceptionFilter {
         httpError = extractHttpError(BadRequestException);
     }
 
-    return { httpError, description, maxSize, expectedFileTypes };
+    const meta: Meta = { description, maxSize, expectedFileTypes };
+
+    return { httpError, meta };
   }
 
   private readonly MessageSnippet = {
@@ -94,3 +104,12 @@ export class FilesExceptionFilter implements ExceptionFilter {
     FILE_SIGNATURE: 'File type tampered',
   } as const satisfies Record<string, string>;
 }
+
+type Meta = {
+  description?: string;
+  maxSize?: string;
+  expectedFileTypes?: (string | false)[];
+};
+
+type ExtraProperties = { meta: Meta };
+type ExceptionBody = HttpExceptionBody & ExtraProperties;

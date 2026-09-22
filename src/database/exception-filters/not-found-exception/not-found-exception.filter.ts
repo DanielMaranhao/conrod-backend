@@ -3,6 +3,7 @@ import {
   ArgumentsHost,
   Catch,
   ExceptionFilter,
+  HttpExceptionBody,
   NotFoundException,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -21,7 +22,13 @@ export class NotFoundExceptionFilter implements ExceptionFilter {
     const id = this.extractId(criteria);
     const message = `${entityName} #${id} not found`;
 
-    response.status(status).json({ statusCode: status, message, error });
+    const body: HttpExceptionBody = {
+      statusCode: status,
+      message,
+      error,
+    };
+
+    response.status(status).json(body);
   }
 
   private extractId(criteria: EntityNotFoundError['criteria']) {
