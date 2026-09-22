@@ -1,7 +1,12 @@
-import { HttpError } from '#/common/util/http-error.util.js';
+import { extractHttpError, HttpError } from '#/common/util/http-error.util.js';
 import { extractFromText } from '#/common/util/regex.util.js';
 import { DatabaseError } from '#/database/interfaces/database-error.interface.js';
-import { ArgumentsHost, Catch } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Response } from 'express';
 import { QueryFailedError } from 'typeorm';
@@ -44,19 +49,19 @@ export class DatabaseExceptionFilter extends BaseExceptionFilter {
       case this.DatabaseErrorCode.ASSOCIATION_NOT_FOUND_OR_NOT_NULL_VIOLATION:
         switch (true) {
           case message.includes(this.MessageSnippet.ASSOCIATION_NOT_FOUND):
-            httpError = HttpError.NOT_FOUND;
+            httpError = extractHttpError(NotFoundException);
             description = this.Description.ASSOCIATION_NOT_FOUND;
             break;
 
           case message.includes(this.MessageSnippet.NOT_NULL_VIOLATION):
-            httpError = HttpError.CONFLICT;
+            httpError = extractHttpError(ConflictException);
             description = this.Description.NOT_NULL_VIOLATION;
             break;
         }
         break;
 
       case this.DatabaseErrorCode.UNIQUE_VIOLATION:
-        httpError = HttpError.CONFLICT;
+        httpError = extractHttpError(ConflictException);
         description = this.Description.UNIQUE_VIOLATION;
         break;
     }

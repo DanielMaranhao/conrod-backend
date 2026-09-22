@@ -1,6 +1,11 @@
-import { HttpError } from '#/common/util/http-error.util.js';
+import { extractHttpError } from '#/common/util/http-error.util.js';
 import { extractFromText } from '#/common/util/regex.util.js';
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  NotFoundException,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { EntityNotFoundError } from 'typeorm';
 
@@ -9,7 +14,7 @@ export class NotFoundExceptionFilter implements ExceptionFilter {
   catch(exception: EntityNotFoundError, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse<Response>();
 
-    const { status, error } = HttpError.NOT_FOUND;
+    const { status, error } = extractHttpError(NotFoundException);
     const { entityName } = this.extractMessageData(exception.message);
     const message = `${entityName} not found`;
 

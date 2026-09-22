@@ -1,10 +1,13 @@
-import { HttpError } from '#/common/util/http-error.util.js';
+import { extractHttpError, HttpError } from '#/common/util/http-error.util.js';
 import { extractFromText } from '#/common/util/regex.util.js';
 import {
   ArgumentsHost,
+  BadRequestException,
   Catch,
   ExceptionFilter,
+  PayloadTooLargeException,
   UnprocessableEntityException,
+  UnsupportedMediaTypeException,
 } from '@nestjs/common';
 import bytes from 'bytes';
 import { Response } from 'express';
@@ -58,23 +61,23 @@ export class FilesExceptionFilter implements ExceptionFilter {
 
     switch (true) {
       case message.includes(this.MessageSnippet.MAX_SIZE):
-        httpError = HttpError.PAYLOAD_TOO_LARGE;
+        httpError = extractHttpError(PayloadTooLargeException);
         maxSize = this.extractMaxSize(message);
         break;
 
       case message.includes(this.MessageSnippet.FILE_TYPE):
-        httpError = HttpError.UNSUPPORTED_MEDIA_TYPE;
+        httpError = extractHttpError(UnsupportedMediaTypeException);
         description = this.Description.FILE_TYPE;
         expectedFileTypes = this.extractFileTypes(message);
         break;
 
       case message.includes(this.MessageSnippet.FILE_SIGNATURE):
-        httpError = HttpError.UNSUPPORTED_MEDIA_TYPE;
+        httpError = extractHttpError(UnsupportedMediaTypeException);
         description = this.Description.FILE_SIGNATURE;
         break;
 
       default:
-        httpError = HttpError.BAD_REQUEST;
+        httpError = extractHttpError(BadRequestException);
     }
 
     return { httpError, description, maxSize, expectedFileTypes };
