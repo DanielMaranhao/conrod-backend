@@ -81,7 +81,7 @@ export class ProductsController {
   }
 
   @ApiOkResponse({ type: FileSchema })
-  @Public()
+  @Roles([Role.MANAGER])
   @Get(':id/images/:filename')
   downloadImage(@Param() { id, filename }: IdFilenameDto) {
     return this.productsService.downloadImage(id, filename);
