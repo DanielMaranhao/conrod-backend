@@ -17,14 +17,14 @@ import { CredentialsDto } from './dto/credentials.dto.js';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard.js';
 import { RoleDto } from './roles/dto/role.dto.js';
 import { Role } from './roles/enums/role.enum.js';
-import { JwtCookieHeader } from './swagger/jwt-cookie.header.js';
+import { TokenSchema } from './swagger/token.schema.js';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiBody({ type: CredentialsDto })
-  @ApiOkResponse({ headers: JwtCookieHeader })
+  @ApiOkResponse({ type: TokenSchema })
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Public()
