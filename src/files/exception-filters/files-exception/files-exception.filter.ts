@@ -59,7 +59,7 @@ export class FilesExceptionFilter implements ExceptionFilter {
   }
 
   private readonly MAX_FILE_SIZE_REGEX = /(?<=less than )\d+/;
-  private readonly FILE_TYPES_REGEX = /(?<=\/).*(?=\/)/;
+  private readonly FILE_TYPES_REGEX = /(?<=expected type is \/).*(?=\/)/;
 
   private createErrorData(message: string) {
     let httpError: HttpError;
