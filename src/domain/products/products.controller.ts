@@ -3,7 +3,7 @@ import { Roles } from '#/auth/decorators/roles.decorator.js';
 import { Role } from '#/auth/roles/enums/role.enum.js';
 import { IdDto } from '#/common/dto/id.dto.js';
 import { IdFilenameDto } from '#/files/dto/id-filename.dto.js';
-import { FileSchema } from '#/files/swagger/schemas/file.schema.js';
+import { ApiFileResponse } from '#/files/swagger/decorators/api-file-response.decorator.js';
 import { FilesSchema } from '#/files/swagger/schemas/files.schema.js';
 import { File } from '#/files/types/file.types.js';
 import { createParseFilePipe } from '#/files/util/file-validation.util.js';
@@ -25,7 +25,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { QueryProductsDto } from './dto/querying/query-products.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
@@ -80,7 +80,7 @@ export class ProductsController {
     return this.productsService.uploadImages(id, files);
   }
 
-  @ApiOkResponse({ type: FileSchema })
+  @ApiFileResponse()
   @Roles([Role.MANAGER])
   @Get(':id/images/:filename')
   downloadImage(@Param() { id, filename }: IdFilenameDto) {
