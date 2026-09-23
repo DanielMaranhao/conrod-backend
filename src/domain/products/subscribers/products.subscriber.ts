@@ -24,10 +24,10 @@ export class ProductsSubscriber implements EntitySubscriberInterface<Product> {
 
   async afterLoad(entity: Product) {
     const product = entity as Product & ExtraProperties;
-    product.imagesFilenames = await this.getImagesFilenames(product.id);
+    product.imageFilenames = await this.getImageFilenames(product.id);
   }
 
-  private async getImagesFilenames(id: number) {
+  private async getImageFilenames(id: number) {
     const { BASE, IMAGES } = FilePath.Products;
     const path = join(BASE, id.toString(), IMAGES);
 
@@ -38,4 +38,4 @@ export class ProductsSubscriber implements EntitySubscriberInterface<Product> {
   }
 }
 
-type ExtraProperties = { imagesFilenames: string[] | undefined };
+type ExtraProperties = { imageFilenames: string[] | undefined };
