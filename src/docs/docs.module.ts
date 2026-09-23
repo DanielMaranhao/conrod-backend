@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { DiscoveryModule } from '@nestjs/core';
-import { DocsForbiddenMapper } from './docs-forbidden-mapper/docs-forbidden.mapper.js';
-import { DocsUnauthorizedMapper } from './docs-unauthorized-mapper/docs-unauthorized.mapper.js';
+import { ResponseStatusMapper } from './response-status-mapper/response-status-mapper.js';
 
 @Module({
   imports: [DiscoveryModule],
-  providers: [DocsUnauthorizedMapper, DocsForbiddenMapper],
+  providers: [ResponseStatusMapper],
 })
 export class DocsModule {}
