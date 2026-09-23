@@ -2662,7 +2662,6 @@ __metadata:
     hbs: "npm:^4.3.1"
     helmet: "npm:^8.3.0"
     jest-mock-extended: "npm:^4.0.1"
-    magic-bytes.js: "npm:^1.13.1"
     nestjs-cls: "npm:^7.0.0"
     nodemailer: "npm:^10.0.8"
     oxlint: "npm:^1.82.0"
@@ -4767,13 +4766,6 @@ __metadata:
   version: 3.7.2
   resolution: "luxon@npm:3.7.2"
   checksum: 10c0/ed8f0f637826c08c343a29dd478b00628be93bba6f068417b1d8896b61cb61c6deacbe1df1e057dbd9298334044afa150f9aaabbeb3181418ac8520acfdc2ae2
-  languageName: node
-  linkType: hard
-
-"magic-bytes.js@npm:^1.13.1":
-  version: 1.13.1
-  resolution: "magic-bytes.js@npm:1.13.1"
-  checksum: 10c0/a8ddd0347b5bd4da765c29af111e4fb596707724a488d5a068bcd9bda805523bd5dc77fcbb1ec26de89c692c4031ec9ab2cef50b4eafef5ef8a2c44326453f65
   languageName: node
   linkType: hard
 

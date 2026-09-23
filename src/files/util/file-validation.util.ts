@@ -1,5 +1,4 @@
 import { NonEmptyArray } from '#/common/util/array.util.js';
-import { FileSignatureValidator } from '#/files/validators/file-signature.validator.js';
 import {
   FileTypeValidator,
   FileValidator,
@@ -29,7 +28,6 @@ export const createFileValidators = (
   return [
     new MaxFileSizeValidator({ maxSize: bytes(maxSize)! }),
     new FileTypeValidator({ fileType: fileTypeRegex }),
-    new FileSignatureValidator(),
   ];
 };
 
