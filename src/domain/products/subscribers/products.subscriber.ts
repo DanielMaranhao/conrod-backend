@@ -31,7 +31,8 @@ export class ProductsSubscriber implements EntitySubscriberInterface<Product> {
     const { BASE, IMAGES } = FilePath.Products;
     const path = join(BASE, id.toString(), IMAGES);
 
-    if (!(await fse.pathExists(join(BASE_PATH, path)))) return;
+    const exists = await fse.pathExists(join(BASE_PATH, path));
+    if (!exists) return;
 
     return this.storageService.getDirFilenames(path);
   }

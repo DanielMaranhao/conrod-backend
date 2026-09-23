@@ -48,7 +48,9 @@ export class FseService implements StorageService {
 
   async validatePath(path: string) {
     const fullPath = join(BASE_PATH, path);
-    if (!(await fse.pathExists(fullPath))) {
+
+    const exists = await fse.pathExists(fullPath);
+    if (!exists) {
       throw new NotFoundException('Path not found');
     }
   }

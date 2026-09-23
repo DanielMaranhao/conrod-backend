@@ -102,7 +102,8 @@ export class ProductsService {
     const { BASE, IMAGES } = FilePath.Products;
     const path = join(BASE, id.toString(), IMAGES);
 
-    if (await fse.pathExists(join(BASE_PATH, path))) {
+    const exists = await fse.pathExists(join(BASE_PATH, path));
+    if (exists) {
       const incomingFilecount = files.length;
       const dirFilecount = await this.storageService.getDirFilecount(path);
       const totalFilecount = incomingFilecount + dirFilecount;
