@@ -1,6 +1,13 @@
+import { ApiPropertyOptions } from '@nestjs/swagger';
+
 export const BASE_PATH = 'upload';
 
 export const MULTIPART_FORMDATA_KEY = 'multipart/form-data';
+
+export const FILE_SCHEMA = {
+  type: 'string',
+  format: 'binary',
+} as const satisfies ApiPropertyOptions;
 
 export const MaxFileCount = {
   PRODUCT_IMAGES: 5,
