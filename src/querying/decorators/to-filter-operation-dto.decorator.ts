@@ -3,9 +3,13 @@ import { Transform, plainToInstance } from 'class-transformer';
 
 const toFilterOperationDto = (value: string) => {
   const colonIndex = value.indexOf(':');
+  const noColon = colonIndex === -1;
 
-  if (colonIndex === -1) {
-    const plainDto = { operator: value, operands: [] as string[] };
+  if (noColon) {
+    const operator = value;
+    const operands: number[] = [];
+
+    const plainDto = { operator, operands };
     return plainToInstance(FilterOperationDto, plainDto);
   }
 
