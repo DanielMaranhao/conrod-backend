@@ -1,9 +1,10 @@
 import { FilterOperationDto } from '#/querying/dto/filter-operation.dto.js';
 import { ValidateBy, ValidationArguments } from 'class-validator';
 
-const VALIDATE_FILTER_OPERANDS_LENGTH_KEY = 'validateFilterOperandsLength';
+const key = 'validateFilterOperandsLength';
+const message = 'Operands length is not according to filter operator';
 
-const validateFilterOperandsLength = (args: ValidationArguments) => {
+const validate = (args: ValidationArguments) => {
   const filterOperationDto = args.object as FilterOperationDto;
   const { operator, operands } = filterOperationDto;
 
@@ -26,10 +27,9 @@ const validateFilterOperandsLength = (args: ValidationArguments) => {
 
 export const ValidateFilterOperandsLength = (): PropertyDecorator =>
   ValidateBy({
-    name: VALIDATE_FILTER_OPERANDS_LENGTH_KEY,
+    name: key,
     validator: {
-      validate: (_, args) => validateFilterOperandsLength(args!),
-      defaultMessage: () =>
-        'Operands length is not according to filter operator',
+      validate: (_, args) => validate(args!),
+      defaultMessage: () => message,
     },
   });
