@@ -1,3 +1,4 @@
+import { ToArray } from '#/common/decorators/transformers/to-array.decorator.js';
 import { ValidateFilterOperandsLength } from '#/querying/decorators/validate-filter-operands-length.decorator.js';
 import { ApiHideProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
@@ -11,6 +12,7 @@ export class FilterOperationDto {
   readonly operator: Operator;
 
   @IsNumber({}, { each: true })
+  @ToArray()
   @Type(() => Number)
   readonly operands: number[] = [];
 

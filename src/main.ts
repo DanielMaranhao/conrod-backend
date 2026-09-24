@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import qs from 'qs';
 import { AppModule } from './app.module.js';
 
 async function bootstrap() {
@@ -14,7 +15,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('APP_PORT')!;
 
-  app.set('query parser', 'extended');
+  const qsConfig = (value: string) => qs.parse(value, { comma: true });
+  app.set('query parser', qsConfig);
 
   app.enableCors();
   app.use(helmet());
