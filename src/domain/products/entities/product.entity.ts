@@ -4,6 +4,7 @@ import { OrderItem } from '#d/orders/entities/order-item.entity.js';
 import {
   Column,
   Entity,
+  Index,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -22,6 +23,7 @@ export class Product {
   @Column({ nullable: true })
   description: string;
 
+  @Index()
   @Column({ type: 'decimal', precision: 6, scale: 2 })
   price: number;
 
