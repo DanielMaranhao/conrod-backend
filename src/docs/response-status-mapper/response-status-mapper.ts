@@ -1,4 +1,4 @@
-import { ROLES_KEY, RolesParam } from '#/auth/decorators/roles.decorator.js';
+import { Roles } from '#/auth/decorators/roles.decorator.js';
 import { Injectable, OnApplicationBootstrap, Type } from '@nestjs/common';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { ApiForbiddenResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
@@ -35,10 +35,10 @@ export class ResponseStatusMapper implements OnApplicationBootstrap {
   }
 
   private mapForbidden(route: Function, controller: Type) {
-    const requiredRoles = this.reflector.getAllAndOverride<RolesParam>(
-      ROLES_KEY,
-      [route, controller],
-    );
+    const requiredRoles = this.reflector.getAllAndOverride(Roles, [
+      route,
+      controller,
+    ]);
 
     if (!requiredRoles) return;
 
