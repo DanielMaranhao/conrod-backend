@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
+import { AlsModule } from './als/als.module.js';
+import { ApiDocModule } from './api-doc/api-doc.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { CommonModule } from './common/common.module.js';
 import { CronModule } from './cron/cron.module.js';
 import { DatabaseModule } from './database/database.module.js';
-import { DocsModule } from './docs/docs.module.js';
 import { CategoriesModule } from './domain/categories/categories.module.js';
 import { OrdersModule } from './domain/orders/orders.module.js';
 import { PaymentsModule } from './domain/payments/payments.module.js';
@@ -16,7 +17,6 @@ import { MailModule } from './mail/mail.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { QueryingModule } from './querying/querying.module.js';
 import { StaticModule } from './static/static.module.js';
-import { AlsModule } from './als/als.module.js';
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { AlsModule } from './als/als.module.js';
     AuthModule,
     FilesModule,
     QueryingModule,
-    DocsModule,
+    ApiDocModule,
     StaticModule,
     MailModule,
     HealthModule,

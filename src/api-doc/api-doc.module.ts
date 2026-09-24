@@ -6,4 +6,4 @@ import { ResponseStatusMapper } from './response-status-mapper/response-status-m
   imports: [DiscoveryModule],
   providers: [ResponseStatusMapper],
 })
-export class DocsModule {}
+export class ApiDocModule {}
