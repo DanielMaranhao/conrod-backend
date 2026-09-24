@@ -12,7 +12,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import fse from 'fs-extra';
 import { join } from 'path';
-import { DataSource, Repository, type FindOptionsWhere } from 'typeorm';
+import { DataSource, In, Repository, type FindOptionsWhere } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import type { FilterProductsDto } from './dto/querying/filter-products.dto.js';
 import { QueryProductsDto } from './dto/querying/query-products.dto.js';
@@ -36,12 +36,12 @@ export class ProductsService {
   }
 
   async findAll(queryProductsDto: QueryProductsDto) {
-    const { page, name, price, categoryId, sort, order } = queryProductsDto;
+    const { page, name, price, categoryIds, sort, order } = queryProductsDto;
 
     const limit = queryProductsDto.limit ?? DefaultPageSize.PRODUCTS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
-    const where = this.createWhere({ name, price, categoryId });
+    const where = this.createWhere({ name, price, categoryIds });
 
     const [data, count] = await this.productsRepository.findAndCount({
       where,
@@ -55,12 +55,12 @@ export class ProductsService {
   }
 
   private createWhere(filterDto: FilterProductsDto) {
-    const { name, price, categoryId } = filterDto;
+    const { name, price, categoryIds } = filterDto;
 
     const where: FindOptionsWhere<Product> = {};
     if (name) where.name = this.filteringService.contains(name);
     if (price) where.price = this.filteringService.compare(price);
-    if (categoryId) where.categories = { id: categoryId };
+    if (categoryIds) where.categories = { id: In(categoryIds) };
 
     return where;
   }
