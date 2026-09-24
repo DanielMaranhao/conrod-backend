@@ -30,7 +30,7 @@
     "migration:generate": "yarn build && yarn typeorm migration:generate -d dist/database/data-source -p",
     "migration:run": "yarn build && yarn typeorm migration:run -d dist/database/data-source",
     "migration:revert": "yarn build && yarn typeorm migration:revert -d dist/database/data-source",
-    "migration:show": "yarn typeorm migration:show -d dist/database/data-source"
+    "migration:show": "yarn build && yarn typeorm migration:show -d dist/database/data-source"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.3.7",
