@@ -1,6 +1,6 @@
 import { Type } from '@nestjs/common';
-import { MockProxy, mock } from 'jest-mock-extended';
 import { ObjectLiteral, Repository } from 'typeorm';
+import { MockProxy, mock } from 'vitest-mock-extended';
 
 export type MockRepository<TEntity extends ObjectLiteral> = MockProxy<
   Repository<TEntity>
