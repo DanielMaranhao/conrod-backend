@@ -49,7 +49,7 @@ describe('UsersController', () => {
         const exception = new ConflictException('Error creating user');
         service.create.mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await controller.create(createUserDto);
@@ -97,7 +97,7 @@ describe('UsersController', () => {
         const exception = new NotFoundException('User not found');
         service.findOne.mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await controller.findOne(idDto);
@@ -136,7 +136,7 @@ describe('UsersController', () => {
         const exception = new NotFoundException('User not found');
         service.update.mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await controller.update(idDto, updateUserDto);
@@ -172,7 +172,7 @@ describe('UsersController', () => {
         const exception = new NotFoundException('User not found');
         service.remove.mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await controller.remove(idDto);

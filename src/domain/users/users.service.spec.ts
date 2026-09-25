@@ -52,7 +52,7 @@ describe('UsersService', () => {
         repository.create.mockReturnValueOnce(createUserDto as User);
         repository.save.mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await service.create(createUserDto);
@@ -98,7 +98,7 @@ describe('UsersService', () => {
         const exception = new NotFoundException('User not found');
         repository.findOneByOrFail.mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await service.findOne(id);
@@ -135,7 +135,7 @@ describe('UsersService', () => {
 
         const exception = new NotFoundException('User not found');
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await service.update(id, updateUserDto);
@@ -170,7 +170,7 @@ describe('UsersService', () => {
         const exception = new NotFoundException('User not found');
         jest.spyOn(service, 'findOne').mockRejectedValueOnce(exception);
 
-        let error: Error;
+        let error: unknown;
 
         try {
           await service.remove(id);
