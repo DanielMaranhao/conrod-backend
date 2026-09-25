@@ -18,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { omit } from 'lodash';
 import request from 'supertest';
 import { App } from 'supertest/types.js';
 
@@ -30,11 +31,11 @@ const createUserDto: CreateUserDto = {
 
 const updateUserDto: UpdateUserDto = { name: faker.person.firstName() };
 
-const { password: _, ...expectedUser } = {
+const expectedUser = {
   id: 1,
-  ...createUserDto,
+  ...omit(createUserDto, ['password']),
   role: Role.USER,
-};
+} as const;
 
 describe('Users [/users]', () => {
   let app: INestApplication<App>;
