@@ -95,7 +95,7 @@ describe('UsersService', () => {
       it('should propagate the exception', async () => {
         const id = 1;
 
-        const exception = new NotFoundException('User not found');
+        const exception = new NotFoundException(`User #${id} not found`);
         repository.findOneByOrFail.mockRejectedValueOnce(exception);
 
         let error: unknown;
@@ -133,7 +133,7 @@ describe('UsersService', () => {
         const id = 1;
         const updateUserDto = genUpdateDto();
 
-        const exception = new NotFoundException('User not found');
+        const exception = new NotFoundException(`User #${id} not found`);
 
         let error: unknown;
 
@@ -167,7 +167,7 @@ describe('UsersService', () => {
       it('should propagate the exception', async () => {
         const id = 1;
 
-        const exception = new NotFoundException('User not found');
+        const exception = new NotFoundException(`User #${id} not found`);
         vi.spyOn(service, 'findOne').mockRejectedValueOnce(exception);
 
         let error: unknown;
