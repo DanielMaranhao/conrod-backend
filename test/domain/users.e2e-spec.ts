@@ -8,9 +8,14 @@ import { UpdateUserDto } from '#d/users/dto/update-user.dto.js';
 import { User } from '#d/users/entities/user.entity.js';
 import { UsersModule } from '#d/users/users.module.js';
 import { faker } from '@faker-js/faker';
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  HttpStatus,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import request from 'supertest';
@@ -25,7 +30,11 @@ const createUserDto: CreateUserDto = {
 
 const updateUserDto: UpdateUserDto = { name: faker.person.firstName() };
 
-const expectedUser = { id: 1, ...createUserDto, role: Role.USER } as User;
+const { password: _, ...expectedUser } = {
+  id: 1,
+  ...createUserDto,
+  role: Role.USER,
+};
 
 describe('Users [/users]', () => {
   let app: INestApplication<App>;
@@ -46,6 +55,7 @@ describe('Users [/users]', () => {
           provide: APP_PIPE,
           useValue: new ValidationPipe(VALIDATION_PIPE_OPTIONS),
         },
+        { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
         { provide: APP_FILTER, useClass: NotFoundExceptionFilter },
       ],
     }).compile();
