@@ -154,7 +154,7 @@ describe('UsersService', () => {
         const id = 1;
         const expectedUser = genUser(id);
 
-        jest.spyOn(service, 'findOne').mockResolvedValueOnce(expectedUser);
+        vi.spyOn(service, 'findOne').mockResolvedValueOnce(expectedUser);
         repository.remove.mockResolvedValueOnce(expectedUser);
 
         const user = await service.remove(id);
@@ -168,7 +168,7 @@ describe('UsersService', () => {
         const id = 1;
 
         const exception = new NotFoundException('User not found');
-        jest.spyOn(service, 'findOne').mockRejectedValueOnce(exception);
+        vi.spyOn(service, 'findOne').mockRejectedValueOnce(exception);
 
         let error: unknown;
 
