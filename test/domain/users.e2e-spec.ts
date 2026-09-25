@@ -47,7 +47,7 @@ describe('Users [/users]', () => {
         UsersModule,
         ConfigModule.forRoot({
           validationSchema: TEST_ENV_VALIDATION_SCHEMA,
-          envFilePath: '.env.test.local',
+          envFilePath: 'test/.env',
         }),
         TypeOrmModule.forRootAsync(testDatabaseConfig.asProvider()),
       ],
