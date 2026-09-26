@@ -52,15 +52,8 @@ describe('UsersService', () => {
         repository.create.mockReturnValueOnce(createUserDto as User);
         repository.save.mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await service.create(createUserDto);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => service.create(createUserDto);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
@@ -98,15 +91,8 @@ describe('UsersService', () => {
         const exception = new NotFoundException(`User #${id} not found`);
         repository.findOneByOrFail.mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await service.findOne(id);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => service.findOne(id);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
@@ -135,15 +121,8 @@ describe('UsersService', () => {
 
         const exception = new NotFoundException(`User #${id} not found`);
 
-        let error: unknown;
-
-        try {
-          await service.update(id, updateUserDto);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toEqual(exception);
+        const resultFn = () => service.update(id, updateUserDto);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
@@ -170,15 +149,8 @@ describe('UsersService', () => {
         const exception = new NotFoundException(`User #${id} not found`);
         vi.spyOn(service, 'findOne').mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await service.remove(id);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => service.remove(id);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });

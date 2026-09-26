@@ -49,15 +49,8 @@ describe('UsersController', () => {
         const exception = new ConflictException('Error creating user');
         service.create.mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await controller.create(createUserDto);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => controller.create(createUserDto);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
@@ -97,15 +90,8 @@ describe('UsersController', () => {
         const exception = new NotFoundException('User not found');
         service.findOne.mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await controller.findOne(idDto);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => controller.findOne(idDto);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
@@ -136,15 +122,8 @@ describe('UsersController', () => {
         const exception = new NotFoundException('User not found');
         service.update.mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await controller.update(idDto, updateUserDto);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => controller.update(idDto, updateUserDto);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
@@ -172,15 +151,8 @@ describe('UsersController', () => {
         const exception = new NotFoundException('User not found');
         service.remove.mockRejectedValueOnce(exception);
 
-        let error: unknown;
-
-        try {
-          await controller.remove(idDto);
-        } catch (err) {
-          error = err;
-        }
-
-        expect(error).toBe(exception);
+        const resultFn = () => controller.remove(idDto);
+        await expect(resultFn).rejects.toThrow(exception);
       });
     });
   });
