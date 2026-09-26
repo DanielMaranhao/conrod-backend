@@ -1,10 +1,8 @@
+import { UserFactory } from '#/testing/factories/user.factory.js';
 import { createMock, MockRepository } from '#/testing/util/testing.util.js';
-import { faker } from '@faker-js/faker';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { CreateUserDto } from './dto/create-user.dto.js';
-import { UpdateUserDto } from './dto/update-user.dto.js';
 import { User } from './entities/user.entity.js';
 import { UsersService } from './users.service.js';
 
@@ -32,8 +30,8 @@ describe('UsersService', () => {
     describe('when no error occurs', () => {
       it('should create a user', async () => {
         const id = 1;
-        const createUserDto = genCreateDto();
-        const expectedUser = genUser(id, createUserDto);
+        const createUserDto = UserFactory.createDto();
+        const expectedUser = UserFactory.user(id, createUserDto);
 
         repository.create.mockReturnValueOnce(createUserDto as User);
         repository.save.mockResolvedValueOnce(expectedUser);
@@ -46,7 +44,7 @@ describe('UsersService', () => {
 
     describe('otherwise', () => {
       it('should propagate exceptions', async () => {
-        const createUserDto = genCreateDto();
+        const createUserDto = UserFactory.createDto();
 
         const exception = new ConflictException('Error creating user');
         repository.create.mockReturnValueOnce(createUserDto as User);
@@ -60,7 +58,7 @@ describe('UsersService', () => {
 
   describe('findAll', () => {
     it('should return an array of users', async () => {
-      const expectedUsers = [genUser(1), genUser(2)];
+      const expectedUsers = [UserFactory.user(1), UserFactory.user(2)];
 
       repository.find.mockResolvedValueOnce(expectedUsers);
 
@@ -74,7 +72,7 @@ describe('UsersService', () => {
     describe('when user exists', () => {
       it('should return the user', async () => {
         const id = 1;
-        const expectedUser = genUser(id);
+        const expectedUser = UserFactory.user(id);
 
         repository.findOneByOrFail.mockResolvedValueOnce(expectedUser);
 
@@ -101,8 +99,8 @@ describe('UsersService', () => {
     describe('when user exists', () => {
       it('should update the user', async () => {
         const id = 1;
-        const existingUser = genUser(id);
-        const updateUserDto = genUpdateDto();
+        const existingUser = UserFactory.user(id);
+        const updateUserDto = UserFactory.updateDto();
         const expectedUser = { ...existingUser, ...updateUserDto } as User;
 
         repository.preload.mockResolvedValueOnce(expectedUser);
@@ -117,7 +115,7 @@ describe('UsersService', () => {
     describe('otherwise', () => {
       it('should throw the adequate exception', async () => {
         const id = 1;
-        const updateUserDto = genUpdateDto();
+        const updateUserDto = UserFactory.updateDto();
 
         const exception = new NotFoundException(`User #${id} not found`);
 
@@ -131,7 +129,7 @@ describe('UsersService', () => {
     describe('when user exists', () => {
       it('should remove the user', async () => {
         const id = 1;
-        const expectedUser = genUser(id);
+        const expectedUser = UserFactory.user(id);
 
         vi.spyOn(service, 'findOne').mockResolvedValueOnce(expectedUser);
         repository.remove.mockResolvedValueOnce(expectedUser);
@@ -155,15 +153,3 @@ describe('UsersService', () => {
     });
   });
 });
-
-const genCreateDto = (): CreateUserDto => ({
-  name: faker.person.firstName(),
-  email: faker.internet.email(),
-  phone: faker.phone.number(),
-  password: faker.internet.password(),
-});
-
-const genUpdateDto = (): UpdateUserDto => ({ name: faker.person.firstName() });
-
-const genUser = (id: number, createDto = genCreateDto()) =>
-  ({ id, ...createDto }) as User;

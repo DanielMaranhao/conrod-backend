@@ -2,12 +2,10 @@ import { Role } from '#/auth/roles/enums/role.enum.js';
 import { VALIDATION_PIPE_OPTIONS } from '#/common/util/common.constants.js';
 import { NotFoundExceptionFilter } from '#/database/exception-filters/not-found-exception/not-found-exception.filter.js';
 import testDatabaseConfig from '#/testing/config/test-database.config.js';
+import { UserFactory } from '#/testing/factories/user.factory.js';
 import { TEST_ENV_VALIDATION_SCHEMA } from '#/testing/util/testing.constants.js';
-import { CreateUserDto } from '#d/users/dto/create-user.dto.js';
-import { UpdateUserDto } from '#d/users/dto/update-user.dto.js';
 import { User } from '#d/users/entities/user.entity.js';
 import { UsersModule } from '#d/users/users.module.js';
-import { faker } from '@faker-js/faker';
 import {
   ClassSerializerInterceptor,
   HttpStatus,
@@ -22,22 +20,16 @@ import { omit } from 'lodash';
 import request from 'supertest';
 import { App } from 'supertest/types.js';
 
-const createUserDto: CreateUserDto = {
-  name: faker.person.firstName(),
-  email: faker.internet.email(),
-  phone: '85988888888',
-  password: 'AAaa11!!',
-};
-
-const updateUserDto: UpdateUserDto = { name: faker.person.firstName() };
-
-const expectedUser = {
-  id: 1,
-  ...omit(createUserDto, ['password']),
-  role: Role.USER,
-} as const;
-
 describe('Users [/users]', () => {
+  const createUserDto = UserFactory.createDto();
+  const updateUserDto = UserFactory.updateDto();
+
+  const expectedUser = {
+    id: 1,
+    ...omit(createUserDto, ['password']),
+    role: Role.USER,
+  } as const;
+
   let app: INestApplication<App>;
   let server: App;
 

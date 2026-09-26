@@ -1,10 +1,8 @@
 import { IdDto } from '#/common/dto/id.dto.js';
+import { UserFactory } from '#/testing/factories/user.factory.js';
 import { MockClass, createMock } from '#/testing/util/testing.util.js';
-import { faker } from '@faker-js/faker';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateUserDto } from './dto/create-user.dto.js';
-import { UpdateUserDto } from './dto/update-user.dto.js';
 import { User } from './entities/user.entity.js';
 import { UsersController } from './users.controller.js';
 import { UsersService } from './users.service.js';
@@ -31,8 +29,8 @@ describe('UsersController', () => {
     describe('when no error occurs', () => {
       it('should create a user', async () => {
         const id = 1;
-        const createUserDto = genCreateDto();
-        const expectedUser = genUser(id, createUserDto);
+        const createUserDto = UserFactory.createDto();
+        const expectedUser = UserFactory.user(id, createUserDto);
 
         service.create.mockResolvedValueOnce(expectedUser);
 
@@ -44,7 +42,7 @@ describe('UsersController', () => {
 
     describe('otherwise', () => {
       it('should propagate service exceptions', async () => {
-        const createUserDto = genCreateDto();
+        const createUserDto = UserFactory.createDto();
 
         const exception = new ConflictException('Error creating user');
         service.create.mockRejectedValueOnce(exception);
@@ -57,7 +55,7 @@ describe('UsersController', () => {
 
   describe('findAll', () => {
     it('should return an array of users', async () => {
-      const expectedUsers = [genUser(1), genUser(2)];
+      const expectedUsers = [UserFactory.user(1), UserFactory.user(2)];
 
       service.findAll.mockResolvedValueOnce(expectedUsers);
 
@@ -72,7 +70,7 @@ describe('UsersController', () => {
       it('should return the user', async () => {
         const id = 1;
         const idDto: IdDto = { id };
-        const expectedUser = genUser(id);
+        const expectedUser = UserFactory.user(id);
 
         service.findOne.mockResolvedValueOnce(expectedUser);
 
@@ -101,8 +99,8 @@ describe('UsersController', () => {
       it('should update the user', async () => {
         const id = 1;
         const idDto: IdDto = { id };
-        const existingUser = genUser(id);
-        const updateUserDto = genUpdateDto();
+        const existingUser = UserFactory.user(id);
+        const updateUserDto = UserFactory.updateDto();
         const expectedUser = { ...existingUser, ...updateUserDto } as User;
 
         service.update.mockResolvedValueOnce(expectedUser);
@@ -117,7 +115,7 @@ describe('UsersController', () => {
       it('should propagate the exception', async () => {
         const id = 1;
         const idDto: IdDto = { id };
-        const updateUserDto = genUpdateDto();
+        const updateUserDto = UserFactory.updateDto();
 
         const exception = new NotFoundException('User not found');
         service.update.mockRejectedValueOnce(exception);
@@ -133,7 +131,7 @@ describe('UsersController', () => {
       it('should remove the user', async () => {
         const id = 1;
         const idDto: IdDto = { id };
-        const expectedUser = genUser(id);
+        const expectedUser = UserFactory.user(id);
 
         service.remove.mockResolvedValueOnce(expectedUser);
 
@@ -157,15 +155,3 @@ describe('UsersController', () => {
     });
   });
 });
-
-const genCreateDto = (): CreateUserDto => ({
-  name: faker.person.firstName(),
-  email: faker.internet.email(),
-  phone: faker.phone.number(),
-  password: faker.internet.password(),
-});
-
-const genUpdateDto = (): UpdateUserDto => ({ name: faker.person.firstName() });
-
-const genUser = (id: number, createDto = genCreateDto()) =>
-  ({ id, ...createDto }) as User;
