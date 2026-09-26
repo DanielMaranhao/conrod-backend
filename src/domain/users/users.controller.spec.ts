@@ -85,7 +85,7 @@ describe('UsersController', () => {
         const id = 1;
         const idDto: IdDto = { id };
 
-        const exception = new NotFoundException('User not found');
+        const exception = new NotFoundException(`User #${id} not found`);
         service.findOne.mockRejectedValueOnce(exception);
 
         const resultFn = () => controller.findOne(idDto);
@@ -117,7 +117,7 @@ describe('UsersController', () => {
         const idDto: IdDto = { id };
         const updateUserDto = UserFactory.updateDto();
 
-        const exception = new NotFoundException('User not found');
+        const exception = new NotFoundException(`User #${id} not found`);
         service.update.mockRejectedValueOnce(exception);
 
         const resultFn = () => controller.update(idDto, updateUserDto);
@@ -146,7 +146,7 @@ describe('UsersController', () => {
         const id = 1;
         const idDto: IdDto = { id };
 
-        const exception = new NotFoundException('User not found');
+        const exception = new NotFoundException(`User #${id} not found`);
         service.remove.mockRejectedValueOnce(exception);
 
         const resultFn = () => controller.remove(idDto);
