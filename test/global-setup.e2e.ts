@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 
-const BASE_COMMAND = 'docker compose --env-file test/.env -f test/compose.yml';
+const BASE_COMMAND = 'docker compose -f test/compose.yml --env-file test/.env';
 
 const compose = (command: string) => {
   execSync(`${BASE_COMMAND} ${command}`, { stdio: 'inherit' });
