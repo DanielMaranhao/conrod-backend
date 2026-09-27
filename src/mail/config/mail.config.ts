@@ -5,13 +5,13 @@ import { resolve } from 'path';
 import { env } from 'process';
 
 export default registerAs('mail', () => {
-  const protocol = env.MAIL_PROTOCOL!;
-  const host = env.MAIL_HOST!;
   const user = env.MAIL_USER!;
   const password = env.MAIL_PASSWORD!;
+  const host = env.MAIL_HOST!;
+  const port = env.MAIL_PORT!;
   const from = env.MAIL_FROM!;
 
-  const transport = `${protocol}://${user}:${password}@${host}`;
+  const transport = `smtp://${user}:${password}@${host}:${port}`;
 
   const config = {
     transport,

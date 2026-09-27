@@ -16,9 +16,9 @@ export const ENV_VALIDATION_SCHEMA = z.object({
   THROTTLER_TTL: ze.ms,
   THROTTLER_LIMIT: ze.cardinal,
 
-  MAIL_PROTOCOL: z.enum(['smtp', 'smtps']),
-  MAIL_HOST: z.hostname(),
   MAIL_USER: z.string(),
   MAIL_PASSWORD: z.string(),
+  MAIL_HOST: z.hostname(),
+  MAIL_PORT: ze.port,
   MAIL_FROM: z.email(),
 });
