@@ -14,7 +14,8 @@ export class CronService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async removeOldSoftDeletedUsers() {
-    const oneMonthAgo = sub(new Date(), { months: 1 });
+    const now = new Date();
+    const oneMonthAgo = sub(now, { months: 1 });
 
     const users = await this.usersRepository.find({
       where: { registryDates: { deletedAt: LessThan(oneMonthAgo) } },
