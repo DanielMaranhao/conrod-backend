@@ -15,7 +15,7 @@ export class SeedingService {
     private readonly hashingService: HashingService,
   ) {}
 
-  async seed() {
+  async seedFixtures() {
     await this.dataSource.transaction(async (manager) => {
       const usersRepository = manager.getRepository(User);
       const categoriesRepository = manager.getRepository(Category);
