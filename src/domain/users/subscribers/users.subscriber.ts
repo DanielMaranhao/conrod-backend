@@ -46,7 +46,9 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
 
   async afterInsert(event: InsertEvent<User>) {
     const { entity: user } = event;
+    const { name, email } = user;
 
-    await this.mailService.sendAccountConfirmation(user);
+    const mailPayload = { name, email } as const;
+    await this.mailService.sendAccountConfirmation(mailPayload);
   }
 }

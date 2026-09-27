@@ -1,13 +1,14 @@
-import { User } from '#d/users/entities/user.entity.js';
 import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { SentMessageInfo } from 'nodemailer';
+import { MailPayload } from './interfaces/mail-payload.interface.js';
 
 @Injectable()
-export class MailService {
+export class MailService implements IMailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  sendAccountConfirmation(user: User) {
-    const { name, email } = user;
+  sendAccountConfirmation(data: MailPayload['sendAccountConfirmation']) {
+    const { name, email } = data;
 
     const mailData = {
       to: email,
@@ -19,3 +20,7 @@ export class MailService {
     return this.mailerService.sendMail(mailData);
   }
 }
+
+type IMailService = {
+  [K in keyof MailPayload]: (data: MailPayload[K]) => Promise<SentMessageInfo>;
+};
