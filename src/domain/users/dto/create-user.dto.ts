@@ -1,10 +1,12 @@
+import { NormalizeWhitespace } from '#/common/decorators/transformers/normalize-whitespace.decorator.js';
 import { IsPassword } from '#/common/decorators/validators/is-password.decorator.js';
-import { IsAlphaWithSpaces } from '#/common/decorators/validators/text/index.js';
+import { IsName } from '#/common/decorators/validators/text/index.js';
 import { IsEmail, IsPhoneNumber, Length } from 'class-validator';
 
 export class CreateUserDto {
-  @IsAlphaWithSpaces()
+  @IsName()
   @Length(2, 50)
+  @NormalizeWhitespace()
   readonly name: string;
 
   @IsEmail()
