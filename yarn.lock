@@ -2667,7 +2667,7 @@ __metadata:
     class-validator: "npm:^0.15.1"
     date-fns: "npm:^4.4.0"
     fs-extra: "npm:^11.4.0"
-    hbs: "npm:^4.3.1"
+    handlebars: "npm:^4.7.9"
     helmet: "npm:^8.3.0"
     lodash: "npm:^4.18.1"
     nestjs-cls: "npm:^7.0.0"
@@ -3657,13 +3657,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"foreachasync@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "foreachasync@npm:3.0.0"
-  checksum: 10c0/8ad877008da351fa78939e850c6014e94b8b9c6de3d12751b2b906ef96f8c80945310d998b2a704854e126c508237dc9951f6900685ccc42c93db15b09a0c4b3
-  languageName: node
-  linkType: hard
-
 "form-data@npm:^4.0.0, form-data@npm:^4.0.5":
   version: 4.0.6
   resolution: "form-data@npm:4.0.6"
@@ -3820,7 +3813,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"handlebars@npm:4.7.9, handlebars@npm:^4.7.9":
+"handlebars@npm:^4.7.9":
   version: 4.7.9
   resolution: "handlebars@npm:4.7.9"
   dependencies:
@@ -3867,16 +3860,6 @@ __metadata:
   dependencies:
     function-bind: "npm:^1.1.2"
   checksum: 10c0/2d8de939e270b70618f8cebb69746620db10617dbb495bc66ddad326955ea24d3ca4af133aff3eb7c1853e0218f867bc2b050ec26fe02e3aea58f880ffc5e506
-  languageName: node
-  linkType: hard
-
-"hbs@npm:^4.3.1":
-  version: 4.3.1
-  resolution: "hbs@npm:4.3.1"
-  dependencies:
-    handlebars: "npm:4.7.9"
-    walk: "npm:2.3.15"
-  checksum: 10c0/7585670c9230586d923426bac6b35c33b755185957dadc843cad6a215032a3f7760b8be4bd5be4a13a0dea449248ba82f79fc34cc0550b5ec9b3be85561778ca
   languageName: node
   linkType: hard
 
@@ -7865,15 +7848,6 @@ __metadata:
   version: 3.1.0
   resolution: "void-elements@npm:3.1.0"
   checksum: 10c0/0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
-  languageName: node
-  linkType: hard
-
-"walk@npm:2.3.15":
-  version: 2.3.15
-  resolution: "walk@npm:2.3.15"
-  dependencies:
-    foreachasync: "npm:^3.0.0"
-  checksum: 10c0/c390221ff6fdb8e95f9b03d90fa9980edc2c01ce9efac44c0ade2036ee2823bf2bc9abfae388bdf64ab59e9262610e7cf6634ad54acac018e62621b85edad2cf
   languageName: node
   linkType: hard
 
