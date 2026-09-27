@@ -7,6 +7,7 @@ import { Product } from '#d/products/entities/product.entity.js';
 import { User } from '#d/users/entities/user.entity.js';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SeedAdminCommand } from './commands/seed-admin.command.js';
 import { SeedFixturesCommand } from './commands/seed-fixtures.command.js';
 import { SeedingService } from './seeding.service.js';
 
@@ -14,6 +15,6 @@ const ENTITIES = [User, Category, Product, Order, OrderItem, Payment];
 
 @Module({
   imports: [TypeOrmModule.forFeature(ENTITIES), CryptographyModule],
-  providers: [SeedingService, SeedFixturesCommand],
+  providers: [SeedingService, SeedFixturesCommand, SeedAdminCommand],
 })
 export class SeedingModule {}

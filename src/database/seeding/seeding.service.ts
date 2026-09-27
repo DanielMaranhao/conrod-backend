@@ -1,18 +1,25 @@
 import { HashingService } from '#/auth/cryptography/hashing/hashing.service.js';
+import { Role } from '#/auth/roles/enums/role.enum.js';
 import { Category } from '#d/categories/entities/category.entity.js';
 import { OrderItem } from '#d/orders/entities/order-item.entity.js';
 import { Order } from '#d/orders/entities/order.entity.js';
 import { Payment } from '#d/payments/entities/payment.entity.js';
 import { Product } from '#d/products/entities/product.entity.js';
+import { CreateUserDto } from '#d/users/dto/create-user.dto.js';
 import { User } from '#d/users/entities/user.entity.js';
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { log } from 'console';
+import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
 export class SeedingService {
   constructor(
     private readonly dataSource: DataSource,
     private readonly hashingService: HashingService,
+
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
   ) {}
 
   async seedFixtures() {
@@ -138,5 +145,30 @@ export class SeedingService {
 
       await ordersRepository.save([o1, o2, o3]);
     });
+  }
+
+  async seedAdmin() {
+    const adminExists = await this.usersRepository.existsBy({
+      role: Role.ADMIN,
+    });
+    if (adminExists) {
+      return log('Admin already exists');
+    }
+
+    const password = 'Pass123!';
+    const hashedPassword = await this.hashingService.hash(password);
+
+    const adminData: CreateUserDto = {
+      name: 'Admin',
+      email: 'admin@mail.com',
+      phone: '955555555',
+      password: hashedPassword,
+    };
+
+    const admin = this.usersRepository.create({
+      ...adminData,
+      role: Role.ADMIN,
+    });
+    await this.usersRepository.save(admin);
   }
 }
