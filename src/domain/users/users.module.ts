@@ -1,4 +1,4 @@
-import { AuthModule } from '#/auth/auth.module.js';
+import { CryptographyModule } from '#/auth/cryptography/cryptography.module.js';
 import { MailModule } from '#/mail/mail.module.js';
 import { QueryingModule } from '#/querying/querying.module.js';
 import { Module } from '@nestjs/common';
@@ -11,7 +11,7 @@ import { UsersService } from './users.service.js';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    AuthModule,
+    CryptographyModule,
     QueryingModule,
     MailModule,
   ],

@@ -1,5 +1,5 @@
+import { HashingService } from '#/auth/cryptography/hashing/hashing.service.js';
 import { CredentialsDto } from '#/auth/dto/credentials.dto.js';
-import { HashingService } from '#/auth/hashing/hashing.service.js';
 import { PaginationDto } from '#/querying/dto/pagination.dto.js';
 import { PaginationService } from '#/querying/pagination.service.js';
 import { DefaultPageSize } from '#/querying/util/querying.constants.js';

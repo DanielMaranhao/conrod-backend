@@ -1,4 +1,4 @@
-import { HashingService } from '#/auth/hashing/hashing.service.js';
+import { HashingService } from '#/auth/cryptography/hashing/hashing.service.js';
 import { isPropertyUpdated } from '#/database/util/database.util.js';
 import { MailService } from '#/mail/mail.service.js';
 import { User } from '#d/users/entities/user.entity.js';

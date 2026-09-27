@@ -1,3 +1,4 @@
+import { HashingService } from '#/auth/cryptography/hashing/hashing.service.js';
 import { Category } from '#d/categories/entities/category.entity.js';
 import { OrderItem } from '#d/orders/entities/order-item.entity.js';
 import { Order } from '#d/orders/entities/order.entity.js';
@@ -9,7 +10,10 @@ import { DataSource } from 'typeorm';
 
 @Injectable()
 export class SeedingService {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(
+    private readonly dataSource: DataSource,
+    private readonly hashingService: HashingService,
+  ) {}
 
   async seed() {
     await this.dataSource.transaction(async (manager) => {
@@ -74,17 +78,20 @@ export class SeedingService {
 
       await productsRepository.save([p1, p2, p3, p4, p5, p6]);
 
+      const password = 'Pass123!';
+      const hashedPassword = await this.hashingService.hash(password);
+
       const u1 = usersRepository.create({
         name: 'Pedro Faria',
         email: 'jarulf@mail.com',
         phone: '988888888',
-        password: '123456',
+        password: hashedPassword,
       });
       const u2 = usersRepository.create({
         name: 'Chris Metzen',
         email: 'chris@blizz.com',
         phone: '977777777',
-        password: '654321',
+        password: hashedPassword,
       });
 
       await usersRepository.save([u1, u2]);

@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClsService } from 'nestjs-cls';
 import { Repository } from 'typeorm';
-import { HashingService } from './hashing/hashing.service.js';
+import { HashingService } from './cryptography/hashing/hashing.service.js';
 import { AuthUser } from './interfaces/auth-user.interface.js';
 import { JwtPayload } from './interfaces/jwt-payload.interface.js';
 import { Role } from './roles/enums/role.enum.js';
