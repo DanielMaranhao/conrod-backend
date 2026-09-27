@@ -8,5 +8,14 @@ services:
     volumes:
       - database_data:/var/lib/postgresql
 
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - ${MAIL_PORT}:1025
+      - 8025:8025
+    environment:
+      MP_SMTP_AUTH: ${MAIL_USER}:${MAIL_PASSWORD}
+      MP_SMTP_AUTH_ALLOW_INSECURE: true
+
 volumes:
   database_data:
