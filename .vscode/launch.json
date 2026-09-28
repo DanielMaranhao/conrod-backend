@@ -5,6 +5,7 @@
       "type": "node",
       "request": "attach",
       "name": "Attach to Program",
+      "address": "127.0.0.1",
       "skipFiles": [
         "<node_internals>/**"
       ],
