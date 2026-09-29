@@ -5,6 +5,7 @@ import {
   FilePath,
   MaxFileCount,
 } from '#/files/util/file.constants.js';
+import { OrderDto } from '#/querying/dto/order.dto.js';
 import { FilteringService } from '#/querying/filtering.service.js';
 import { PaginationService } from '#/querying/pagination.service.js';
 import { DefaultPageSize } from '#/querying/util/querying.constants.js';
@@ -16,6 +17,7 @@ import { DataSource, In, Repository, type FindOptionsWhere } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import type { FilterProductsDto } from './dto/querying/filter-products.dto.js';
 import { QueryProductsDto } from './dto/querying/query-products.dto.js';
+import { SortProductsDto } from './dto/querying/sort-products.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { Product } from './entities/product.entity.js';
 
@@ -36,12 +38,14 @@ export class ProductsService {
   }
 
   async findAll(queryProductsDto: QueryProductsDto) {
-    const { page, name, price, categoryIds, sort, order } = queryProductsDto;
+    const { page, name, price, categoryIds, sort } = queryProductsDto;
 
     const limit = queryProductsDto.limit ?? DefaultPageSize.PRODUCTS;
     const offset = this.paginationService.calculateOffset(limit, page);
 
     const where = this.createWhere({ name, price, categoryIds });
+
+    const order = queryProductsDto.order ?? this.DefaultOrder[sort];
 
     const [data, count] = await this.productsRepository.findAndCount({
       where,
@@ -64,6 +68,11 @@ export class ProductsService {
 
     return where;
   }
+
+  private readonly DefaultOrder = {
+    name: 'ASC',
+    price: 'ASC',
+  } as const satisfies Record<SortProductsDto['sort'], OrderDto['order']>;
 
   findOne(id: number) {
     return this.productsRepository.findOneOrFail({
