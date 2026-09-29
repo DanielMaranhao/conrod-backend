@@ -21,14 +21,18 @@ import request from 'supertest';
 import { App } from 'supertest/types.js';
 
 describe('Users [/users]', () => {
-  const createUserDto = UserFactory.createDto();
-  const updateUserDto = UserFactory.updateDto();
+  const createUserDto = UserFactory.createDto.build({
+    phone: '85988888888',
+    password: 'Pass123!',
+  });
+  const updateUserDto = UserFactory.updateDto.build();
 
-  const expectedUser = {
+  const user = UserFactory.user.build({
     id: 1,
-    ...omit(createUserDto, ['password']),
+    ...createUserDto,
     role: Role.USER,
-  } as const;
+  });
+  const expectedUser = omit(user, ['password']);
 
   let app: INestApplication<App>;
   let server: App;

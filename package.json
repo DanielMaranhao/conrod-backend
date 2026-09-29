@@ -85,6 +85,7 @@
     "@types/passport-local": "^1.0.38",
     "@types/supertest": "^7.2.1",
     "@vitest/coverage-v8": "^4.0.0",
+    "fishery": "^2.4.0",
     "oxlint": "^1.82.0",
     "oxlint-tsgolint": "^7.0.2001",
     "prettier": "^3.9.6",

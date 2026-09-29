@@ -30,8 +30,8 @@ describe('UsersService', () => {
     describe('when no error occurs', () => {
       it('should create a user', async () => {
         const id = 1;
-        const createUserDto = UserFactory.createDto();
-        const expectedUser = UserFactory.user(id, createUserDto);
+        const createUserDto = UserFactory.createDto.build();
+        const expectedUser = UserFactory.user.build({ id, ...createUserDto });
 
         repository.create.mockReturnValueOnce(createUserDto as User);
         repository.save.mockResolvedValueOnce(expectedUser);
@@ -44,7 +44,7 @@ describe('UsersService', () => {
 
     describe('otherwise', () => {
       it('should propagate exceptions', async () => {
-        const createUserDto = UserFactory.createDto();
+        const createUserDto = UserFactory.createDto.build();
 
         const exception = new ConflictException('Error creating user');
         repository.create.mockReturnValueOnce(createUserDto as User);
@@ -58,7 +58,10 @@ describe('UsersService', () => {
 
   describe('findAll', () => {
     it('should return an array of users', async () => {
-      const expectedUsers = [UserFactory.user(1), UserFactory.user(2)];
+      const expectedUsers = [
+        UserFactory.user.build({ id: 1 }),
+        UserFactory.user.build({ id: 2 }),
+      ];
 
       repository.find.mockResolvedValueOnce(expectedUsers);
 
@@ -72,7 +75,7 @@ describe('UsersService', () => {
     describe('when user exists', () => {
       it('should return the user', async () => {
         const id = 1;
-        const expectedUser = UserFactory.user(id);
+        const expectedUser = UserFactory.user.build({ id });
 
         repository.findOneByOrFail.mockResolvedValueOnce(expectedUser);
 
@@ -99,9 +102,12 @@ describe('UsersService', () => {
     describe('when user exists', () => {
       it('should update the user', async () => {
         const id = 1;
-        const existingUser = UserFactory.user(id);
-        const updateUserDto = UserFactory.updateDto();
-        const expectedUser = { ...existingUser, ...updateUserDto } as User;
+        const existingUser = UserFactory.user.build({ id });
+        const updateUserDto = UserFactory.updateDto.build();
+        const expectedUser = UserFactory.user.build({
+          ...existingUser,
+          ...updateUserDto,
+        });
 
         repository.preload.mockResolvedValueOnce(expectedUser);
         repository.save.mockResolvedValueOnce(expectedUser);
@@ -115,7 +121,7 @@ describe('UsersService', () => {
     describe('otherwise', () => {
       it('should throw the adequate exception', async () => {
         const id = 1;
-        const updateUserDto = UserFactory.updateDto();
+        const updateUserDto = UserFactory.updateDto.build();
 
         const exception = new NotFoundException(`User #${id} not found`);
 
@@ -129,7 +135,7 @@ describe('UsersService', () => {
     describe('when user exists', () => {
       it('should remove the user', async () => {
         const id = 1;
-        const expectedUser = UserFactory.user(id);
+        const expectedUser = UserFactory.user.build({ id });
 
         vi.spyOn(service, 'findOne').mockResolvedValueOnce(expectedUser);
         repository.remove.mockResolvedValueOnce(expectedUser);

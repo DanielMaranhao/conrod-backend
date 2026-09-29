@@ -2702,6 +2702,7 @@ __metadata:
     class-transformer: "npm:^0.5.1"
     class-validator: "npm:^0.15.1"
     date-fns: "npm:^4.4.0"
+    fishery: "npm:^2.4.0"
     fs-extra: "npm:^11.4.0"
     handlebars: "npm:^4.7.9"
     helmet: "npm:^8.3.0"
@@ -3692,6 +3693,15 @@ __metadata:
     parseurl: "npm:^1.3.3"
     statuses: "npm:^2.0.1"
   checksum: 10c0/6bd664e21b7b2e79efcaace7d1a427169f61cce048fae68eb56290e6934e676b78e55d89f5998c5508871345bc59a61f47002dc505dc7288be68cceac1b701e2
+  languageName: node
+  linkType: hard
+
+"fishery@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "fishery@npm:2.4.0"
+  dependencies:
+    lodash.mergewith: "npm:^4.6.2"
+  checksum: 10c0/41452507933f854aed14535dd638d5524605a091b1807a4404a77a076b01deb00c34341effafdfb6d2037117b8669f05c16d193859cb627d1890deea76e0f883
   languageName: node
   linkType: hard
 
@@ -4751,6 +4761,13 @@ __metadata:
   version: 4.1.2
   resolution: "lodash.memoize@npm:4.1.2"
   checksum: 10c0/c8713e51eccc650422716a14cece1809cfe34bc5ab5e242b7f8b4e2241c2483697b971a604252807689b9dd69bfe3a98852e19a5b89d506b000b4187a1285df8
+  languageName: node
+  linkType: hard
+
+"lodash.mergewith@npm:^4.6.2":
+  version: 4.6.2
+  resolution: "lodash.mergewith@npm:4.6.2"
+  checksum: 10c0/4adbed65ff96fd65b0b3861f6899f98304f90fd71e7f1eb36c1270e05d500ee7f5ec44c02ef979b5ddbf75c0a0b9b99c35f0ad58f4011934c4d4e99e5200b3b5
   languageName: node
   linkType: hard
 
