@@ -23,6 +23,6 @@ export class ProfileService {
 
   remove() {
     const { id } = this.cls.get('user');
-    return this.usersService.remove(id, true);
+    return this.usersService.remove(id);
   }
 }
