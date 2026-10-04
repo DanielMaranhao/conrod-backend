@@ -13,6 +13,7 @@
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": ".",
     "paths": {
       "#d/*": ["./src/domain/*"],
       "#/*": ["./src/*"]
