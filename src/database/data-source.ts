@@ -1,8 +1,6 @@
-import { config } from 'dotenv';
+import 'dotenv/config';
 import { env } from 'process';
 import { DataSource } from 'typeorm';
-
-config();
 
 const user = env.DATABASE_USER!;
 const password = env.DATABASE_PASSWORD!;
