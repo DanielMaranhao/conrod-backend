@@ -1623,15 +1623,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/nodemailer@npm:^8.0.1":
-  version: 8.0.2
-  resolution: "@types/nodemailer@npm:8.0.2"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/1ad3f83ac130cf9af65ce9eb7985b08b27b4723316c2be621522effc31c63d7d2d76880815490499fbe8b1aff3da889d24b54b3db892526d1166b12702404ff0
-  languageName: node
-  linkType: hard
-
 "@types/passport-jwt@npm:^4.0.1":
   version: 4.0.1
   resolution: "@types/passport-jwt@npm:4.0.1"
@@ -2633,7 +2624,6 @@ __metadata:
     "@types/mime-types": "npm:^3.0.1"
     "@types/multer": "npm:^2.2.0"
     "@types/node": "npm:24.0.0"
-    "@types/nodemailer": "npm:^8.0.1"
     "@types/passport-jwt": "npm:^4.0.1"
     "@types/passport-local": "npm:^1.0.38"
     "@types/supertest": "npm:^7.2.1"
