@@ -58,9 +58,7 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async remove(id: number, soft?: boolean) {
-    soft ??= true;
-
+  async remove(id: number, soft = true) {
     const user = await this.findOne(id);
     return soft
       ? this.usersRepository.softRemove(user)
