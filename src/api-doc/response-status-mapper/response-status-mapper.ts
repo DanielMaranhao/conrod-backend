@@ -39,7 +39,6 @@ export class ResponseStatusMapper implements OnApplicationBootstrap {
       route,
       controller,
     ]);
-
     if (!requiredRoles) return;
 
     ApiForbiddenResponse({ description: 'Forbidden' })(route);
