@@ -5,13 +5,12 @@ export interface HttpError {
   readonly error: string;
 }
 
-export const extractHttpError = (
-  ExceptionClass: Type<HttpException>,
-): HttpError => {
+export const extractHttpError = (ExceptionClass: Type<HttpException>) => {
   const exception = new ExceptionClass();
 
   const status = exception.getStatus();
   const error = exception.message;
 
-  return { status, error };
+  const httpError: HttpError = { status, error };
+  return httpError;
 };
