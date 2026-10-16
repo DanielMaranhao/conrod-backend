@@ -25,7 +25,7 @@ const validate = (args: ValidationArguments) => {
   }
 };
 
-export const ValidateFilterOperandsLength = (): PropertyDecorator =>
+export const ValidateFilterOperandsLength = () =>
   ValidateBy({
     name: key,
     validator: {
