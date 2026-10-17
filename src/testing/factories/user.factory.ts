@@ -17,7 +17,7 @@ export class UserFactory {
   }));
 
   static user = Factory.define<User>(() => {
-    const user = { ...UserFactory.createDto.build() } as User;
+    const user = UserFactory.createDto.build() as User;
     return user;
   });
 }
