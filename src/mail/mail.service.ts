@@ -12,7 +12,7 @@ export class MailService implements IMailService {
 
     const mailData = {
       to: email,
-      subject: 'Conrod Shop - Account created',
+      subject: 'Account created',
       template: './account-confirmation',
       context: { name },
     } as const satisfies ISendMailOptions;
